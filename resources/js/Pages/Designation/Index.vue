@@ -18,7 +18,7 @@ const { deleteModel } = useDelete("Designation");
             <Link
                 :href="route('designations.create')"
                 class="text-white bg-slate-900 px-4 py-2 rounded-lg text-sm"
-                >Create New Office</Link
+                >Create New Designation</Link
             >
         </DivFlexCenter>
         <TableContainer>

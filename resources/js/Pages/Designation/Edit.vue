@@ -34,7 +34,8 @@ const { update } = useUpdate(
                 <Textarea v-model="form.remarks" />
                 <FormError>{{ form.errors.remarks }}</FormError>
             </InputContainer>
-            <DivFlexCenter class="justify-end col-span-2">
+            <DivFlexCenter class="justify-end col-span-2 gap-3">
+                <BackButton />
                 <Button class="text-white w-fit" @click="update">Create</Button>
             </DivFlexCenter>
         </section>

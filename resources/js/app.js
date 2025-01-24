@@ -45,6 +45,7 @@ import FormError from "./Components/form/FormError.vue";
 import InputContainer from "./Components/form/InputContainer.vue";
 import SearchBar from "./Components/table/SearchBar.vue";
 import TableHeader from "./Components/table/TableHeader.vue";
+import BackButton from "./Components/BackButton.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -84,6 +85,7 @@ createInertiaApp({
             .component("FormError", FormError)
             .component("InputContainer", InputContainer)
             .component("SearchBar", SearchBar)
+            .component("BackButton", BackButton)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

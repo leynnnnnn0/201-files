@@ -23,7 +23,8 @@ const { store } = useStore(form, route("designations.store"), "Designation");
                 <Textarea v-model="form.remarks" />
                 <FormError>{{ form.errors.remarks }}</FormError>
             </InputContainer>
-            <DivFlexCenter class="justify-end col-span-2">
+            <DivFlexCenter class="justify-end gap-2 col-span-2">
+                <BackButton />
                 <Button class="text-white w-fit" @click="store">Create</Button>
             </DivFlexCenter>
         </section>
