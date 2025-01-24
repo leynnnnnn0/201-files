@@ -1,0 +1,3 @@
+<template>
+    <MainLayout> </MainLayout>
+</template>
