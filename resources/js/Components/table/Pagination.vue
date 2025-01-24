@@ -1,38 +1,55 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
-
 defineProps({
     data: {
         type: Object,
         required: true,
     },
 });
-</script>
 
+function filterLinks(links) {
+    if (!links || links.length === 0) return [];
+
+    // Find the index of the active page
+    const activeIndex = links.findIndex((link) => link.active);
+
+    // Always include Previous (index 0), Next (last index)
+    // First page (index 1), Last page (second-to-last index)
+    // And the active page
+    const filteredLinks = links.filter((link, index) => {
+        return (
+            index === 0 || // Previous
+            index === links.length - 1 || // Next
+            index === 1 || // First page
+            index === links.length - 2 || // Last page
+            link.active // Current page
+        );
+    });
+
+    return filteredLinks;
+}
+</script>
 <template>
     <div v-if="data.data.length === 0" class="p-5 flex justify-center w-full">
         Nothing to show
     </div>
-    <div v-else class="flex items-center justify-end gap-2">
-        <template v-for="(link, index) in data.links" :key="index">
-            <Link
-                v-if="link.url"
-                :href="link.url"
-                preserve-scroll
-                preserve-state
-                class="px-3 py-1 border border-gray-200 text-primary-font font-bold rounded-lg sm:text-sm text-xs"
-                :class="{
-                    'bg-primary text-white': link.active,
-                    'hover:bg-primary/50 transition-colors duration-300':
-                        !link.active,
-                }"
-                v-html="link.label"
-            />
-            <span
-                v-else
-                class="px-3 py-1 border border-gray-200 text-gray-400 font-bold rounded-lg sm:text-sm text-xs"
-                v-html="link.label"
-            />
-        </template>
+    <div
+        v-if="data.data.length !== 0"
+        class="flex items-center justify-end gap-2"
+    >
+        <Component
+            preserve-scroll
+            preserve-state
+            v-for="(link, index) in filterLinks(data.links)"
+            :key="index"
+            :is="link.url ? 'Link' : 'span'"
+            :href="link.url"
+            v-html="link.label"
+            class="px-3 py-1 border border-gray-200 text-primary-font font-bold rounded-lg sm:text-sm text-xs"
+            :class="{
+                'bg-primary text-white': link.active,
+                'hover:bg-primary/50 transition-colors transition-duration duration-300':
+                    link.url,
+            }"
+        />
     </div>
 </template>
