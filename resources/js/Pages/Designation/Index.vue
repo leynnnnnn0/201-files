@@ -1,7 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
-import useStore from "@/Composables/useStore";
-
+import useDelete from "@/Composables/useDelete.js";
 defineProps({
     data: {
         type: Object,
@@ -9,11 +7,7 @@ defineProps({
     },
 });
 
-const form = useForm({
-    name: null,
-    office_code: null,
-    remarks: null,
-});
+const { deleteModel } = useDelete("Office");
 </script>
 <template>
     <MainLayout>
@@ -40,8 +34,17 @@ const form = useForm({
                         <TD>{{ item.remarks ?? "N/a" }}</TD>
                         <TD class="flex items-center gap-2">
                             <ShowButton />
-                            <EditButton />
-                            <DeleteButton />
+                            <EditButton
+                                :isLink="true"
+                                :href="route('designations.edit', item.id)"
+                            />
+                            <DeleteButton
+                                @click="
+                                    deleteModel(
+                                        route('designations.destroy', item.id)
+                                    )
+                                "
+                            />
                         </TD>
                     </tr>
                 </TableBody>

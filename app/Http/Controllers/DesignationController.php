@@ -32,4 +32,31 @@ class DesignationController extends Controller
 
         return to_route('designations.index');
     }
+
+    public function edit($id)
+    {
+        $designation = Designation::findOrFail($id);
+        return Inertia::render('Designation/Edit', [
+            'designation' => $designation
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'unique:designations,name,' . $id],
+            'remarks' => ['nullable']
+        ]);
+
+        Designation::findOrFail($id)->update($validated);
+
+        return to_route('designations.index');
+    }
+
+    public function destroy($id)
+    {
+        $designation = Designation::findOrFail($id);
+        $designation->delete();
+
+        return back();
+    }
 }
