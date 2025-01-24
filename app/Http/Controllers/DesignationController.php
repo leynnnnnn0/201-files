@@ -10,9 +10,17 @@ class DesignationController extends Controller
 {
     public function index()
     {
-        $data = Designation::latest()->paginate(10)->withQueryString();
+        $search = request('search');
+
+        $query = Designation::query();
+
+        if ($search)
+            $query->where('name', 'like', "%$search%");
+
+        $data = $query->latest()->paginate(10)->withQueryString();
         return Inertia::render('Designation/Index', [
-            'data' => $data
+            'data' => $data,
+            'filters' => request()->only(['search'])
         ]);
     }
 

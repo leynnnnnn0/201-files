@@ -43,6 +43,8 @@ import Textarea from "./Components/ui/textarea/Textarea.vue";
 import Label from "./Components/ui/label/Label.vue";
 import FormError from "./Components/form/FormError.vue";
 import InputContainer from "./Components/form/InputContainer.vue";
+import SearchBar from "./Components/table/SearchBar.vue";
+import TableHeader from "./Components/table/TableHeader.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -62,6 +64,7 @@ createInertiaApp({
             .component("TD", TD)
             .component("TH", TH)
             .component("TableHead", TableHead)
+            .component("TableHeader", TableHeader)
             .component("TableBody", TableBody)
             .component("Pagination", Pagination)
             .component("Heading", Heading)
@@ -80,6 +83,7 @@ createInertiaApp({
             .component("Label", Label)
             .component("FormError", FormError)
             .component("InputContainer", InputContainer)
+            .component("SearchBar", SearchBar)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
