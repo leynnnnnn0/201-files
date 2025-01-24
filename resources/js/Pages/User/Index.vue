@@ -5,7 +5,7 @@ const { users } = defineProps({
         required: true,
     },
 });
-console.log(users);
+
 </script>
 <template>
     <MainLayout>

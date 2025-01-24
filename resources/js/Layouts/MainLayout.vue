@@ -2,9 +2,13 @@
 import DivFlexCol from "@/Components/div/DivFlexCol.vue";
 import NavLink from "@/Components/NavLink.vue";
 import { Home, UsersRound, Warehouse } from "lucide-vue-next";
+import ConfirmDialog from "primevue/confirmdialog";
+import Toast from "primevue/toast";
 </script>
 
 <template>
+    <Toast />
+    <ConfirmDialog></ConfirmDialog>
     <div
         class="grid min-h-screen max-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden"
     >
@@ -14,7 +18,7 @@ import { Home, UsersRound, Warehouse } from "lucide-vue-next";
                     class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6"
                 >
                     <a href="/" class="flex items-center font-semibold">
-                        <span class="font-bold">401 Files</span>
+                        <span class="font-bold">201 Files</span>
                     </a>
                     <!-- <Button
                         variant="outline"

@@ -1,6 +1,6 @@
 import "../css/app.css";
 import "./bootstrap";
-
+import "primeicons/primeicons.css";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createApp, h } from "vue";
@@ -30,7 +30,19 @@ import {
 import ShowButton from "./Components/button/ShowButton.vue";
 import EditButton from "./Components/button/EditButton.vue";
 import DeleteButton from "./Components/button/DeleteButton.vue";
-
+import LinkButton from "./Components/button/LinkButton.vue";
+import Input from "./Components/ui/input/Input.vue";
+import PrimeVue from "primevue/config";
+import Aura from "@primevue/themes/aura";
+import ToastService from "primevue/toastservice";
+import ConfirmationService from "primevue/confirmationservice";
+import Button from "./Components/ui/button/Button.vue";
+import { Link } from "@inertiajs/vue3";
+import InputLabel from "./Components/form/InputLabel.vue";
+import Textarea from "./Components/ui/textarea/Textarea.vue";
+import Label from "./Components/ui/label/Label.vue";
+import FormError from "./Components/form/FormError.vue";
+import InputContainer from "./Components/form/InputContainer.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -59,6 +71,27 @@ createInertiaApp({
             .component("ShowButton", ShowButton)
             .component("DeleteButton", DeleteButton)
             .component("EditButton", EditButton)
+            .component("LinkButton", LinkButton)
+            .component("Button", Button)
+            .component("Input", Input)
+            .component("InputLabel", InputLabel)
+            .component("Textarea", Textarea)
+            .component("Link", Link)
+            .component("Label", Label)
+            .component("FormError", FormError)
+            .component("InputContainer", InputContainer)
+            .use(ToastService)
+            .use(ConfirmationService)
+            .use(PrimeVue, {
+                theme: {
+                    preset: Aura,
+                    options: {
+                        prefix: "p",
+                        darkModeSelector: false || "none",
+                        cssLayer: false,
+                    },
+                },
+            })
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);
