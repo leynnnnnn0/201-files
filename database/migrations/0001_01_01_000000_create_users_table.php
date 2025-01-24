@@ -1,5 +1,8 @@
 <?php
 
+use App\Enum\EmploymentClassification;
+use App\Enum\Sex;
+use App\Enum\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +16,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('position_id')->constrained('positions')->cascadeOnDelete();
+            $table->foreignId('designation_id')->constrained('designations')->cascadeOnDelete();
+            $table->enum('employment_classification', array_column(EmploymentClassification::cases(), 'value'));
+            $table->enum('status', array_column(Status::cases(), 'values'));
+            $table->enum('sex', array_column(Sex::cases(), 'values'));
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
