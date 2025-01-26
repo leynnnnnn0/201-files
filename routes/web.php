@@ -12,10 +12,8 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
-    route::get('/', 'index')->name('index');
-});
 
+Route::resource('users', UserController::class);
 Route::resource('designations', DesignationController::class);
 Route::resource('positions', PositionController::class);
 

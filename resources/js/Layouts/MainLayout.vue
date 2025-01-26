@@ -42,6 +42,9 @@ import Toast from "primevue/toast";
                         <NavLink href="/designations" :icon="Warehouse">
                             Designations
                         </NavLink>
+                        <NavLink href="/users" :icon="Warehouse">
+                            Users
+                        </NavLink>
                     </nav>
                 </div>
             </div>

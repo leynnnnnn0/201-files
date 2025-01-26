@@ -1,4 +1,5 @@
 <script setup>
+import { useSearch } from "@/Composables/useSearch";
 const { users } = defineProps({
     users: {
         type: Object,
@@ -6,11 +7,21 @@ const { users } = defineProps({
     },
 });
 
+const { search } = useSearch("positions.index");
 </script>
 <template>
     <MainLayout>
         <Heading>Users</Heading>
         <TableContainer>
+            <TableHeader>
+                <SearchBar>
+                    <Input
+                        class="pl-10"
+                        v-model="search"
+                        placeholder="Search..."
+                    />
+                </SearchBar>
+            </TableHeader>
             <Table>
                 <TableHead>
                     <TH>Id</TH>

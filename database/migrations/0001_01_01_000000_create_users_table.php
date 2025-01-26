@@ -18,9 +18,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('position_id')->constrained('positions')->cascadeOnDelete();
             $table->foreignId('designation_id')->constrained('designations')->cascadeOnDelete();
-            $table->enum('employment_classification', array_column(EmploymentClassification::cases(), 'value'));
-            $table->enum('status', array_column(Status::cases(), 'values'));
-            $table->enum('sex', array_column(Sex::cases(), 'values'));
+            $table->string('employment_classification');
+            $table->string('status');
+            $table->string('sex');
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
