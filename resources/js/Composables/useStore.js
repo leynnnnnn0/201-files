@@ -3,7 +3,7 @@ export default function useStore(form, route, model) {
     const { confirm, toast } = useAlert();
 
     const store = () => {
-        console.log(route);
+        console.log(form);
         confirm.require({
             message: `Are you sure you want to create this ${model.toLowerCase()}?`,
             header: "Confirmation",

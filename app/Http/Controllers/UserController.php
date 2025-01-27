@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\EmploymentClassification;
+use App\Enum\Sex;
 use App\Enum\Status;
+use App\Models\Designation;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -27,6 +31,18 @@ class UserController extends Controller
 
     public function create()
     {
-        return Inertia::render('User/Create');
+        $positions = Position::getOptions();
+        $designations = Designation::getOptions();
+        $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
+        $employmentClassifications = EmploymentClassification::options();
+        $statuses = Status::options();
+        $sexes = Sex::options();
+        return Inertia::render('User/Create', [
+            'positions' => $positions,
+            'designations' => $designations,
+            'employmentClassifications' => $employmentClassifications,
+            'statuses' => $statuses,
+            'sexes' => $sexes,
+        ]);
     }
 }

@@ -47,6 +47,9 @@ import InputContainer from "./Components/form/InputContainer.vue";
 import SearchBar from "./Components/table/SearchBar.vue";
 import TableHeader from "./Components/table/TableHeader.vue";
 import BackButton from "./Components/BackButton.vue";
+import SelectItem from "./Components/ui/select/SelectItem.vue";
+import FormSelect from "./Components/form/FormSelect.vue";
+import FormInput from "./Components/form/FormInput.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -88,6 +91,9 @@ createInertiaApp({
             .component("SearchBar", SearchBar)
             .component("BackButton", BackButton)
             .component("DivHeading", DivHeading)
+            .component("SelectItem", SelectItem)
+            .component("FormSelect", FormSelect)
+            .component("FormInput", FormInput)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

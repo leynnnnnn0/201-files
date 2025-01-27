@@ -2,8 +2,11 @@
 
 namespace App\Enum;
 
+use App\Traits\HasEnumOptions;
+
 enum Status: string
 {
+    use HasEnumOptions;
     case PERMANENT = 'permanent';
     case CASUAL = 'casual';
     case COS_JOP = 'contract of service / job order personnel';
