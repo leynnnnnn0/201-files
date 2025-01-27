@@ -1,22 +1,22 @@
 <script setup>
 import useDelete from "@/Composables/useDelete.js";
 import { useSearch } from "@/Composables/useSearch";
-const { users } = defineProps({
-    users: {
+const { employees } = defineProps({
+    employees: {
         type: Object,
         required: true,
     },
 });
 
-const { search } = useSearch("users.index");
+const { search } = useSearch("employees.index");
 
-const { deleteModel } = useDelete("User");
+const { deleteModel } = useDelete("employee");
 </script>
 <template>
     <MainLayout>
-        <DivHeading title="List of Users">
-            <LinkButton :href="route('users.create')">
-                Create New User
+        <DivHeading title="List Of Employees">
+            <LinkButton :href="route('employees.create')">
+                Create New Employee
             </LinkButton>
         </DivHeading>
         <TableContainer>
@@ -33,29 +33,35 @@ const { deleteModel } = useDelete("User");
                 <TableHead>
                     <TH>Id</TH>
                     <TH>Full Name</TH>
+                    <TH>Designation</TH>
+                    <TH>Position</TH>
                     <TH>Email</TH>
                     <TH>Phone Number</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
-                    <tr v-for="user in users.data">
-                        <TD>{{ user.id }}</TD>
-                        <TD>{{ user.full_name }}</TD>
-                        <TD>{{ user.email }}</TD>
-                        <TD>{{ user.phone_number ?? "N/a" }}</TD>
+                    <tr v-for="employee in employees.data">
+                        <TD>{{ employee.id }}</TD>
+                        <TD>{{ employee.full_name }}</TD>
+                        <TD>{{ employee.designation.name }}</TD>
+                        <TD>{{ employee.position.name }}</TD>
+                        <TD>{{ employee.email }}</TD>
+                        <TD>{{ employee.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
                             <DeleteButton
                                 @click="
-                                    deleteModel(route('users.destroy', user.id))
+                                    deleteModel(
+                                        route('employees.destroy', employee.id)
+                                    )
                                 "
                             />
                         </TD>
                     </tr>
                 </TableBody>
             </Table>
-            <Pagination :data="users" />
+            <Pagination :data="employees" />
         </TableContainer>
     </MainLayout>
 </template>
