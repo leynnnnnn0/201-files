@@ -33,6 +33,8 @@ const { deleteModel } = useDelete("User");
                 <TableHead>
                     <TH>Id</TH>
                     <TH>Full Name</TH>
+                    <TH>Designation</TH>
+                    <TH>Position</TH>
                     <TH>Email</TH>
                     <TH>Phone Number</TH>
                     <TH>Actions</TH>
@@ -41,6 +43,8 @@ const { deleteModel } = useDelete("User");
                     <tr v-for="user in users.data">
                         <TD>{{ user.id }}</TD>
                         <TD>{{ user.full_name }}</TD>
+                        <TD>{{ user.designation.name }}</TD>
+                        <TD>{{ user.position.name }}</TD>
                         <TD>{{ user.email }}</TD>
                         <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">

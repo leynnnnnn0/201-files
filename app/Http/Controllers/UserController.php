@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $search = request('search');
 
-        $query = User::query();
+        $query = User::query()->with(['position', 'designation']);
 
         if ($search)
             $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");

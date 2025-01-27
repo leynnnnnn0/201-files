@@ -66,4 +66,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
 }
