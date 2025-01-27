@@ -31,6 +31,7 @@ import ShowButton from "./Components/button/ShowButton.vue";
 import EditButton from "./Components/button/EditButton.vue";
 import DeleteButton from "./Components/button/DeleteButton.vue";
 import LinkButton from "./Components/button/LinkButton.vue";
+import DivHeading from "./Components/div/DivHeading.vue";
 import Input from "./Components/ui/input/Input.vue";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
@@ -86,6 +87,7 @@ createInertiaApp({
             .component("InputContainer", InputContainer)
             .component("SearchBar", SearchBar)
             .component("BackButton", BackButton)
+            .component("DivHeading", DivHeading)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

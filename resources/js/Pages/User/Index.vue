@@ -1,4 +1,5 @@
 <script setup>
+import useDelete from "@/Composables/useDelete.js";
 import { useSearch } from "@/Composables/useSearch";
 const { users } = defineProps({
     users: {
@@ -7,11 +8,17 @@ const { users } = defineProps({
     },
 });
 
-const { search } = useSearch("positions.index");
+const { search } = useSearch("users.index");
+
+const { deleteModel } = useDelete("User");
 </script>
 <template>
     <MainLayout>
-        <Heading>Users</Heading>
+        <DivHeading label="Users">
+            <LinkButton :href="route('users.create')">
+                Create New User
+            </LinkButton>
+        </DivHeading>
         <TableContainer>
             <TableHeader>
                 <SearchBar>
@@ -28,6 +35,7 @@ const { search } = useSearch("positions.index");
                     <TH>Full Name</TH>
                     <TH>Email</TH>
                     <TH>Phone Number</TH>
+                    <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
                     <tr v-for="user in users.data">
@@ -38,7 +46,11 @@ const { search } = useSearch("positions.index");
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
-                            <DeleteButton />
+                            <DeleteButton
+                                @click="
+                                    deleteModel(route('users.destroy', user.id))
+                                "
+                            />
                         </TD>
                     </tr>
                 </TableBody>

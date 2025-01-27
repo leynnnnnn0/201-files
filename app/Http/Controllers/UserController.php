@@ -24,4 +24,9 @@ class UserController extends Controller
             'filters' => request()->only(['search'])
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('User/Create');
+    }
 }

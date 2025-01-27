@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }
