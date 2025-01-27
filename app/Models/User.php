@@ -18,11 +18,6 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'position_id',
-        'designation_id',
-        'employment_classification',
-        'status',
-        'sex',
         'first_name',
         'middle_name',
         'last_name',
@@ -60,21 +55,6 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";
-    }
-
-    public function documents()
-    {
-        return $this->hasMany(Document::class);
-    }
-
-    public function position()
-    {
-        return $this->belongsTo(Position::class);
-    }
-
-    public function designation()
-    {
-        return $this->belongsTo(Designation::class);
     }
 
 }

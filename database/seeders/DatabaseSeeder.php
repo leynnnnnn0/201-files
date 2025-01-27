@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Designation;
+use App\Models\Employee;
 use App\Models\Position;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,6 +27,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'email' => 'test@example.com',
+        ]);
+
+        Employee::factory()->create([
             'position_id' => 1,
             'designation_id' => 1,
             'employment_classification' => 'teaching',
