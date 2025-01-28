@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,7 @@ Route::resource('users', UserController::class);
 Route::resource('designations', DesignationController::class);
 Route::resource('positions', PositionController::class);
 Route::resource('employees', EmployeeController::class);
+Route::resource('documents', DocumentController::class);
 
 
 Route::middleware('auth')->group(function () {
