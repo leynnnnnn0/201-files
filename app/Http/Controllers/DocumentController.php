@@ -24,4 +24,9 @@ class DocumentController extends Controller
             'filters' => request()->only(['search'])
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('Document/Create'); 
+    }
 }

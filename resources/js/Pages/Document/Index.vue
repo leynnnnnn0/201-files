@@ -11,7 +11,7 @@ defineProps({
     <MainLayout>
         <DivHeading title="List of Documents">
             <LinkButton :href="route('documents.create')">
-                Create New Document
+                Upload New Document
             </LinkButton>
         </DivHeading>
         <TableContainer>

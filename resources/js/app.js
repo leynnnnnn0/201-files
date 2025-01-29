@@ -16,6 +16,7 @@ import TableHead from "./Components/table/TableHead.vue";
 import TableBody from "./Components/table/TableBody.vue";
 import Pagination from "./Components/table/Pagination.vue";
 import Heading from "./Pages/text/Heading.vue";
+import FormContainer from "./Components/form/FormContainer.vue";
 import {
     Filter,
     Eye,
@@ -50,6 +51,7 @@ import BackButton from "./Components/BackButton.vue";
 import SelectItem from "./Components/ui/select/SelectItem.vue";
 import FormSelect from "./Components/form/FormSelect.vue";
 import FormInput from "./Components/form/FormInput.vue";
+import FormFooter from "./Components/form/FormFooter.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -94,6 +96,8 @@ createInertiaApp({
             .component("SelectItem", SelectItem)
             .component("FormSelect", FormSelect)
             .component("FormInput", FormInput)
+            .component("FormContainer", FormContainer)
+            .component("FormFooter", FormFooter)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {
