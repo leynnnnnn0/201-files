@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DocumentController extends Controller
@@ -51,6 +53,18 @@ class DocumentController extends Controller
             'description' => $validated['description'],
             'remarks' => $validated['remarks'],
         ]);
+
+        return redirect()->route('documents.index');
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        $document = Document::findOrFail($id);
+        $document->delete();
+        if (Storage::disk('public')->exists($document->path))
+            Storage::disk('public')->delete($document->path);
+        DB::commit();
 
         return redirect()->route('documents.index');
     }

@@ -1,10 +1,14 @@
 <script setup>
+import useDelete from "@/Composables/useDelete.js";
 defineProps({
     documents: {
         type: Object,
         required: true,
     },
 });
+
+
+const { deleteModel } = useDelete("Document");
 </script>
 
 <template>
