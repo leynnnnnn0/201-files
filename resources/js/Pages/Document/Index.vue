@@ -7,7 +7,6 @@ defineProps({
     },
 });
 
-
 const { deleteModel } = useDelete("Document");
 </script>
 
@@ -43,7 +42,10 @@ const { deleteModel } = useDelete("Document");
                         <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
-                            <EditButton />
+                            <EditButton
+                                :isLink="true"
+                                :href="route('documents.edit', document.id)"
+                            />
                             <DeleteButton
                                 @click="
                                     deleteModel(

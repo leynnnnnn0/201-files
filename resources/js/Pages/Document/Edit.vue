@@ -1,14 +1,24 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import useStore from "@/Composables/useStore";
+import useUpdate from "@/Composables/useUpdate";
+
+const { document } = defineProps({
+    document: {
+        type: Object,
+        required: true,
+    },
+});
 const form = useForm({
-    file: null,
-    description: null,
-    name: null,
-    remarks: null,
+    description: document.description,
+    name: document.name,
+    remarks: document.remarks,
 });
 
-const { store } = useStore(form, route("documents.store"), "Document");
+const { update } = useUpdate(
+    form,
+    route("documents.update", document.id),
+    "Document"
+);
 </script>
 
 <template>
@@ -45,7 +55,7 @@ const { store } = useStore(form, route("documents.store"), "Document");
             </FormInput>
 
             <FormFooter>
-                <Button class="text-white" @click="store">Upload</Button>
+                <Button class="text-white" @click="update">Update</Button>
             </FormFooter>
         </FormContainer>
     </MainLayout>

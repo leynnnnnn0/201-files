@@ -68,4 +68,28 @@ class DocumentController extends Controller
 
         return redirect()->route('documents.index');
     }
+
+    public function edit($id)
+    {
+        $document = Document::findOrFail($id);
+
+        return Inertia::render('Document/Edit', [
+            'document' => $document
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $document = Document::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => ['required'],
+            'description' => ['nullable'],
+            'remarks' => ['nullable'],
+        ]);
+
+        $document->update($validated);
+
+        return redirect()->route('documents.index');
+    }
 }
