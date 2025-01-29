@@ -25,7 +25,6 @@ const props = defineProps({
     },
 });
 
-console.log(props.employmentClassifications);
 const form = useForm({
     position_id: null,
     designation_id: null,

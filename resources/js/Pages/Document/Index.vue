@@ -28,13 +28,15 @@ defineProps({
                 <TableHead>
                     <TH>Id</TH>
                     <TH>Document Name</TH>
-                    <TH>Remarks</TH>
+                    <TH>Description</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
                     <tr v-for="document in documents.data">
                         <TD>{{ document.id }}</TD>
-                        <TD>{{ document.title }}</TD>
+                        <TD>{{ document.name }}</TD>
+                        <TD>{{ document.path }}</TD>
+                        <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton />
                             <EditButton />
