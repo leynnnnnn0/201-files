@@ -16,12 +16,11 @@ const { store } = useStore(form, route("documents.store"), "Document");
         <Heading>Upload New Document</Heading>
 
         <FormContainer>
-            <FormInput
-                label="File"
-                :errorMessage="form.errors.file"
-                @input="form.file = $event.target.files[0]"
-            >
-                <Input type="file" />
+            <FormInput label="File" :errorMessage="form.errors.file">
+                <Input
+                    type="file"
+                    @input="form.file = $event.target.files[0]"
+                />
             </FormInput>
 
             <FormInput label="Name" :errorMessage="form.errors.name">

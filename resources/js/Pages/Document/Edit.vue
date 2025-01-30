@@ -9,6 +9,7 @@ const { document } = defineProps({
     },
 });
 const form = useForm({
+    file: null,
     description: document.description,
     name: document.name,
     remarks: document.remarks,
@@ -19,19 +20,35 @@ const { update } = useUpdate(
     route("documents.update", document.id),
     "Document"
 );
+
+const getFileUrl = (path) => {
+    return `/storage/${path}`;
+};
 </script>
 
 <template>
     <MainLayout>
-        <Heading>Upload New Document</Heading>
+        <Heading>Edit Document</Heading>
 
         <FormContainer>
-            <FormInput
-                label="File"
-                :errorMessage="form.errors.file"
-                @input="form.file = $event.target.files[0]"
-            >
-                <Input type="file" />
+            <FormInput label="Current File" v-if="document.path">
+                <p class="text-sm text-gray-600">
+                    Current file:
+                    <a
+                        :href="getFileUrl(document.path)"
+                        target="_blank"
+                        class="text-blue-500 hover:underline"
+                    >
+                        {{ document.name }}
+                    </a>
+                </p>
+            </FormInput>
+
+            <FormInput label="File" :errorMessage="form.errors.file">
+                <Input
+                    type="file"
+                    @input="form.file = $event.target.files[0]"
+                />
             </FormInput>
 
             <FormInput label="Name" :errorMessage="form.errors.name">

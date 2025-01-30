@@ -8,6 +8,10 @@ defineProps({
 });
 
 const { deleteModel } = useDelete("Document");
+
+const getFileUrl = (path) => {
+    return `/storage/${path}`;
+};
 </script>
 
 <template>
@@ -38,10 +42,14 @@ const { deleteModel } = useDelete("Document");
                     <tr v-for="document in documents.data">
                         <TD>{{ document.id }}</TD>
                         <TD>{{ document.name }}</TD>
-                        <TD>{{ document.path }}</TD>
                         <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <ShowButton />
+                            <a
+                                target="_blank"
+                                :href="getFileUrl(document.path)"
+                            >
+                                <Eye />
+                            </a>
                             <EditButton
                                 :isLink="true"
                                 :href="route('documents.edit', document.id)"
