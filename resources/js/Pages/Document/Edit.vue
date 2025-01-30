@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
+import { watch } from "vue";
 
 const { document } = defineProps({
     document: {
@@ -31,7 +32,12 @@ const getFileUrl = (path) => {
         <Heading>Edit Document</Heading>
 
         <FormContainer>
-            <FormInput label="Current File" v-if="document.path">
+            <FormInput
+                :isRequired="false"
+                label="Current File"
+                v-if="document.path"
+                class="col-span-2"
+            >
                 <p class="text-sm text-gray-600">
                     Current file:
                     <a
@@ -44,12 +50,16 @@ const getFileUrl = (path) => {
                 </p>
             </FormInput>
 
-            <FormInput label="File" :errorMessage="form.errors.file">
+            <!-- <FormInput
+                :isRequired="false"
+                label="File"
+                :errorMessage="form.errors.file"
+            >
                 <Input
                     type="file"
                     @input="form.file = $event.target.files[0]"
                 />
-            </FormInput>
+            </FormInput> -->
 
             <FormInput label="Name" :errorMessage="form.errors.name">
                 <Input v-model="form.name" />

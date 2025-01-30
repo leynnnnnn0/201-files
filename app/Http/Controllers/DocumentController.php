@@ -19,7 +19,7 @@ class DocumentController extends Controller
         if ($search)
             $query->where('name', 'like', "%$search%");
 
-        $documents = $query->paginate(10)->withQueryString();
+        $documents = $query->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Document/Index', [
             'documents' => $documents,
@@ -83,12 +83,31 @@ class DocumentController extends Controller
         $document = Document::findOrFail($id);
 
         $validated = $request->validate([
+            'file' => ['required', 'file'],
             'name' => ['required'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
         ]);
 
-        $document->update($validated);
+        $path = null;
+
+        if ($validated['file']) {
+            if (Storage::disk('public')->exists($document->path))
+                Storage::disk('public')->delete($document->path);
+
+            $file = $request->file('file');
+            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $path = $file->storeAs('documents', $fileName);
+            $path = $request->file('file')->store('documents', 'public');
+        }
+
+        $document->update([
+            'name' => $validated['name'],
+            'path' => $path ?? $document->path,
+            'description' => $validated['description'],
+            'remarks' => $validated['remarks'],
+        ]);
 
         return redirect()->route('documents.index');
     }

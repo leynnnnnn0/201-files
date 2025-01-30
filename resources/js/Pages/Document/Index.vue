@@ -1,5 +1,6 @@
 <script setup>
 import useDelete from "@/Composables/useDelete.js";
+import { useSearch } from "@/Composables/useSearch";
 defineProps({
     documents: {
         type: Object,
@@ -8,7 +9,7 @@ defineProps({
 });
 
 const { deleteModel } = useDelete("Document");
-
+const { search } = useSearch("documents.index");
 const getFileUrl = (path) => {
     return `/storage/${path}`;
 };

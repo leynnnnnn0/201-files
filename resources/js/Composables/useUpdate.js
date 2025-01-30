@@ -18,6 +18,7 @@ export default function useUpdate(form, route, model) {
             },
             accept: () => {
                 form.put(route, {
+                    preserveScroll: true,
                     onSuccess: () => {
                         toast.add({
                             severity: "success",
@@ -26,13 +27,14 @@ export default function useUpdate(form, route, model) {
                             life: 5000,
                         });
                     },
-                    onError: () => {
+                    onError: (e) => {
                         toast.add({
                             severity: "error",
                             summary: "Error",
                             detail: `An error occured while trying to update the ${model.toLowerCase()} details.`,
                             life: 5000,
                         });
+                        console.log(e);
                     },
                 });
             },
