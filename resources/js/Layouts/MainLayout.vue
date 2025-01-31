@@ -1,7 +1,15 @@
 <script setup>
 import DivFlexCol from "@/Components/div/DivFlexCol.vue";
 import NavLink from "@/Components/NavLink.vue";
-import { Home, UsersRound, Warehouse } from "lucide-vue-next";
+import {
+    Home,
+    UsersRound,
+    Warehouse,
+    FileText,
+    SquareUserRound,
+    BriefcaseBusiness,
+    LampDesk,
+} from "lucide-vue-next";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 </script>
@@ -36,19 +44,19 @@ import Toast from "primevue/toast";
                         <NavLink :href="route('dashboard')" :icon="Home">
                             Dashboard
                         </NavLink>
-                        <NavLink href="/positions" :icon="UsersRound">
+                        <NavLink href="/positions" :icon="BriefcaseBusiness">
                             Positions
                         </NavLink>
-                        <NavLink href="/designations" :icon="Warehouse">
+                        <NavLink href="/designations" :icon="LampDesk">
                             Designations
                         </NavLink>
-                        <NavLink href="/users" :icon="Warehouse">
+                        <NavLink href="/users" :icon="UsersRound">
                             Users
                         </NavLink>
-                        <NavLink href="/employees" :icon="Warehouse">
+                        <NavLink href="/employees" :icon="SquareUserRound">
                             Employees
                         </NavLink>
-                        <NavLink href="/documents" :icon="Warehouse">
+                        <NavLink href="/documents" :icon="FileText">
                             Documents
                         </NavLink>
                     </nav>
