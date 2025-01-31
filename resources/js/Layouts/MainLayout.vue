@@ -1,15 +1,7 @@
 <script setup>
 import DivFlexCol from "@/Components/div/DivFlexCol.vue";
-import NavLink from "@/Components/NavLink.vue";
-import {
-    Home,
-    UsersRound,
-    Warehouse,
-    FileText,
-    SquareUserRound,
-    BriefcaseBusiness,
-    LampDesk,
-} from "lucide-vue-next";
+import Sidebar from "@/Components/Sidebar.vue";
+
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 </script>
@@ -40,26 +32,7 @@ import Toast from "primevue/toast";
                 <div
                     class="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
                 >
-                    <nav class="grid items-start pl-4 text-sm font-medium">
-                        <NavLink :href="route('dashboard')" :icon="Home">
-                            Dashboard
-                        </NavLink>
-                        <NavLink href="/positions" :icon="BriefcaseBusiness">
-                            Positions
-                        </NavLink>
-                        <NavLink href="/designations" :icon="LampDesk">
-                            Designations
-                        </NavLink>
-                        <NavLink href="/users" :icon="UsersRound">
-                            Users
-                        </NavLink>
-                        <NavLink href="/employees" :icon="SquareUserRound">
-                            Employees
-                        </NavLink>
-                        <NavLink href="/documents" :icon="FileText">
-                            Documents
-                        </NavLink>
-                    </nav>
+                    <Sidebar />
                 </div>
             </div>
         </div>
