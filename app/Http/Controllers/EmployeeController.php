@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\EmploymentClassification;
 use App\Enum\Sex;
 use App\Enum\Status;
+use App\Http\Requests\Employee\StoreEmployeeRequest;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Position;
@@ -44,5 +45,11 @@ class EmployeeController extends Controller
             'statuses' => $statuses,
             'sexes' => $sexes,
         ]);
+    }
+
+    public function store(StoreEmployeeRequest $request)
+    {
+        Employee::create($request->validated());
+        return to_route('employees.index');
     }
 }
