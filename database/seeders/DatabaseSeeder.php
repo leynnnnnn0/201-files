@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test@example.com',
+            'phone_number' => '0926688728'
         ]);
     }
 }

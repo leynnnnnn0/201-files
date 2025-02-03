@@ -6,6 +6,7 @@ use App\Enum\EmploymentClassification;
 use App\Enum\Sex;
 use App\Enum\Status;
 use App\Http\Requests\Employee\StoreEmployeeRequest;
+use App\Http\Requests\Employee\UpdateEmployeeRequest;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Position;
@@ -50,6 +51,31 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         Employee::create($request->validated());
+        return to_route('employees.index');
+    }
+
+    public function edit($id)
+    {
+        $positions = Position::getOptions();
+        $designations = Designation::getOptions();
+        $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
+        $employmentClassifications = EmploymentClassification::options();
+        $statuses = Status::options();
+        $sexes = Sex::options();
+        $employee = Employee::findOrFail($id);
+        return Inertia::render('Employee/Edit', [
+            'positions' => $positions,
+            'designations' => $designations,
+            'employmentClassifications' => $employmentClassifications,
+            'statuses' => $statuses,
+            'sexes' => $sexes,
+            'employee' => $employee
+        ]);
+    }
+
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
+    {
+        $employee->update($request->validated());
         return to_route('employees.index');
     }
 }
