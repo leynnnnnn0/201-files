@@ -52,6 +52,7 @@ import SelectItem from "./Components/ui/select/SelectItem.vue";
 import FormSelect from "./Components/form/FormSelect.vue";
 import FormInput from "./Components/form/FormInput.vue";
 import FormFooter from "./Components/form/FormFooter.vue";
+import InfoList from "./Components/InfoList.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -98,6 +99,7 @@ createInertiaApp({
             .component("FormInput", FormInput)
             .component("FormContainer", FormContainer)
             .component("FormFooter", FormFooter)
+            .component("InfoList", InfoList)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

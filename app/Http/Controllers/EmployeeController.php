@@ -78,4 +78,11 @@ class EmployeeController extends Controller
         $employee->update($request->validated());
         return to_route('employees.index');
     }
+
+    public function show(Employee $employee)
+    {
+        return Inertia::render('Employee/Show', [
+            'employee' => $employee
+        ]);
+    }
 }

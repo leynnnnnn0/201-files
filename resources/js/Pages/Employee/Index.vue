@@ -48,7 +48,10 @@ const { deleteModel } = useDelete("employee");
                         <TD>{{ employee.email }}</TD>
                         <TD>{{ employee.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <ShowButton />
+                            <ShowButton
+                                :isLink="true"
+                                :href="route('employees.show', employee.id)"
+                            />
                             <EditButton
                                 :isLink="true"
                                 :href="route('employees.edit', employee.id)"
