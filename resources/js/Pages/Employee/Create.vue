@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
+import { watch } from "vue";
 
 const props = defineProps({
     positions: {
@@ -39,6 +40,13 @@ const form = useForm({
 });
 
 const { store } = useStore(form, route("employees.store"), "Employee");
+
+watch(
+    () => form.status,
+    (value) => {
+        console.log(value);
+    }
+);
 </script>
 
 <template>
@@ -94,9 +102,8 @@ const { store } = useStore(form, route("employees.store"), "Employee");
             <FormInput
                 label="Employment Classification"
                 :errorMessage="form.errors.employment_classification"
-                v-model="form.employment_classification"
             >
-                <FormSelect>
+                <FormSelect v-model="form.employment_classification">
                     <SelectItem
                         v-for="(label, value) in employmentClassifications"
                         :value="value"
@@ -104,12 +111,8 @@ const { store } = useStore(form, route("employees.store"), "Employee");
                     >
                 </FormSelect>
             </FormInput>
-            <FormInput
-                label="Status"
-                :errorMessage="form.errors.status"
-                v-model="form.status"
-            >
-                <FormSelect>
+            <FormInput label="Status" :errorMessage="form.errors.status">
+                <FormSelect v-model="form.status">
                     <SelectItem
                         v-for="(label, value) in statuses"
                         :value="value"
