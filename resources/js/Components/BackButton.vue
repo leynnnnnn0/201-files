@@ -8,7 +8,7 @@ const backButton = () => {
 <template>
     <Button
         variant="outline"
-        class="sm:text-lg px-7 text-xs"
+        class="sm:text-lg px-7 text-xs w-fit"
         @click="backButton"
     >
         Back

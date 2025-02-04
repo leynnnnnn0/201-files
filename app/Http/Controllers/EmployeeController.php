@@ -81,6 +81,19 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
+        $employee->load(['designation', 'position']);
+        $employee = [
+            'first_name' => $employee->first_name,
+            'middle_name' => $employee->middle_name,
+            'last_name' => $employee->last_name,
+            'email' => $employee->email,
+            'phone_number' => $employee->phone_number,
+            'employment_classification' => $employee->employment_classification,
+            'status' => $employee->status,
+            'sex' => $employee->sex,
+            'designation' => $employee->designation->name ?? null,
+            'position' => $employee->position->name ?? null,
+        ];
         return Inertia::render('Employee/Show', [
             'employee' => $employee
         ]);
