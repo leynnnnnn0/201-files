@@ -31,8 +31,8 @@ const { employee } = defineProps({
 });
 
 const form = useForm({
-    position_id: employee.position_id.toString(),
-    designation_id: employee.designation_id.toString(),
+    position: employee.position,
+    designation: employee.designation,
     employment_classification: employee.employment_classification,
     status: employee.status,
     sex: employee.sex,
@@ -79,26 +79,14 @@ const { update } = useUpdate(
             >
                 <Input v-model="form.phone_number" type="number" />
             </FormInput>
-            <FormInput label="Position" :errorMessage="form.errors.position_id">
-                <FormSelect v-model="form.position_id">
-                    <SelectItem
-                        v-for="position in positions"
-                        :value="position.value"
-                        >{{ position.label }}</SelectItem
-                    >
-                </FormSelect>
+            <FormInput label="Position" :errorMessage="form.errors.position">
+                <Input v-model="form.position" />
             </FormInput>
             <FormInput
                 label="Designation"
-                :errorMessage="form.errors.designation_id"
+                :errorMessage="form.errors.designation"
             >
-                <FormSelect v-model="form.designation_id">
-                    <SelectItem
-                        v-for="designation in designations"
-                        :value="designation.value"
-                        >{{ designation.label }}</SelectItem
-                    >
-                </FormSelect>
+                <Input v-model="form.designation" />
             </FormInput>
             <FormInput
                 label="Employment Classification"

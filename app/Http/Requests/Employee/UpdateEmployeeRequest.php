@@ -27,9 +27,9 @@ class UpdateEmployeeRequest extends FormRequest
             'last_name' => ['required'],
             'email' => ['required', 'email', 'unique:employees,email,' . $this->employee->id],
             'phone_number' => ['required'],
-            'position_id' => ['required'],
+            'position' => ['required'],
             'employment_classification' => ['required'],
-            'designation_id' => ['required'],
+            'designation' => ['required'],
             'status' => ['required'],
             'sex' => ['required'],
         ];

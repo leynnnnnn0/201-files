@@ -81,7 +81,6 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        $employee->load(['designation', 'position']);
         $employee = [
             'first_name' => $employee->first_name,
             'middle_name' => $employee->middle_name,
