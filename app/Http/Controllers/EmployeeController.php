@@ -98,4 +98,12 @@ class EmployeeController extends Controller
             'employee' => $employee
         ]);
     }
+
+    public function destroy($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+
+        return back();
+    }
 }
