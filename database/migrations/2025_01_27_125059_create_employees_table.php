@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_id')->constrained('positions')->cascadeOnDelete();
-            $table->foreignId('designation_id')->constrained('designations')->cascadeOnDelete();
+            $table->string('position');
+            $table->string('designation');
             $table->string('employment_classification');
             $table->string('status');
             $table->string('sex');

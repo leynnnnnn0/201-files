@@ -27,8 +27,8 @@ const props = defineProps({
 });
 
 const form = useForm({
-    position_id: null,
-    designation_id: null,
+    position: null,
+    designation: null,
     employment_classification: null,
     status: null,
     sex: null,
@@ -78,26 +78,14 @@ watch(
             >
                 <Input v-model="form.phone_number" type="number" />
             </FormInput>
-            <FormInput label="Position" :errorMessage="form.errors.position_id">
-                <FormSelect v-model="form.position_id">
-                    <SelectItem
-                        v-for="position in positions"
-                        :value="position.value"
-                        >{{ position.label }}</SelectItem
-                    >
-                </FormSelect>
+            <FormInput label="Position" :errorMessage="form.errors.position">
+                <Input v-model="form.position" />
             </FormInput>
             <FormInput
                 label="Designation"
-                :errorMessage="form.errors.designation_id"
+                :errorMessage="form.errors.designation"
             >
-                <FormSelect v-model="form.designation_id">
-                    <SelectItem
-                        v-for="designation in designations"
-                        :value="designation.value"
-                        >{{ designation.label }}</SelectItem
-                    >
-                </FormSelect>
+                <Input v-model="designation" />
             </FormInput>
             <FormInput
                 label="Employment Classification"
