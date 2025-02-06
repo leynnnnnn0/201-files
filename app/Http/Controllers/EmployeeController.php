@@ -19,7 +19,7 @@ class EmployeeController extends Controller
     {
         $search = request('search');
 
-        $query = Employee::query()->with(['position', 'designation']);
+        $query = Employee::query();
 
         if ($search)
             $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
@@ -91,8 +91,8 @@ class EmployeeController extends Controller
             'employment_classification' => $employee->employment_classification,
             'status' => $employee->status,
             'sex' => $employee->sex,
-            'designation' => $employee->designation->name ?? null,
-            'position' => $employee->position->name ?? null,
+            'designation' => $employee->designation,
+            'position' => $employee->position
         ];
         return Inertia::render('Employee/Show', [
             'employee' => $employee

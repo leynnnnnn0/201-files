@@ -85,7 +85,7 @@ watch(
                 label="Designation"
                 :errorMessage="form.errors.designation"
             >
-                <Input v-model="designation" />
+                <Input v-model="form.designation" />
             </FormInput>
             <FormInput
                 label="Employment Classification"

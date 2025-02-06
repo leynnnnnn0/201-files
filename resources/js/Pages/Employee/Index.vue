@@ -43,8 +43,8 @@ const { deleteModel } = useDelete("employee");
                     <tr v-for="employee in employees.data">
                         <TD>{{ employee.id }}</TD>
                         <TD>{{ employee.full_name }}</TD>
-                        <TD>{{ employee.designation.name }}</TD>
-                        <TD>{{ employee.position.name }}</TD>
+                        <TD>{{ employee.designation }}</TD>
+                        <TD>{{ employee.position }}</TD>
                         <TD>{{ employee.email }}</TD>
                         <TD>{{ employee.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
