@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('path');
             $table->text('description')->nullable();
             $table->text('remarks')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

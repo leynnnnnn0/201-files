@@ -55,23 +55,23 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployeeRequest $request)
     {
-
         try {
             DB::beginTransaction();
             $employee = Employee::create(attributes: Arr::except($request->validated(), 'document'));
 
-            $file = $request->file('document');
-            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+            foreach ($request->file('documents') as $document) {
+                $file = $document;
+                $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
 
-            $path = $file->storeAs('documents', $fileName);
-            $path = $request->file(key: 'document')->store('documents', 'public');
-            $file = $request->file('document');
+                $path = $file->storeAs('documents', $fileName);
+                $path = $document->store('documents', 'public');
 
-
-            $employee->documents()->create([
-                'name' => $fileName,
-                'path' => $path,
-            ]);
+                $document = Document::create([
+                    'owner_id' => $employee->id,
+                    'name' => $file->getClientOriginalName(),
+                    'path' => $path,
+                ]);
+            }
             DB::commit();
         } catch (Exception $e) {
             dd($e);

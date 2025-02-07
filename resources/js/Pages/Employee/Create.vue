@@ -38,7 +38,7 @@ const form = useForm({
     last_name: null,
     email: null,
     phone_number: null,
-    document: null,
+    documents: [],
 });
 
 const { store } = useStore(form, route("employees.store"), "Employee");
@@ -49,6 +49,10 @@ watch(
         console.log(value);
     }
 );
+
+const onSelect = (event) => {
+    form.documents = event.files;
+};
 </script>
 
 <template>
@@ -120,12 +124,23 @@ watch(
                 </FormSelect>
             </FormInput>
 
-            <!-- <FormInput label="Document" :errorMessage="form.errors.document">
-                <input
-                    type="file"
-                    @input="form.document = $event.target.files[0]"
-                />
-            </FormInput> -->
+            <FormInput
+                label="Document"
+                :errorMessage="form.errors.documents"
+                class="col-span-2"
+            >
+                <FileUpload
+                    @select="onSelect"
+                    :multiple="true"
+                    :showUploadButton="false"
+                    :showCancelButton="false"
+                    :maxFileSize="30000000"
+                >
+                    <template #empty>
+                        <p>Drag and drop files to here to upload.</p>
+                    </template>
+                </FileUpload>
+            </FormInput>
 
             <DivFlexCenter class="justify-end gap-2 col-span-2">
                 <BackButton />
