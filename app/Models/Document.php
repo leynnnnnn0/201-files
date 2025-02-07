@@ -11,6 +11,7 @@ class Document extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'path',
         'description',
@@ -19,6 +20,6 @@ class Document extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'owner_id');
     }
 }

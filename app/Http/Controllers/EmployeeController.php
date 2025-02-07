@@ -8,9 +8,13 @@ use App\Enum\Status;
 use App\Http\Requests\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Employee\UpdateEmployeeRequest;
 use App\Models\Designation;
+use App\Models\Document;
 use App\Models\Employee;
 use App\Models\Position;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -50,7 +54,28 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployeeRequest $request)
     {
-        Employee::create($request->validated());
+
+        try {
+            DB::beginTransaction();
+            $employee = Employee::create(attributes: Arr::except($request->validated(), 'document'));
+
+            $file = $request->file('document');
+            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $path = $file->storeAs('documents', $fileName);
+            $path = $request->file(key: 'document')->store('documents', 'public');
+            $file = $request->file('document');
+
+
+            $employee->documents()->create([
+                'name' => $fileName,
+                'path' => $path,
+            ]);
+            DB::commit();
+        } catch (Exception $e) {
+            dd($e);
+            DB::rollBack();
+        }
         return to_route('employees.index');
     }
 

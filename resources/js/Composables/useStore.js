@@ -27,13 +27,14 @@ export default function useStore(form, route, model) {
                             life: 5000,
                         });
                     },
-                    onError: () => {
+                    onError: (e) => {
                         toast.add({
                             severity: "error",
                             summary: "Error",
                             detail: `An error occured while trying to create an ${model.toLowerCase()}.`,
                             life: 5000,
                         });
+                        console.log(e);
                     },
                 });
             },

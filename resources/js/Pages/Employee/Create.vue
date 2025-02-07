@@ -2,6 +2,7 @@
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
 import { watch } from "vue";
+import FileUpload from "primevue/fileupload";
 
 const props = defineProps({
     positions: {
@@ -37,6 +38,7 @@ const form = useForm({
     last_name: null,
     email: null,
     phone_number: null,
+    document: null,
 });
 
 const { store } = useStore(form, route("employees.store"), "Employee");
@@ -116,6 +118,13 @@ watch(
                         >{{ label }}</SelectItem
                     >
                 </FormSelect>
+            </FormInput>
+
+            <FormInput label="Document" :errorMessage="form.errors.document">
+                <input
+                    type="file"
+                    @input="form.document = $event.target.files[0]"
+                />
             </FormInput>
 
             <DivFlexCenter class="justify-end gap-2 col-span-2">

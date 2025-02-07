@@ -30,7 +30,7 @@ class Employee extends Model
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'owner_id');
     }
 
     public function getFullNameAttribute(): string
