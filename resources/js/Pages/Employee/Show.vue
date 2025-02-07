@@ -5,6 +5,10 @@ defineProps({
         required: true,
     },
 });
+
+const getFileUrl = (path) => {
+    return `/storage/${path}`;
+};
 </script>
 
 <template>
@@ -24,6 +28,18 @@ defineProps({
                 :value="employee.employment_classification"
             />
             <InfoList label="Status" :value="employee.status" />
+        </FormContainer>
+        <FormContainer>
+            <Label class="col-span-2">Documents</Label>
+            <Label class="col-span-2" v-for="document in employee.documents">
+                <a
+                    class="text-blue-500 underline"
+                    target="_blank"
+                    :href="getFileUrl(document.path)"
+                >
+                    {{ document.name }}
+                </a>
+            </Label>
         </FormContainer>
         <BackButton />
     </MainLayout>

@@ -14,7 +14,7 @@ class DocumentController extends Controller
     {
         $search = request('search');
 
-        $query = Document::query();
+        $query = Document::query()->with(['employee']);
 
         if ($search)
             $query->where('name', 'like', "%$search%");
@@ -55,6 +55,31 @@ class DocumentController extends Controller
         ]);
 
         return redirect()->route('documents.index');
+    }
+
+    public function storeDocuments(Request $request)
+    {
+        $validated = $request->validate([
+            'employee_id' => ['required'],
+            'documents' => ['required', 'array']
+        ]);
+
+        DB::beginTransaction();
+        foreach ($request->file('documents') as $document) {
+            $file = $document;
+            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $path = $file->storeAs('documents', $fileName);
+            $path = $document->store('documents', 'public');
+
+            $document = Document::create([
+                'owner_id' => $validated['employee_id'],
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+            ]);
+        }
+        DB::commit();
+        to_route('employees.index');
     }
 
     public function destroy($id)

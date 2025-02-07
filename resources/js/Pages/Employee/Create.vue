@@ -120,12 +120,12 @@ watch(
                 </FormSelect>
             </FormInput>
 
-            <FormInput label="Document" :errorMessage="form.errors.document">
+            <!-- <FormInput label="Document" :errorMessage="form.errors.document">
                 <input
                     type="file"
                     @input="form.document = $event.target.files[0]"
                 />
-            </FormInput>
+            </FormInput> -->
 
             <DivFlexCenter class="justify-end gap-2 col-span-2">
                 <BackButton />

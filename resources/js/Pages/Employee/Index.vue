@@ -1,6 +1,11 @@
 <script setup>
 import useDelete from "@/Composables/useDelete.js";
 import { useSearch } from "@/Composables/useSearch";
+import Dialog from "primevue/dialog";
+import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+import FileUpload from "primevue/fileupload";
+
 const { employees } = defineProps({
     employees: {
         type: Object,
@@ -10,7 +15,43 @@ const { employees } = defineProps({
 
 const { search } = useSearch("employees.index");
 
+const form = useForm({
+    documents: [],
+    employee_id: null,
+});
+const isUploadDocumentModalVisible = ref(false);
+const openUploadDocumentModal = (id) => {
+    form.employee_id = id;
+    isUploadDocumentModalVisible.value = true;
+};
 const { deleteModel } = useDelete("employee");
+
+import { useToast } from "primevue/usetoast";
+const toast = useToast();
+
+const onAdvancedUpload = (event) => {
+    form.documents = event.files;
+    form.post(route("documents.store-documents"), {
+        onSuccess: () => {
+            toast.add({
+                severity: "info",
+                summary: "Success",
+                detail: "Documents Uploaded",
+                life: 3000,
+            });
+            form.reset();
+            form.clearErrors();
+        },
+        onError: () => {
+            toast.add({
+                severity: "error",
+                summary: "Error",
+                detail: "An error occured while trying to upload the documents.",
+                life: 3000,
+            });
+        },
+    });
+};
 </script>
 <template>
     <MainLayout>
@@ -48,6 +89,12 @@ const { deleteModel } = useDelete("employee");
                         <TD>{{ employee.email }}</TD>
                         <TD>{{ employee.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
+                            <Button
+                                variant="link"
+                                class="p-0 text-xs m-0 text-green-500"
+                                @click="openUploadDocumentModal(employee.id)"
+                                >Upload Document</Button
+                            >
                             <ShowButton
                                 :isLink="true"
                                 :href="route('employees.show', employee.id)"
@@ -69,5 +116,36 @@ const { deleteModel } = useDelete("employee");
             </Table>
             <Pagination :data="employees" />
         </TableContainer>
+
+        <Dialog
+            v-model:visible="isUploadDocumentModalVisible"
+            modal
+            header="Edit Profile"
+            :style="{ width: '50rem' }"
+        >
+            <template #header>Upload Document</template>
+
+            <FormInput
+                label=""
+                :isRequired="false"
+                :errorMessage="form.errors.document"
+            >
+                <FileUpload
+                    name="documents"
+                    :custom-upload="true"
+                    @uploader="onAdvancedUpload($event)"
+                    :multiple="true"
+                    accept="image/*"
+                    :maxFileSize="1000000"
+                    :headers="{
+                        'X-CSRF-TOKEN': $page.props.csrf_token,
+                    }"
+                >
+                    <template #empty>
+                        <span>Drag and drop files to here to upload.</span>
+                    </template>
+                </FileUpload>
+            </FormInput>
+        </Dialog>
     </MainLayout>
 </template>

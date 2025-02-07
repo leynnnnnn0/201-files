@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -23,7 +24,7 @@ class EmployeeController extends Controller
     {
         $search = request('search');
 
-        $query = Employee::query();
+        $query = Employee::query()->with('documents');
 
         if ($search)
             $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
@@ -106,6 +107,14 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
+        $employee->load(['documents']);
+
+        $documents = $employee->documents->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'path' => $item->path,
+            ];
+        });
         $employee = [
             'first_name' => $employee->first_name,
             'middle_name' => $employee->middle_name,
@@ -116,7 +125,8 @@ class EmployeeController extends Controller
             'status' => $employee->status,
             'sex' => $employee->sex,
             'designation' => $employee->designation,
-            'position' => $employee->position
+            'position' => $employee->position,
+            'documents' => $documents
         ];
         return Inertia::render('Employee/Show', [
             'employee' => $employee
