@@ -40,6 +40,7 @@ const getFileUrl = (path) => {
                     {{ document.name }}
                 </a>
             </Label>
+            <Label v-if="employee.documents.length < 1">Nothing to show</Label>
         </FormContainer>
         <BackButton />
     </MainLayout>
