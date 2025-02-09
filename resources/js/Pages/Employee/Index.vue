@@ -46,6 +46,7 @@ const onAdvancedUpload = (event) => {
             form.reset();
             form.clearErrors();
             isLoading.value = false;
+            isUploadDocumentModalVisible = false;
         },
         onError: () => {
             toast.add({
