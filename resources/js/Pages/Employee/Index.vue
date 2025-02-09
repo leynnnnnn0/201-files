@@ -27,9 +27,13 @@ const openUploadDocumentModal = (id) => {
 const { deleteModel } = useDelete("employee");
 
 import { useToast } from "primevue/usetoast";
+import Loading from "@/Components/Loading.vue";
+
+const isLoading = ref(false);
 const toast = useToast();
 
 const onAdvancedUpload = (event) => {
+    isLoading.value = true;
     form.documents = event.files;
     form.post(route("documents.store-documents"), {
         onSuccess: () => {
@@ -41,6 +45,7 @@ const onAdvancedUpload = (event) => {
             });
             form.reset();
             form.clearErrors();
+            isLoading.value = false;
         },
         onError: () => {
             toast.add({
@@ -49,6 +54,7 @@ const onAdvancedUpload = (event) => {
                 detail: "An error occured while trying to upload the documents.",
                 life: 3000,
             });
+            isLoading.value = false;
         },
     });
 };
@@ -135,7 +141,6 @@ const onAdvancedUpload = (event) => {
                     :custom-upload="true"
                     @uploader="onAdvancedUpload($event)"
                     :multiple="true"
-                    accept="image/*"
                     :maxFileSize="1000000"
                     :headers="{
                         'X-CSRF-TOKEN': $page.props.csrf_token,
@@ -146,6 +151,9 @@ const onAdvancedUpload = (event) => {
                     </template>
                 </FileUpload>
             </FormInput>
+            <Label v-if="isLoading" class="flex gap-1 items-center"
+                >Uploading <Loading />
+            </Label>
         </Dialog>
     </MainLayout>
 </template>
