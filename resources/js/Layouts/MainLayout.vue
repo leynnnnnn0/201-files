@@ -1,9 +1,16 @@
 <script setup>
 import DivFlexCol from "@/Components/div/DivFlexCol.vue";
+import NavLink from "@/Components/NavLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
+import { LogOut } from "lucide-vue-next";
+import { router } from "@inertiajs/vue3";
 
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
+
+const logout = () => {
+    router.post("/logout");
+};
 </script>
 
 <template>
@@ -20,19 +27,22 @@ import Toast from "primevue/toast";
                     <a href="/" class="flex items-center font-semibold">
                         <span class="font-bold">201 Files</span>
                     </a>
-                    <!-- <Button
-                        variant="outline"
-                        size="icon"
-                        class="ml-auto h-8 w-8"
-                    >
-                        <Bell class="h-4 w-4" />
-                        <span class="sr-only">Toggle notifications</span>
-                    </Button> -->
                 </div>
                 <div
                     class="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
                 >
-                    <Sidebar />
+                    <DivFlexCol class="h-full">
+                        <section class="flex-1">
+                            <Sidebar />
+                        </section>
+                        <button
+                            @click="logout"
+                            class="flex items-center gap-2 px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                        >
+                            <LogOut class="size-5" />
+                            Logout
+                        </button>
+                    </DivFlexCol>
                 </div>
             </div>
         </div>
