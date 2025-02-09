@@ -43,7 +43,7 @@ const getFileUrl = (path) => {
                 <TableBody>
                     <tr v-for="document in documents.data">
                         <TD>{{ document.id }}</TD>
-                        <TD>{{ document.employee?.first_name ?? "N/a" }}</TD>
+                        <TD>{{ document.owner }}</TD>
                         <TD>{{ document.name }}</TD>
                         <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">

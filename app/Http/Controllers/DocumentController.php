@@ -19,7 +19,7 @@ class DocumentController extends Controller
         if ($search)
             $query->where('name', 'like', "%$search%");
 
-        $documents = $query->latest()->paginate(10)->withQueryString();
+        $documents = $query->latest()->paginate(10);
 
         return Inertia::render('Document/Index', [
             'documents' => $documents,

@@ -18,8 +18,17 @@ class Document extends Model
         'remarks'
     ];
 
+    protected $appends = [
+        'owner'
+    ];
+
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'owner_id');
+    }
+
+    public function getOwnerAttribute()
+    {
+        return $this->employee?->full_name ?? 'N/a';
     }
 }
