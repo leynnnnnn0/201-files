@@ -16,6 +16,6 @@ import {
         <NavLink :href="route('dashboard')" :icon="Home"> Dashboard </NavLink>
         <NavLink href="/users" :icon="UsersRound"> Users </NavLink>
         <NavLink href="/employees" :icon="SquareUserRound"> Employees </NavLink>
-        <NavLink href="/documents" :icon="FileText"> Documents </NavLink>
+        <NavLink href="/documents" :icon="FileText"> Other Documents </NavLink>
     </nav>
 </template>
