@@ -112,7 +112,14 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $employee->update($request->validated());
+        $validated = $request->validated();
+        $employee->update(Arr::except($validated, 'removed_documents'));
+        foreach ($validated['removed_documents'] as $document) {
+            $document = Document::findOrFail($document);
+            $document->delete();
+            if (Storage::disk('public')->exists($document->path))
+                Storage::disk('public')->delete($document->path);
+        }
         return to_route('employees.index');
     }
 

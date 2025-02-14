@@ -47,7 +47,7 @@ const form = useForm({
     last_name: employee.last_name,
     email: employee.email,
     phone_number: employee.phone_number,
-    documents: documents.map((item) => item.id),
+    removed_documents: [],
 });
 
 const { update } = useUpdate(
@@ -75,10 +75,10 @@ const removeDocument = (id) => {
             severity: "danger",
         },
         accept: () => {
-            form.documents = form.documents.filter((item) => item != id);
             visibleDocuments.value = visibleDocuments.value.filter(
                 (doc) => doc.id != id
             );
+            form.removed_documents.push(id);
             toast.add({
                 severity: "success",
                 summary: "Success",
