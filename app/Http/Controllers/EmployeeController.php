@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Enum\Position as PositionEnum;
 
 class EmployeeController extends Controller
 {
@@ -38,7 +39,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        $positions = Position::getOptions();
+        $positions = PositionEnum::options();
         $designations = Designation::getOptions();
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
         $employmentClassifications = EmploymentClassification::options();

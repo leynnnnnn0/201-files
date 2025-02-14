@@ -85,7 +85,13 @@ const onSelect = (event) => {
                 <Input v-model="form.phone_number" type="number" />
             </FormInput>
             <FormInput label="Position" :errorMessage="form.errors.position">
-                <Input v-model="form.position" />
+                <FormSelect v-model="form.position">
+                    <SelectItem
+                        v-for="(label, value) in positions"
+                        :value="value"
+                        >{{ label }}</SelectItem
+                    >
+                </FormSelect>
             </FormInput>
             <FormInput
                 label="Designation"
