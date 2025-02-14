@@ -60,18 +60,20 @@ class EmployeeController extends Controller
             DB::beginTransaction();
             $employee = Employee::create(attributes: Arr::except($request->validated(), 'document'));
 
-            foreach ($request->file('documents') as $document) {
-                $file = $document;
-                $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+            if ($request->validated()['documents']) {
+                foreach ($request->file('documents') as $document) {
+                    $file = $document;
+                    $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
 
-                $path = $file->storeAs('documents', $fileName);
-                $path = $document->store('documents', 'public');
+                    $path = $file->storeAs('documents', $fileName);
+                    $path = $document->store('documents', 'public');
 
-                $document = Document::create([
-                    'owner_id' => $employee->id,
-                    'name' => $file->getClientOriginalName(),
-                    'path' => $path,
-                ]);
+                    $document = Document::create([
+                        'owner_id' => $employee->id,
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $path,
+                    ]);
+                }
             }
             DB::commit();
         } catch (Exception $e) {
@@ -83,7 +85,7 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
-        $positions = Position::getOptions();
+        $positions = PositionEnum::options();
         $designations = Designation::getOptions();
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
         $employmentClassifications = EmploymentClassification::options();

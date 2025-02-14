@@ -32,6 +32,7 @@ class StoreEmployeeRequest extends FormRequest
             'designation' => ['required'],
             'status' => ['required'],
             'sex' => ['required'],
+            'documents' => ['nullable']
         ];
     }
 }
