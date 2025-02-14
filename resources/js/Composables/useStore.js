@@ -5,7 +5,7 @@ export default function useStore(form, route, model) {
     const store = () => {
         console.log(form);
         confirm.require({
-            message: `Are you sure you want to create this ${model.toLowerCase()}?`,
+            message: `Are you sure you want to add this ${model.toLowerCase()}?`,
             header: "Confirmation",
             icon: "pi pi-exclamation-triangle",
             rejectProps: {

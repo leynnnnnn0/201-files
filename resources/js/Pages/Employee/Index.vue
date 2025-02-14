@@ -64,7 +64,7 @@ const onAdvancedUpload = (event) => {
     <MainLayout>
         <DivHeading title="List Of Employees">
             <LinkButton :href="route('employees.create')">
-                Create New Employee
+                Add New Employee
             </LinkButton>
         </DivHeading>
         <TableContainer>
