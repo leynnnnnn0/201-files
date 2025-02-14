@@ -77,7 +77,6 @@ class EmployeeController extends Controller
             }
             DB::commit();
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
         }
         return to_route('employees.index');
@@ -91,14 +90,23 @@ class EmployeeController extends Controller
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
         $sexes = Sex::options();
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('documents')->findOrFail($id);
+
+        $documents = $employee->documents->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'path' => $item->path,
+            ];
+        });
         return Inertia::render('Employee/Edit', [
             'positions' => $positions,
             'designations' => $designations,
             'employmentClassifications' => $employmentClassifications,
             'statuses' => $statuses,
             'sexes' => $sexes,
-            'employee' => $employee
+            'employee' => $employee,
+            'documents' => $documents
         ]);
     }
 

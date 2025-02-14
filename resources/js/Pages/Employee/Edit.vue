@@ -28,6 +28,10 @@ const { employee } = defineProps({
         type: Object,
         required: true,
     },
+    documents: {
+        type: Object,
+        required: true,
+    },
 });
 
 const form = useForm({
@@ -124,6 +128,28 @@ const { update } = useUpdate(
                     >
                 </FormSelect>
             </FormInput>
+
+            <TableContainer class="col-span-2">
+                <Table>
+                    <TableHead>
+                        <TH>ID</TH>
+                        <TH>Document Name</TH>
+                        <TH>Actions</TH>
+                    </TableHead>
+                    <TableBody>
+                        <tr v-for="document in documents">
+                            <TD>{{ document.id }}</TD>
+                            <TD>{{ document.name }}</TD>
+                            <TD>
+                                <DivFlexCenter class="gap-2">
+                                    <ShowButton />
+                                    <DeleteButton />
+                                </DivFlexCenter>
+                            </TD>
+                        </tr>
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
             <DivFlexCenter class="justify-end gap-2 col-span-2">
                 <BackButton />
