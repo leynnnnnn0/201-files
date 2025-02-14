@@ -1,9 +1,11 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
-import { watch } from "vue";
+import { ref } from "vue";
+import useAlert from "@/Composables/useAlert.js";
+const { confirm, toast } = useAlert();
 
-const { employee } = defineProps({
+const { employee, documents } = defineProps({
     positions: {
         type: Object,
         required: true,
@@ -45,6 +47,7 @@ const form = useForm({
     last_name: employee.last_name,
     email: employee.email,
     phone_number: employee.phone_number,
+    documents: documents.map((item) => item.id),
 });
 
 const { update } = useUpdate(
@@ -52,6 +55,39 @@ const { update } = useUpdate(
     route("employees.update", employee.id),
     "Employee"
 );
+
+const getFileUrl = (path) => {
+    return `/storage/${path}`;
+};
+const visibleDocuments = ref([...documents]);
+const removeDocument = (id) => {
+    confirm.require({
+        message: `Are you sure you want to remove this document?`,
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+        },
+        acceptProps: {
+            label: "Confirm",
+            severity: "danger",
+        },
+        accept: () => {
+            form.documents = form.documents.filter((item) => item != id);
+            visibleDocuments.value = visibleDocuments.value.filter(
+                (doc) => doc.id != id
+            );
+            toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: `Document Removed Successfully.`,
+                life: 5000,
+            });
+        },
+    });
+};
 </script>
 
 <template>
@@ -137,13 +173,20 @@ const { update } = useUpdate(
                         <TH>Actions</TH>
                     </TableHead>
                     <TableBody>
-                        <tr v-for="document in documents">
+                        <tr v-for="document in visibleDocuments">
                             <TD>{{ document.id }}</TD>
                             <TD>{{ document.name }}</TD>
                             <TD>
                                 <DivFlexCenter class="gap-2">
-                                    <ShowButton />
-                                    <DeleteButton />
+                                    <a
+                                        target="_blank"
+                                        :href="getFileUrl(document.path)"
+                                    >
+                                        <Eye />
+                                    </a>
+                                    <DeleteButton
+                                        @click="removeDocument(document.id)"
+                                    />
                                 </DivFlexCenter>
                             </TD>
                         </tr>
