@@ -1,8 +1,8 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import useStore from "@/Composables/useStore";
+import useUpdate from "@/Composables/useUpdate";
 
-const props = defineProps({
+const { user } = defineProps({
     user: {
         type: Object,
         required: true,
@@ -30,24 +30,18 @@ const props = defineProps({
 });
 
 const form = useForm({
-    position_id: user.position_id,
-    designation_id: null,
-    employment_classification: null,
-    status: null,
-    sex: null,
-    first_name: null,
-    middle_name: null,
-    last_name: null,
-    email: null,
-    phone_number: null,
+    first_name: user.first_name,
+    middle_name: user.middle_name,
+    last_name: user.last_name,
+    email: user.email,
 });
 
-const { store } = useStore(form, route("users.store"), "User");
+const { update } = useUpdate(form, route("users.update", user.id), "User");
 </script>
 
 <template>
     <MainLayout>
-        <Heading>Create New User</Heading>
+        <Heading>Edit User Details</Heading>
         <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
             <FormInput
                 label="First Name"
@@ -68,72 +62,10 @@ const { store } = useStore(form, route("users.store"), "User");
             <FormInput label="Email" :errorMessage="form.errors.email">
                 <Input v-model="form.email" type="email" />
             </FormInput>
-            <FormInput
-                label="Phone Number"
-                :errorMessage="form.errors.phone_number"
-            >
-                <Input v-model="form.phone_number" type="number" />
-            </FormInput>
-            <FormInput label="Position" :errorMessage="form.errors.position_id">
-                <FormSelect v-model="form.position_id">
-                    <SelectItem
-                        v-for="position in positions"
-                        :value="position.value"
-                        >{{ position.label }}</SelectItem
-                    >
-                </FormSelect>
-            </FormInput>
-            <FormInput
-                label="Designation"
-                :errorMessage="form.errors.designation_id"
-            >
-                <FormSelect v-model="form.designation_id">
-                    <SelectItem
-                        v-for="designation in designations"
-                        :value="designation.value"
-                        >{{ designation.label }}</SelectItem
-                    >
-                </FormSelect>
-            </FormInput>
-            <FormInput
-                label="Employment Classification"
-                :errorMessage="form.errors.employment_classification"
-                v-model="form.employment_classification"
-            >
-                <FormSelect>
-                    <SelectItem
-                        v-for="(label, value) in employmentClassifications"
-                        :value="value"
-                        >{{ label }}</SelectItem
-                    >
-                </FormSelect>
-            </FormInput>
-            <FormInput
-                label="Status"
-                :errorMessage="form.errors.status"
-                v-model="form.status"
-            >
-                <FormSelect>
-                    <SelectItem
-                        v-for="(label, value) in statuses"
-                        :value="value"
-                        >{{ label }}</SelectItem
-                    >
-                </FormSelect>
-            </FormInput>
-            <FormInput label="Sex" :errorMessage="form.errors.sex">
-                <FormSelect v-model="form.sex">
-                    <SelectItem
-                        v-for="(label, value) in sexes"
-                        :value="value"
-                        >{{ label }}</SelectItem
-                    >
-                </FormSelect>
-            </FormInput>
 
             <DivFlexCenter class="justify-end gap-2 col-span-2">
                 <BackButton />
-                <Button class="text-white w-fit" @click="store">Create</Button>
+                <Button class="text-white w-fit" @click="update">Update</Button>
             </DivFlexCenter>
         </section>
     </MainLayout>

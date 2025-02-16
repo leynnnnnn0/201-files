@@ -9,6 +9,7 @@ use App\Models\Designation;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -46,15 +47,34 @@ class UserController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'first_name' => ['required'],
+            'middle_name' => ['nullable'],
+            'last_name' => ['required'],
+            'email' => ['required', 'unique:users,email'],
+        ]);
+
+        $validated['password'] = Hash::make('password');
+
+        User::create($validated);
+
+        return to_route('users.index');
+    }
+
+    public function update(Request $request, User $user) {}
+
     public function edit(User $user)
     {
+
         $positions = Position::getOptions();
         $designations = Designation::getOptions();
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
         $sexes = Sex::options();
-        return Inertia::render('User/Create', [
+        return Inertia::render('User/Edit', [
             'positions' => $positions,
             'designations' => $designations,
             'employmentClassifications' => $employmentClassifications,
