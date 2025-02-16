@@ -63,7 +63,17 @@ class UserController extends Controller
         return to_route('users.index');
     }
 
-    public function update(Request $request, User $user) {}
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'first_name' => ['required'],
+            'middle_name' => ['nullable'],
+            'last_name' => ['required'],
+            'email' => ['required', 'unique:users,email,' . $user->id],
+        ]);
+        $user->update($validated);
+        return to_route('users.index');
+    }
 
     public function edit(User $user)
     {
