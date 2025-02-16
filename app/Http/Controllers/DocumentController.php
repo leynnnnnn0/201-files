@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -34,12 +35,21 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
+        ini_set('upload_max_filesize', '10M');
+        ini_set('post_max_size', '10M');
+        ini_set('memory_limit', '256M');
         $validated = $request->validate([
             'name' => ['required'],
-            'file' => ['required', 'file'],
+            'file' => ['required', 'file', 'mimes:pdf',  'max:10240'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
+        ], [
+            'file.mimes' => 'The file must be a PDF document.',
+            'file.required' => 'Please upload a file.',
+            'file.file' => 'The uploaded file is invalid.',
+            'file.max' => 'The file size cannot exceed 10MB.'
         ]);
+
 
         $file = $request->file('file');
         $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
@@ -47,21 +57,29 @@ class DocumentController extends Controller
         $path = $file->storeAs('documents', $fileName);
         $path = $request->file('file')->store('documents', 'public');
 
-        Document::create([
-            'name' => $validated['name'],
-            'path' => $path,
-            'description' => $validated['description'],
-            'remarks' => $validated['remarks'],
-        ]);
+        try {
+            Document::create([
+                'name' => $validated['name'],
+                'path' => $path,
+                'description' => $validated['description'],
+                'remarks' => $validated['remarks'],
+            ]);
+        } catch (Exception $e) {
+            dd($e);
+        }
 
         return redirect()->route('documents.index');
     }
 
     public function storeDocuments(Request $request)
     {
+
         $validated = $request->validate([
             'employee_id' => ['required'],
-            'documents' => ['required', 'array']
+            'documents' => ['required', 'array'],
+            'documents.*' => ['required', 'mimes:pdf', 'max:10000']
+        ],[
+            'documents.mimes' => 'The documents must be a PDF.',
         ]);
 
         DB::beginTransaction();

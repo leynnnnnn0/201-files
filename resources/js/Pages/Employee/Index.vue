@@ -48,11 +48,13 @@ const onAdvancedUpload = (event) => {
             isLoading.value = false;
             isUploadDocumentModalVisible = false;
         },
-        onError: () => {
+        onError: (e) => {
+            console.log(e);
             toast.add({
                 severity: "error",
                 summary: "Error",
-                detail: "An error occured while trying to upload the documents.",
+                detail:
+                    "An error occured while trying to upload the documents. Please make sure that the documents are on type PDF.",
                 life: 3000,
             });
             isLoading.value = false;

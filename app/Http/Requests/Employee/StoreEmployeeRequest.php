@@ -32,7 +32,8 @@ class StoreEmployeeRequest extends FormRequest
             'designation' => ['required'],
             'status' => ['required'],
             'sex' => ['required'],
-            'documents' => ['nullable']
+            'documents' => ['sometimes', 'array'],
+            'documents.*' => ['sometimes', 'mimes:pdf', 'max:10000']
         ];
     }
 }
