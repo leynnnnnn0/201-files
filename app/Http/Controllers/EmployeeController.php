@@ -123,6 +123,8 @@ class EmployeeController extends Controller
         return to_route('employees.index');
     }
 
+ 
+
     public function show(Employee $employee)
     {
         $employee->load(['documents']);

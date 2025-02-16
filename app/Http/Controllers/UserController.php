@@ -63,6 +63,13 @@ class UserController extends Controller
         return to_route('users.index');
     }
 
+    public function show(User $user)
+    {
+        return Inertia::render('User/Show', [
+            'user' => $user
+        ]);
+    }
+
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
