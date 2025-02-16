@@ -45,4 +45,22 @@ class UserController extends Controller
             'sexes' => $sexes,
         ]);
     }
+
+    public function edit(User $user)
+    {
+        $positions = Position::getOptions();
+        $designations = Designation::getOptions();
+        $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
+        $employmentClassifications = EmploymentClassification::options();
+        $statuses = Status::options();
+        $sexes = Sex::options();
+        return Inertia::render('User/Create', [
+            'positions' => $positions,
+            'designations' => $designations,
+            'employmentClassifications' => $employmentClassifications,
+            'statuses' => $statuses,
+            'sexes' => $sexes,
+            'user' => $user
+        ]);
+    }
 }
