@@ -15,7 +15,7 @@ class DocumentController extends Controller
     {
         $search = request('search');
 
-        $query = Document::query()->with(['employee']);
+        $query = Document::query()->with(['employee'])->where('owner_id', null);
 
         if ($search)
             $query->where('name', 'like', "%$search%");
@@ -78,7 +78,7 @@ class DocumentController extends Controller
             'employee_id' => ['required'],
             'documents' => ['required', 'array'],
             'documents.*' => ['required', 'mimes:pdf', 'max:10000']
-        ],[
+        ], [
             'documents.mimes' => 'The documents must be a PDF.',
         ]);
 
