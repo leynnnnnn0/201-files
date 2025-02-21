@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import useStore from "@/Composables/useStore";
-import { watch } from "vue";
+import { watch, ref } from "vue";
 import FileUpload from "primevue/fileupload";
 
 const props = defineProps({
@@ -53,12 +53,43 @@ watch(
 const onSelect = (event) => {
     form.documents = event.files;
 };
+
+const src = ref(null);
+
+function onFileSelect(event) {
+    const file = event.files[0];
+    const reader = new FileReader();
+
+    reader.onload = async (e) => {
+        src.value = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
 </script>
 
 <template>
     <MainLayout>
         <Heading>Create New Employee</Heading>
         <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
+            <FormInput label="Image" class="col-span-2">
+                <div class="w-fit">
+                    <FileUpload
+                        mode="basic"
+                        @select="onFileSelect"
+                        customUpload
+                        auto
+                        severity="secondary"
+                        class="p-button-outlined"
+                    />
+                </div>
+                <img
+                    v-if="src"
+                    :src="src"
+                    alt="Image"
+                    class="shadow-md rounded-xl w-full sm:size-32"
+                />
+            </FormInput>
             <FormInput
                 label="First Name"
                 :errorMessage="form.errors.first_name"

@@ -17,6 +17,7 @@ class Employee extends Model
         'employment_classification',
         'status',
         'sex',
+        'image',
         'first_name',
         'middle_name',
         'last_name',
