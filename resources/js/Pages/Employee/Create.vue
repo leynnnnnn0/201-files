@@ -61,6 +61,8 @@ function onFileSelect(event) {
     const file = event.files[0];
     const reader = new FileReader();
 
+    form.image = file;
+
     reader.onload = async (e) => {
         src.value = e.target.result;
     };

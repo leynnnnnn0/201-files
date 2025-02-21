@@ -59,7 +59,16 @@ class EmployeeController extends Controller
     {
         try {
             DB::beginTransaction();
-            $employee = Employee::create(attributes: Arr::except($request->validated(), 'document'));
+
+            $file = $request->file('image');
+            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $path = $file->storeAs('profiles', $fileName);
+            $path = $file->store('profiles', 'public');
+
+            $validated = $request->validated();
+            $validated['image'] = $path;
+            $employee = Employee::create(attributes: Arr::except($validated, 'document'));
 
             if ($request->validated()['documents']) {
                 foreach ($request->file('documents') as $document) {
@@ -107,7 +116,8 @@ class EmployeeController extends Controller
             'statuses' => $statuses,
             'sexes' => $sexes,
             'employee' => $employee,
-            'documents' => $documents
+            'documents' => $documents,
+            'image' => Storage::url($employee->image)
         ]);
     }
 
@@ -147,7 +157,8 @@ class EmployeeController extends Controller
             'sex' => $employee->sex,
             'designation' => $employee->designation,
             'position' => $employee->position,
-            'documents' => $documents
+            'documents' => $documents,
+            'image' => Storage::url($employee->image)
         ];
         return Inertia::render('Employee/Show', [
             'employee' => $employee

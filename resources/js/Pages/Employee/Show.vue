@@ -15,6 +15,11 @@ const getFileUrl = (path) => {
     <MainLayout>
         <Heading>Employee Details</Heading>
         <FormContainer>
+            <img
+                :src="employee.image"
+                alt="Profile"
+                class="size-24 col-span-2 rounded-full"
+            />
             <InfoList label="First Name" :value="employee.first_name" />
             <InfoList label="Middle Name" :value="employee.middle_name" />
             <InfoList label="Last Name" :value="employee.last_name" />

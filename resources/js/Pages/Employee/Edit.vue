@@ -34,6 +34,7 @@ const { employee, documents } = defineProps({
         type: Object,
         required: true,
     },
+    image: String,
 });
 
 const form = useForm({
@@ -88,12 +89,32 @@ const removeDocument = (id) => {
         },
     });
 };
+
+const onSelect = (event) => {
+    form.documents = event.files;
+};
+
+const src = ref(null);
+
+function onFileSelect(event) {
+    const file = event.files[0];
+    const reader = new FileReader();
+
+    form.image = file;
+
+    reader.onload = async (e) => {
+        src.value = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
 </script>
 
 <template>
     <MainLayout>
         <Heading>Edit Employee Details</Heading>
         <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
+            <img :src="image" alt="" />
             <FormInput
                 label="First Name"
                 :errorMessage="form.errors.first_name"
