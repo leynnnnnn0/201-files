@@ -28,6 +28,7 @@ const props = defineProps({
 });
 
 const form = useForm({
+    image: null,
     position: null,
     designation: null,
     employment_classification: null,
@@ -72,7 +73,11 @@ function onFileSelect(event) {
     <MainLayout>
         <Heading>Create New Employee</Heading>
         <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
-            <FormInput label="Image" class="col-span-2">
+            <FormInput
+                label="Image"
+                :errorMessage="form.errors.image"
+                class="col-span-2"
+            >
                 <div class="w-fit">
                     <FileUpload
                         mode="basic"
