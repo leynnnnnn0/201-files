@@ -28,7 +28,8 @@ class EmployeeController extends Controller
         $query = Employee::query()->with('documents');
 
         if ($search)
-            $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
+            $query->whereAny(['first_name', 'last_name', 'id', 'designation', 'position'], 'like', "%$search%");
+
         $employees = $query->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Employee/Index', [
@@ -123,7 +124,7 @@ class EmployeeController extends Controller
         return to_route('employees.index');
     }
 
- 
+
 
     public function show(Employee $employee)
     {
