@@ -33,6 +33,7 @@ class UpdateEmployeeRequest extends FormRequest
             'status' => ['required'],
             'sex' => ['required'],
             'removed_documents' => ['nullable'],
+            'image' => ['nullable']
         ];
     }
 }

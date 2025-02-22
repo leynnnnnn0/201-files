@@ -124,14 +124,35 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
+        if ($validated['image']) {
+
+            $file = $request->file('image');
+
+            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+
+            $path = $file->storeAs('profiles', $fileName);
+            $path = $file->store('profiles', 'public');
+
+
+            $validated = $request->validated();
+            $validated['image'] = $path;
+
+            if (Storage::disk('public')->exists($employee->image))
+                Storage::disk('public')->delete($employee->image);
+        } else {
+            unset($validated['image']);
+        }
+
 
         $employee->update(Arr::except($validated, 'removed_documents'));
-        foreach ($validated['removed_documents'] as $document) {
-            $document = Document::findOrFail($document);
-            $document->delete();
-            if (Storage::disk('public')->exists($document->path))
-                Storage::disk('public')->delete($document->path);
-        }
+        if (isset($validated['removed_documents']))
+            foreach ($validated['removed_documents'] as $document) {
+                $document = Document::findOrFail($document);
+                $document->delete();
+                if (Storage::disk('public')->exists($document->path))
+                    Storage::disk('public')->delete($document->path);
+            }
+
         return to_route('employees.index');
     }
 
