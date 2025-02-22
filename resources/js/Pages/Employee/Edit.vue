@@ -3,6 +3,7 @@ import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
 import { ref } from "vue";
 import useAlert from "@/Composables/useAlert.js";
+import FileUpload from "primevue/fileupload";
 const { confirm, toast } = useAlert();
 
 const { employee, documents } = defineProps({
@@ -38,6 +39,7 @@ const { employee, documents } = defineProps({
 });
 
 const form = useForm({
+    image: null,
     position: employee.position,
     designation: employee.designation,
     employment_classification: employee.employment_classification,
@@ -51,11 +53,44 @@ const form = useForm({
     removed_documents: [],
 });
 
-const { update } = useUpdate(
-    form,
-    route("employees.update", employee.id),
-    "Employee"
-);
+const update = () => {
+    confirm.require({
+        message: `Are you sure you want to update this employee?`,
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+        },
+        acceptProps: {
+            label: "Confirm",
+            severity: "success",
+        },
+        accept: () => {
+            form.post(route("update", employee.id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    toast.add({
+                        severity: "success",
+                        summary: "Success",
+                        detail: `Employee Updated Successfully.`,
+                        life: 5000,
+                    });
+                },
+                onError: (e) => {
+                    toast.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: `An error occured while trying to update the employee  details.`,
+                        life: 5000,
+                    });
+                    console.log(e);
+                },
+            });
+        },
+    });
+};
 
 const getFileUrl = (path) => {
     return `/storage/${path}`;
@@ -90,10 +125,6 @@ const removeDocument = (id) => {
     });
 };
 
-const onSelect = (event) => {
-    form.documents = event.files;
-};
-
 const src = ref(null);
 
 function onFileSelect(event) {
@@ -114,7 +145,19 @@ function onFileSelect(event) {
     <MainLayout>
         <Heading>Edit Employee Details</Heading>
         <section class="rounded-lg grid grid-cols-2 gap-5 border-2 p-5">
-            <img :src="image" alt="" />
+            <FormInput label="Image" class="col-span-2">
+                <div class="w-fit">
+                    <FileUpload
+                        mode="basic"
+                        @select="onFileSelect"
+                        customUpload
+                        auto
+                        severity="secondary"
+                        class="p-button-outlined"
+                    />
+                </div>
+                <img :src="src || image" alt="" class="col-span-2 size-24" />
+            </FormInput>
             <FormInput
                 label="First Name"
                 :errorMessage="form.errors.first_name"

@@ -15,10 +15,11 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-
     Route::resource('users', UserController::class);
     Route::resource('designations', DesignationController::class);
     Route::resource('positions', PositionController::class);
+
+    Route::post('employees/update/{employee}', [EmployeeController::class, 'update'])->name('update');
     Route::resource('employees', EmployeeController::class);
     Route::resource('documents', DocumentController::class);
 

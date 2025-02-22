@@ -124,6 +124,7 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
+
         $employee->update(Arr::except($validated, 'removed_documents'));
         foreach ($validated['removed_documents'] as $document) {
             $document = Document::findOrFail($document);
