@@ -16,12 +16,18 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::name('archives.')->prefix('archives')->group(function () {
-
         Route::controller(UserController::class)->group(function () {
             Route::get('/users', 'archive')->name('users');
             Route::post('/users/restore/{user}', 'restore')->name('users-restore');
         });
+
+        Route::controller(EmployeeController::class)->group(function () {
+            Route::get('/employees', 'archive')->name('employees');
+            Route::post('/employees/restore/{employee}', 'restore')->name('employees-restore');
+        });
     });
+
+
 
     Route::resource('users', UserController::class);
     Route::resource('designations', DesignationController::class);

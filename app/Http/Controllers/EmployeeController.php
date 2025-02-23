@@ -21,6 +21,29 @@ use App\Enum\Position as PositionEnum;
 
 class EmployeeController extends Controller
 {
+    public function archive()
+    {
+        $search = request('search');
+
+        $query = Employee::query()->onlyTrashed()->with('documents');
+
+        if ($search)
+            $query->whereAny(['first_name', 'last_name', 'id', 'designation', 'position'], 'like', "%$search%");
+
+        $employees = $query->latest()->paginate(10)->withQueryString();
+
+        return Inertia::render('Employee/Archive', [
+            'employees' => $employees,
+            'filters' => request()->only(['search'])
+        ]);
+    }
+
+    public function restore($id)
+    {
+        $employees = Employee::onlyTrashed()->findOrFail($id);
+        $employees->restore();
+        return to_route('archives.employees');
+    }
 
     public function index()
     {
