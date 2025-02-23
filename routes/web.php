@@ -16,7 +16,11 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::name('archives.')->prefix('archives')->group(function () {
-        Route::get('/users', [UserController::class, 'archive'])->name('users');
+
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/users', 'archive')->name('users');
+            Route::post('/users/restore/{user}', 'restore')->name('users-restore');
+        });
     });
 
     Route::resource('users', UserController::class);

@@ -1,5 +1,5 @@
 <script setup>
-import useDelete from "@/Composables/useDelete.js";
+import useRestore from "@/Composables/useRestore.js";
 import { useSearch } from "@/Composables/useSearch";
 const { users } = defineProps({
     users: {
@@ -10,7 +10,7 @@ const { users } = defineProps({
 
 const { search } = useSearch("users.index");
 
-const { deleteModel } = useDelete("User");
+const { restoreModel } = useRestore("User");
 </script>
 <template>
     <MainLayout>
@@ -40,17 +40,15 @@ const { deleteModel } = useDelete("User");
                         <TD>{{ user.email }}</TD>
                         <TD>{{ user.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <ShowButton
+                            <!-- <ShowButton
                                 :isLink="true"
                                 :href="route('users.show', user.id)"
-                            />
-                            <EditButton
-                                :isLink="true"
-                                :href="route('users.edit', user.id)"
-                            />
-                            <DeleteButton
+                            /> -->
+                            <RestoreButton
                                 @click="
-                                    deleteModel(route('users.destroy', user.id))
+                                    restoreModel(
+                                        route('archives.users-restore', user.id)
+                                    )
                                 "
                             />
                         </TD>

@@ -30,6 +30,13 @@ class UserController extends Controller
             'filters' => request()->only(['search'])
         ]);
     }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+        return to_route('archives.users');
+    }
     public function index()
     {
         $search = request('search');
