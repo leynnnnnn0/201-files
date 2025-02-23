@@ -36,6 +36,12 @@ export default function useRestore(model) {
                         });
                     },
                 });
+                toast.add({
+                    severity: "success",
+                    summary: "Success",
+                    detail: `${model} Restored Successfully.`,
+                    life: 5000,
+                });
             },
         });
     };
