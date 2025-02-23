@@ -11,6 +11,7 @@ import {
 } from "lucide-vue-next";
 </script>
 
+
 <template>
     <nav class="grid items-start pl-4 text-sm font-medium">
         <NavLink :href="route('dashboard')" :icon="Home"> Dashboard </NavLink>

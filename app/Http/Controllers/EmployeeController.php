@@ -182,9 +182,9 @@ class EmployeeController extends Controller
 
 
 
-    public function show(Employee $employee)
+    public function show($id)
     {
-        $employee->load(['documents']);
+        $employee = Employee::with('documents')->withTrashed()->findOrFail($id);
 
         $documents = $employee->documents->map(function ($item) {
             return [
