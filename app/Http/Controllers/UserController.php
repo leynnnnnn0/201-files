@@ -86,8 +86,9 @@ class UserController extends Controller
         return to_route('users.index');
     }
 
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::withTrashed()->findOrFail($id);
         return Inertia::render('User/Show', [
             'user' => $user
         ]);

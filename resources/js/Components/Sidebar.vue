@@ -19,7 +19,5 @@ import {
         <NavLink href="/documents" :icon="FileText"> Other Documents </NavLink>
         <Label class="mt-5 ml-3 text-gray-700">Archives</Label>
         <NavLink href="/archives/users" :icon="FileText"> Users</NavLink>
-        <NavLink href="/documents" :icon="FileText"> Employees</NavLink>
-        <NavLink href="/documents" :icon="FileText"> Employees</NavLink>
     </nav>
 </template>
