@@ -4,7 +4,7 @@ export default function useDelete(model) {
     const { confirm, toast } = useAlert();
     const deleteModel = (route) => {
         confirm.require({
-            message: `Are you sure you want to delete this ${model.toLowerCase()}?`,
+            message: `Are you sure you want to archive this ${model.toLowerCase()}?`,
             header: "Confirmation",
             icon: "pi pi-exclamation-triangle",
             rejectProps: {
@@ -22,7 +22,7 @@ export default function useDelete(model) {
                         toast.add({
                             severity: "success",
                             summary: "Success",
-                            detail: `${model} Deleted Successfully.`,
+                            detail: `${model} Archived Successfully.`,
                             life: 5000,
                         });
                     },
