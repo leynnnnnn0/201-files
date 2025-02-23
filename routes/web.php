@@ -15,6 +15,10 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::name('archives.')->prefix('archives')->group(function () {
+        Route::get('/users', [UserController::class, 'archive'])->name('users');
+    });
+
     Route::resource('users', UserController::class);
     Route::resource('designations', DesignationController::class);
     Route::resource('positions', PositionController::class);

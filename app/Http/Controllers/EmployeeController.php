@@ -21,6 +21,7 @@ use App\Enum\Position as PositionEnum;
 
 class EmployeeController extends Controller
 {
+
     public function index()
     {
         $search = request('search');

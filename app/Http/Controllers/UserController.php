@@ -14,6 +14,22 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+
+    public function archive()
+    {
+        $search = request('search');
+
+        $query = User::query()->onlyTrashed();
+
+        if ($search)
+            $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
+        $users = $query->latest()->paginate(10)->withQueryString();
+
+        return Inertia::render('User/Archive', [
+            'users' => $users,
+            'filters' => request()->only(['search'])
+        ]);
+    }
     public function index()
     {
         $search = request('search');
@@ -99,5 +115,11 @@ class UserController extends Controller
             'sexes' => $sexes,
             'user' => $user
         ]);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return back();
     }
 }
