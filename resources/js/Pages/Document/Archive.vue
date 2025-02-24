@@ -1,20 +1,22 @@
 <script setup>
 import useRestore from "@/Composables/useRestore.js";
 import { useSearch } from "@/Composables/useSearch";
-const { employees } = defineProps({
-    employees: {
+const { documents } = defineProps({
+    documents: {
         type: Object,
         required: true,
     },
 });
 
-const { search } = useSearch("employees.index");
-
-const { restoreModel } = useRestore("Employees");
+const { search } = useSearch("documents.index");
+const { restoreModel } = useRestore("Documents");
+const getFileUrl = (path) => {
+    return `/storage/${path}`;
+};
 </script>
 <template>
     <MainLayout>
-        <DivHeading title="List of Archived Employees"> </DivHeading>
+        <DivHeading title="List of Archived Documents"> </DivHeading>
         <TableContainer>
             <TableHeader>
                 <SearchBar>
@@ -28,32 +30,28 @@ const { restoreModel } = useRestore("Employees");
             <Table>
                 <TableHead>
                     <TH>Id</TH>
-                    <TH>Full Name</TH>
-                    <TH>Designation</TH>
-                    <TH>Position</TH>
-                    <TH>Email</TH>
-                    <TH>Phone Number</TH>
+                    <TH>Document Name</TH>
+                    <TH>Description</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
-                    <tr v-for="employee in employees.data">
-                        <TD>{{ employee.id }}</TD>
-                        <TD>{{ employee.full_name }}</TD>
-                        <TD>{{ employee.designation }}</TD>
-                        <TD>{{ employee.position }}</TD>
-                        <TD>{{ employee.email }}</TD>
-                        <TD>{{ employee.phone_number ?? "N/a" }}</TD>
+                    <tr v-for="document in documents.data">
+                        <TD>{{ document.id }}</TD>
+                        <TD>{{ document.name }}</TD>
+                        <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <ShowButton
-                                :isLink="true"
-                                :href="route('employees.show', employee.id)"
-                            />
+                            <a
+                                target="_blank"
+                                :href="getFileUrl(document.path)"
+                            >
+                                <Eye />
+                            </a>
                             <RestoreButton
                                 @click="
                                     restoreModel(
                                         route(
-                                            'archives.employees-restore',
-                                            employee.id
+                                            'archives.documents-restore',
+                                            document.id
                                         )
                                     )
                                 "
@@ -62,7 +60,7 @@ const { restoreModel } = useRestore("Employees");
                     </tr>
                 </TableBody>
             </Table>
-            <Pagination :data="employees" />
+            <Pagination :data="documents" />
         </TableContainer>
     </MainLayout>
 </template>

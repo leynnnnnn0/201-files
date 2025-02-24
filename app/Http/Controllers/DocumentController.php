@@ -11,6 +11,22 @@ use Inertia\Inertia;
 
 class DocumentController extends Controller
 {
+    public function archive()
+    {
+        $search = request('search');
+
+        $query = Document::query()->onlyTrashed();
+
+        if ($search)
+            $query->where('name', 'like', "%$search%");
+
+        $documents = $query->latest()->paginate(10);
+
+        return Inertia::render('Document/Archive', [
+            'documents' => $documents,
+            'filters' => request()->only(['search'])
+        ]);
+    }
     public function index()
     {
         $search = request('search');
@@ -153,5 +169,12 @@ class DocumentController extends Controller
         ]);
 
         return redirect()->route('documents.index');
+    }
+
+    public function restore($id)
+    {
+        $documents = Document::onlyTrashed()->findOrFail($id);
+        $documents->restore();
+        return to_route('archives.documents');
     }
 }

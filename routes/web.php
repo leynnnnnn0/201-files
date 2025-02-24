@@ -25,6 +25,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/employees', 'archive')->name('employees');
             Route::post('/employees/restore/{employee}', 'restore')->name('employees-restore');
         });
+
+        Route::controller(DocumentController::class)->group(function () {
+            Route::get('/documents', 'archive')->name('documents');
+            Route::post('/documents/restore/{employee}', 'restore')->name('documents-restore');
+        });
     });
 
 

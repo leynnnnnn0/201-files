@@ -22,5 +22,8 @@ import {
         <NavLink href="/archives/employees" :icon="SquareUserRound">
             Employees
         </NavLink>
+        <NavLink href="/archives/documents" :icon="FileText">
+            Documents
+        </NavLink>
     </nav>
 </template>
