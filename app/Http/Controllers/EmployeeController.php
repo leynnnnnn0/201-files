@@ -192,6 +192,7 @@ class EmployeeController extends Controller
                 'path' => $item->path,
             ];
         });
+
         $employee = [
             'first_name' => $employee->first_name,
             'middle_name' => $employee->middle_name,
