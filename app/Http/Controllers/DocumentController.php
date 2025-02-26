@@ -68,10 +68,12 @@ class DocumentController extends Controller
 
 
         $file = $request->file('file');
-        $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+        $originalName = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+        $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+        $path = $file->storeAs('documents', $uniqueName, 'public');
 
-        $path = $file->storeAs('documents', $fileName);
-        $path = $request->file('file')->store('documents', 'public');
 
         try {
             Document::create([
