@@ -97,10 +97,11 @@ class EmployeeController extends Controller
             if ($request->validated()['documents']) {
                 foreach ($request->file('documents') as $document) {
                     $file = $document;
-                    $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
-
-                    $path = $file->storeAs('documents', $fileName);
-                    $path = $document->store('documents', 'public');
+                    $originalName = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+                    $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+                    $path = $file->storeAs('documents', $uniqueName, 'public');
 
                     $document = Document::create([
                         'owner_id' => $employee->id,

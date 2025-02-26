@@ -103,10 +103,12 @@ class DocumentController extends Controller
         DB::beginTransaction();
         foreach ($request->file('documents') as $document) {
             $file = $document;
-            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+            $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $path = $file->storeAs('documents', $uniqueName, 'public');
 
-            $path = $file->storeAs('documents', $fileName);
-            $path = $document->store('documents', 'public');
 
             $document = Document::create([
                 'owner_id' => $validated['employee_id'],
@@ -157,10 +159,11 @@ class DocumentController extends Controller
                 Storage::disk('public')->delete($document->path);
 
             $file = $request->file('file');
-            $fileName = time() . '_' . uniqid() . $file->getClientOriginalName();
-
-            $path = $file->storeAs('documents', $fileName);
-            $path = $request->file('file')->store('documents', 'public');
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+            $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $path = $file->storeAs('documents', $uniqueName, 'public');
         }
 
         $document->update([
