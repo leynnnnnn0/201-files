@@ -25,14 +25,17 @@ class DashboardController extends Controller
                 return [$camelStatus => $item->count];
             });
 
-
-
-
+        $classifications = Employee::select('employment_classification', DB::raw('count(*) as count'))
+            ->groupBy('employment_classification')
+            ->get()
+            ->pluck('count', 'employment_classification');
 
 
         return Inertia::render('Dashboard', [
             'sexCounts' => $sexCounts,
             'statuses' => $statuses,
+            'classifications' => $classifications,
+
         ]);
     }
 }

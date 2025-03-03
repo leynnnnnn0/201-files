@@ -3,12 +3,16 @@ import SummaryBox from "@/Components/SummaryBox.vue";
 import Chart from "primevue/chart";
 import { ref, onMounted } from "vue";
 
-const { sexCounts, statuses } = defineProps({
+const { sexCounts, statuses, classifications } = defineProps({
     sexCounts: {
         type: Object,
         required: true,
     },
     statuses: {
+        type: Object,
+        required: true,
+    },
+    classifications: {
         type: Object,
         required: true,
     },
@@ -20,6 +24,9 @@ onMounted(() => {
 
     chartDataStatus.value = setChartDataStatus();
     chartOptionsStatus.value = setChartOptionsStatus();
+
+    chartDataClassifications.value = setChartDataClassifications();
+    chartOptionsClassifications.value = setChartOptionsClassifications();
 });
 
 const chartData = ref();
@@ -111,6 +118,49 @@ const setChartOptionsStatus = () => {
         },
     };
 };
+
+const chartDataClassifications = ref();
+const chartOptionsClassifications = ref();
+
+const setChartDataClassifications = () => {
+    const documentStyle = getComputedStyle(document.body);
+
+    return {
+        labels: ["Teaching", "Non-Teaching"],
+        datasets: [
+            {
+                data: [
+                    classifications["teaching"],
+                    classifications["non teaching"],
+                ],
+                backgroundColor: [
+                    documentStyle.getPropertyValue("--p-cyan-500"),
+                    documentStyle.getPropertyValue("--p-orange-500"),
+                ],
+                hoverBackgroundColor: [
+                    documentStyle.getPropertyValue("--p-cyan-400"),
+                    documentStyle.getPropertyValue("--p-orange-400"),
+                ],
+            },
+        ],
+    };
+};
+
+const setChartOptionsClassifications = () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue("--p-text-color");
+
+    return {
+        plugins: {
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    color: textColor,
+                },
+            },
+        },
+    };
+};
 </script>
 
 <template>
@@ -144,6 +194,12 @@ const setChartOptionsStatus = () => {
                 type="pie"
                 :data="chartDataStatus"
                 :options="chartOptionsStatus"
+                class="w-full"
+            />
+            <Chart
+                type="doughnut"
+                :data="chartDataClassifications"
+                :options="chartOptionsClassifications"
                 class="w-full"
             />
         </section>
