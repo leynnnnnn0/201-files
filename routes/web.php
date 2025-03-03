@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+
 
     Route::name('archives.')->prefix('archives')->group(function () {
         Route::controller(UserController::class)->group(function () {
