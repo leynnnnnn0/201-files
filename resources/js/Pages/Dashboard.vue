@@ -16,6 +16,10 @@ const { sexCounts, statuses, classifications } = defineProps({
         type: Object,
         required: true,
     },
+    counts: {
+        type: Object,
+        required: true,
+    },
 });
 
 onMounted(() => {
@@ -168,17 +172,17 @@ const setChartOptionsClassifications = () => {
         <section class="grid grid-cols-3 gap-10">
             <SummaryBox
                 heading="Total Employees"
-                value="10"
+                :value="counts['employees']"
                 subheading="Total number of employees"
             />
             <SummaryBox
                 heading="Total Users"
-                value="10"
+                :value="counts['users']"
                 subheading="Total number of users"
             />
             <SummaryBox
                 heading="Total Documents"
-                value="10"
+                :value="counts['documents']"
                 subheading="Total number of documents"
             />
         </section>
