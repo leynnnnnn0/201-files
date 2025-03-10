@@ -33,7 +33,6 @@ const updatePassword = () => {
                 detail: `An error occured while trying to update the password details.`,
                 life: 5000,
             });
-            console.log(e);
         },
     });
 };

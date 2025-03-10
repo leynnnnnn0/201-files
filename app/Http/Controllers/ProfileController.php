@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -36,12 +37,18 @@ class ProfileController extends Controller
         return back();
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request, User $user)
     {
         $validated = $request->validate([
             'password' => ['required', 'min:8'],
             'confirm_password' => ['required', 'same:password'],
         ]);
+
+        $user->update([
+            'password' => Hash::make($validated['password'])
+        ]);
+
+        return back();
     }
     public function edit(Request $request): Response
     {
