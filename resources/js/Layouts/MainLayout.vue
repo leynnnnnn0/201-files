@@ -29,9 +29,9 @@ const logout = () => {
                         <a href="/" class="flex items-center font-semibold">
                             <span class="font-bold">201 Files</span>
                         </a>
-                        <!-- <Link :href="route('profile.index')">
+                        <Link :href="route('profiles.index')">
                             <CircleUser />
-                        </Link> -->
+                        </Link>
                     </div>
                 </div>
                 <div
