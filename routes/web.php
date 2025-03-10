@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::resource('users', UserController::class);
+    // Route::resource('users', UserController::class);
     Route::resource('designations', DesignationController::class);
     Route::resource('positions', PositionController::class);
 

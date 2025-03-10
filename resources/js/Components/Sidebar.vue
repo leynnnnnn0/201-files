@@ -14,7 +14,7 @@ import {
 <template>
     <nav class="grid items-start pl-4 text-sm font-medium">
         <NavLink :href="route('dashboard')" :icon="Home"> Dashboard </NavLink>
-        <NavLink href="/users" :icon="UsersRound"> Users </NavLink>
+        <!-- <NavLink href="/users" :icon="UsersRound"> Users </NavLink> -->
         <NavLink href="/employees" :icon="SquareUserRound"> Employees </NavLink>
         <NavLink href="/documents" :icon="FileText"> Documents </NavLink>
         <Label class="mt-5 ml-3 text-gray-700">Archives</Label>
