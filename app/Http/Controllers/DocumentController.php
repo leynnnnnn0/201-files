@@ -59,6 +59,9 @@ class DocumentController extends Controller
             'file' => ['required', 'file', 'mimes:pdf',  'max:10240'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
+            'office_number' => ['nullable'],
+            'special_number' => ['nullable'],
+            'person_indicated' => ['required']
         ], [
             'file.mimes' => 'The file must be a PDF document.',
             'file.required' => 'Please upload a file.',
@@ -77,6 +80,9 @@ class DocumentController extends Controller
 
         try {
             Document::create([
+                'office_number' => $validated['office_number'],
+                'special_number' => $validated['special_number'],
+                'person_indicated' => $validated['person_indicated'],
                 'name' => $validated['name'],
                 'path' => $path,
                 'description' => $validated['description'],
@@ -150,6 +156,9 @@ class DocumentController extends Controller
             'name' => ['required'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
+            'office_number' => ['nullable'],
+            'special_number' => ['nullable'],
+            'person_indicated' => ['required']
         ]);
 
         $path = null;
@@ -167,6 +176,9 @@ class DocumentController extends Controller
         }
 
         $document->update([
+            'office_number' => $validated['office_number'],
+            'special_number' => $validated['special_number'],
+            'person_indicated' => $validated['person_indicated'],
             'name' => $validated['name'],
             'path' => $path ?? $document->path,
             'description' => $validated['description'],

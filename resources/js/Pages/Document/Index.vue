@@ -34,16 +34,20 @@ const getFileUrl = (path) => {
             </TableHeader>
             <Table>
                 <TableHead>
-                    <TH>Id</TH>
+                    <TH>Office Number</TH>
+                    <TH>Special Number</TH>
+                    <TH>Person Indicated</TH>
                     <TH>Document Name</TH>
                     <TH>Description</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
                     <tr v-for="document in documents.data">
-                        <TD>{{ document.id }}</TD>
+                        <TD>{{ document.office_number ?? "None" }}</TD>
+                        <TD>{{ document.special_number ?? "None" }}</TD>
+                        <TD>{{ document.person_indicated }}</TD>
                         <TD>{{ document.name }}</TD>
-                        <TD>{{ document.description ?? "N/a" }}</TD>
+                        <TD>{{ document.description ?? "None" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <a
                                 target="_blank"
