@@ -13,9 +13,12 @@ class Document extends Model
 
     protected $fillable = [
         'owner_id',
+        'office_number',
+        'special_number',
         'name',
         'path',
         'description',
+        'person_indicated',
         'remarks'
     ];
 
