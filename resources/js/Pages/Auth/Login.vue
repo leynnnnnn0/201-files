@@ -28,8 +28,14 @@ const submit = () => {
 
 <template>
     <div
-        class="flex justify-around min-h-screen max-h-screen items-center sm:p-20 p-5 grid-cols-1"
+        class="flex gap-12 justify-center min-h-screen max-h-screen items-center sm:p-20 p-5 grid-cols-1"
     >
+        <section>
+            <h1 class="text-[180px]">
+                201 <br />
+                FILES
+            </h1>
+        </section>
         <section
             class="w-[500px] border border-gray-300 rounded-lg sm:p-10 sm:space-y-5 space-y-3 p-5"
         >
