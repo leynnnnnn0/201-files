@@ -47,7 +47,7 @@ const { update } = useUpdate(
 
 <template>
     <MainLayout>
-        <Heading>Update Information</Heading>
+        <Heading>Update User Information</Heading>
         <TableContainer>
             <FormInput
                 label="First Name"
