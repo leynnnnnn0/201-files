@@ -18,7 +18,11 @@ class DocumentController extends Controller
         $query = Document::query()->onlyTrashed();
 
         if ($search)
-            $query->where('name', 'like', "%$search%");
+            $query->whereAny(
+                ['name', 'office_number', 'special_number', 'person_indicated'],
+                'like',
+                "%$search%"
+            );
 
         $documents = $query->latest()->paginate(10);
 
@@ -34,7 +38,11 @@ class DocumentController extends Controller
         $query = Document::query()->with(['employee'])->where('owner_id', null);
 
         if ($search)
-            $query->where('name', 'like', "%$search%");
+            $query->whereAny(
+                ['name', 'office_number', 'special_number', 'person_indicated'],
+                'like',
+                "%$search%"
+            );
 
         $documents = $query->latest()->paginate(10);
 
@@ -152,7 +160,7 @@ class DocumentController extends Controller
         $document = Document::findOrFail($id);
 
         $validated = $request->validate([
-            'file' => ['required', 'file'],
+            // 'file' => ['required', 'file'],
             'name' => ['required'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
@@ -163,17 +171,17 @@ class DocumentController extends Controller
 
         $path = null;
 
-        if ($validated['file']) {
-            if (Storage::disk('public')->exists($document->path))
-                Storage::disk('public')->delete($document->path);
+        // if ($validated['file']) {
+        //     if (Storage::disk('public')->exists($document->path))
+        //         Storage::disk('public')->delete($document->path);
 
-            $file = $request->file('file');
-            $originalName = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
-            $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
-            $path = $file->storeAs('documents', $uniqueName, 'public');
-        }
+        //     $file = $request->file('file');
+        //     $originalName = $file->getClientOriginalName();
+        //     $extension = $file->getClientOriginalExtension();
+        //     $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+        //     $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+        //     $path = $file->storeAs('documents', $uniqueName, 'public');
+        // }
 
         $document->update([
             'office_number' => $validated['office_number'],

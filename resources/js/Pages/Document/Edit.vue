@@ -10,6 +10,9 @@ const { document } = defineProps({
     },
 });
 const form = useForm({
+    office_number: document.office_number,
+    special_number: document.special_number,
+    person_indicated: document.person_indicated,
     file: null,
     description: document.description,
     name: document.name,
@@ -49,8 +52,8 @@ const getFileUrl = (path) => {
                     </a>
                 </p>
             </FormInput>
-
-            <!-- <FormInput
+<!-- 
+            <FormInput
                 :isRequired="false"
                 label="File"
                 :errorMessage="form.errors.file"
@@ -60,6 +63,29 @@ const getFileUrl = (path) => {
                     @input="form.file = $event.target.files[0]"
                 />
             </FormInput> -->
+
+            <FormInput
+                label="Office Number"
+                :errorMessage="form.errors.office_number"
+                :isRequired="false"
+            >
+                <Input v-model="form.office_number" />
+            </FormInput>
+
+            <FormInput
+                label="Special Number"
+                :errorMessage="form.errors.special_number"
+                :isRequired="false"
+            >
+                <Input v-model="form.special_number" />
+            </FormInput>
+
+            <FormInput
+                label="Person Indicated"
+                :errorMessage="form.errors.person_indicated"
+            >
+                <Input v-model="form.person_indicated" />
+            </FormInput>
 
             <FormInput label="Name" :errorMessage="form.errors.name">
                 <Input v-model="form.name" />
