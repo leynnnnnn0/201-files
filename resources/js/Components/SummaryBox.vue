@@ -7,7 +7,7 @@ defineProps({
     },
     subheading: String,
     icon: {
-        required: true,
+        required: false,
     },
 });
 </script>
@@ -25,5 +25,4 @@ defineProps({
             <p class="text-xs text-muted-foreground">{{ subheading }}</p>
         </CardContent>
     </Card>
-    
 </template>
