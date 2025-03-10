@@ -14,7 +14,14 @@ use Inertia\Inertia;
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::controller(ProfileController::class)
+        ->name('profiles.')
+        ->prefix('profiles')
+        ->group(function () {
+            Route::put('/update-information/{user}', 'updateInformation')->name('update-information');
 
+            Route::put('/update-password/{user}', 'updatePassword')->name('update-password');
+        });
 
     Route::name('archives.')->prefix('archives')->group(function () {
         // Route::controller(UserController::class)->group(function () {
@@ -36,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Route::resource('users', UserController::class);
+    Route::resource('profiles', ProfileController::class);
     Route::resource('designations', DesignationController::class);
     Route::resource('positions', PositionController::class);
 
