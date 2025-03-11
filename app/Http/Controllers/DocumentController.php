@@ -209,4 +209,12 @@ class DocumentController extends Controller
         $documents->restore();
         return to_route('archives.documents');
     }
+
+    public function show($id)
+    {
+        $document = Document::findOrFail($id);
+        return Inertia::render('Document/Show', [
+            'document' => $document
+        ]);
+    }
 }

@@ -49,12 +49,10 @@ const getFileUrl = (path) => {
                         <TD>{{ document.name }}</TD>
                         <TD>{{ document.description ?? "None" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <a
-                                target="_blank"
-                                :href="getFileUrl(document.path)"
-                            >
-                                <Eye />
-                            </a>
+                            <ShowButton
+                                :isLink="true"
+                                :href="route('documents.show', document.id)"
+                            />
                             <EditButton
                                 :isLink="true"
                                 :href="route('documents.edit', document.id)"
