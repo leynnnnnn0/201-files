@@ -41,12 +41,10 @@ const getFileUrl = (path) => {
                         <TD>{{ document.name }}</TD>
                         <TD>{{ document.description ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <a
-                                target="_blank"
-                                :href="getFileUrl(document.path)"
-                            >
-                                <Eye />
-                            </a>
+                            <ShowButton
+                                :isLink="true"
+                                :href="route('documents.show', document.id)"
+                            />
                             <RestoreButton
                                 @click="
                                     restoreModel(

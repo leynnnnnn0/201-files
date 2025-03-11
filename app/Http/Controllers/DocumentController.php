@@ -212,7 +212,7 @@ class DocumentController extends Controller
 
     public function show($id)
     {
-        $document = Document::findOrFail($id);
+        $document = Document::withTrashed()->findOrFail($id);
         return Inertia::render('Document/Show', [
             'document' => $document
         ]);
