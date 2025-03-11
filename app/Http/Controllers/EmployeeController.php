@@ -94,6 +94,7 @@ class EmployeeController extends Controller
             $validated['image'] = $path;
             $employee = Employee::create(attributes: Arr::except($validated, 'document'));
 
+
             if ($request->validated()['documents']) {
                 foreach ($request->file('documents') as $document) {
                     $file = $document;
@@ -112,6 +113,7 @@ class EmployeeController extends Controller
             }
             DB::commit();
         } catch (Exception $e) {
+            dd($e);
             DB::rollBack();
         }
         return to_route('employees.index');

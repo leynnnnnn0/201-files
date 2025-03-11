@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('owner_id')->nullable()->constrained('employees')->nullOnDelete();
             $table->string('office_number')->nullable();
             $table->string('special_number')->nullable();
-            $table->string('person_indicated');
+            $table->string('person_indicated')->nullable();
             $table->string('name');
             $table->string('path');
             $table->text('description')->nullable();
