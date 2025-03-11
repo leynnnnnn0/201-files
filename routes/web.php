@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(DocumentController::class)->group(function () {
             Route::get('/documents', 'archive')->name('documents');
             Route::post('/documents/restore/{employee}', 'restore')->name('documents-restore');
+            Route::delete('/documents/force-delete/{id}', 'forceDelete')->name('documents-delete');
         });
     });
 

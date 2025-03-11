@@ -1,13 +1,14 @@
 <script setup>
 import useRestore from "@/Composables/useRestore.js";
 import { useSearch } from "@/Composables/useSearch";
+import useDelete from "@/Composables/useDelete.js";
 const { documents } = defineProps({
     documents: {
         type: Object,
         required: true,
     },
 });
-
+const { deleteModel } = useDelete("Document");
 const { search } = useSearch("documents.index");
 const { restoreModel } = useRestore("Documents");
 const getFileUrl = (path) => {
@@ -51,6 +52,16 @@ const getFileUrl = (path) => {
                                     restoreModel(
                                         route(
                                             'archives.documents-restore',
+                                            document.id
+                                        )
+                                    )
+                                "
+                            />
+                            <ForceDeleteButton
+                                @click="
+                                    deleteModel(
+                                        route(
+                                            'archives.documents-delete',
                                             document.id
                                         )
                                     )

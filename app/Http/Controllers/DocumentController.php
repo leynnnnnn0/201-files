@@ -139,8 +139,6 @@ class DocumentController extends Controller
         DB::beginTransaction();
         $document = Document::findOrFail($id);
         $document->delete();
-        if (Storage::disk('public')->exists($document->path))
-            Storage::disk('public')->delete($document->path);
         DB::commit();
 
         return redirect()->route('documents.index');
@@ -153,6 +151,15 @@ class DocumentController extends Controller
         return Inertia::render('Document/Edit', [
             'document' => $document
         ]);
+    }
+
+    public function forceDelete($id)
+    {
+        $document = Document::withTrashed()->findOrFail($id);
+        if (Storage::disk('public')->exists($document->path))
+            Storage::disk('public')->delete($document->path);
+        $document->forceDelete();
+        return back();
     }
 
     public function update(Request $request, $id)
