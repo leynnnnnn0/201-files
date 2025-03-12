@@ -169,6 +169,7 @@ const setChartOptionsClassifications = () => {
 
 <template>
     <MainLayout>
+        <DivHeading title="Dashboard"> </DivHeading>
         <section class="grid grid-cols-2 gap-10">
             <SummaryBox
                 heading="Total Employees"
