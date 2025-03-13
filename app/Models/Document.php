@@ -31,4 +31,9 @@ class Document extends Model
     {
         return $this->employee?->full_name ?? 'N/a';
     }
+
+    public function document_detail()
+    {
+        return $this->belongsTo(DocumentDetail::class);
+    }
 }

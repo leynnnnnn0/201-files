@@ -37,7 +37,6 @@ const getFileUrl = (path) => {
                     <TH>Office Number</TH>
                     <TH>Special Number</TH>
                     <TH>Person Indicated</TH>
-                    <TH>Document Name</TH>
                     <TH>Description</TH>
                     <TH>Actions</TH>
                 </TableHead>
@@ -46,7 +45,6 @@ const getFileUrl = (path) => {
                         <TD>{{ document.office_number ?? "None" }}</TD>
                         <TD>{{ document.special_number ?? "None" }}</TD>
                         <TD>{{ document.person_indicated }}</TD>
-                        <TD>{{ document.name }}</TD>
                         <TD>{{ document.description ?? "None" }}</TD>
                         <TD class="flex flex-center gap-3">
                             <ShowButton

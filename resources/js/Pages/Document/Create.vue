@@ -1,17 +1,24 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import FileUpload from "primevue/fileupload";
 import useStore from "@/Composables/useStore";
 const form = useForm({
     office_number: null,
     special_number: null,
     person_indicated: null,
-    file: null,
     description: null,
     name: null,
     remarks: null,
+    documents: [],
 });
 
 const { store } = useStore(form, route("documents.store"), "Document");
+
+const onSelect = (event) => {
+    form.documents = event.files;
+};
+
+
 </script>
 
 <template>
@@ -42,13 +49,6 @@ const { store } = useStore(form, route("documents.store"), "Document");
                 <Input v-model="form.person_indicated" />
             </FormInput>
 
-            <FormInput label="File" :errorMessage="form.errors.file">
-                <Input
-                    type="file"
-                    @input="form.file = $event.target.files[0]"
-                />
-            </FormInput>
-
             <FormInput label="Name" :errorMessage="form.errors.name">
                 <Input v-model="form.name" />
             </FormInput>
@@ -67,6 +67,24 @@ const { store } = useStore(form, route("documents.store"), "Document");
                 :isRequired="false"
             >
                 <Textarea v-model="form.remarks" />
+            </FormInput>
+
+            <FormInput
+                label="Documents (Accepted Type: PDF)"
+                :errorMessage="form.errors.documents"
+                class="col-span-2"
+            >
+                <FileUpload
+                    @select="onSelect"
+                    :multiple="true"
+                    :showUploadButton="false"
+                    :showCancelButton="false"
+                    :maxFileSize="30000000"
+                >
+                    <template #empty>
+                        <p>Drag and drop files to here to upload.</p>
+                    </template>
+                </FileUpload>
             </FormInput>
 
             <FormFooter>

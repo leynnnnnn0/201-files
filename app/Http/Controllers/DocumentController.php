@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentDetail;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class DocumentController extends Controller
     {
         $search = request('search');
 
-        $query = Document::query()->onlyTrashed();
+        $query = DocumentDetail::query()->onlyTrashed();
 
         if ($search)
             $query->whereAny(
@@ -35,11 +36,11 @@ class DocumentController extends Controller
     {
         $search = request('search');
 
-        $query = Document::query()->with(['employee'])->where('owner_id', null);
+        $query = DocumentDetail::query();
 
         if ($search)
             $query->whereAny(
-                ['name', 'office_number', 'special_number', 'person_indicated'],
+                ['office_number', 'special_number', 'person_indicated'],
                 'like',
                 "%$search%"
             );
@@ -64,38 +65,41 @@ class DocumentController extends Controller
         ini_set('memory_limit', '256M');
         $validated = $request->validate([
             'name' => ['required'],
-            'file' => ['required', 'file', 'mimes:pdf',  'max:10240'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
             'office_number' => ['nullable'],
             'special_number' => ['nullable'],
-            'person_indicated' => ['required']
-        ], [
-            'file.mimes' => 'The file must be a PDF document.',
-            'file.required' => 'Please upload a file.',
-            'file.file' => 'The uploaded file is invalid.',
-            'file.max' => 'The file size cannot exceed 10MB.'
+            'person_indicated' => ['required'],
+            'documents' => ['required', 'array'],
+            'documents.*' => ['sometimes', 'mimes:pdf', 'max:10000']
         ]);
 
 
-        $file = $request->file('file');
-        $originalName = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
-        $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
-        $path = $file->storeAs('documents', $uniqueName, 'public');
-
-
         try {
-            Document::create([
+            DB::beginTransaction();
+            $documentDetail = DocumentDetail::create([
                 'office_number' => $validated['office_number'],
                 'special_number' => $validated['special_number'],
                 'person_indicated' => $validated['person_indicated'],
-                'name' => $validated['name'],
-                'path' => $path,
                 'description' => $validated['description'],
                 'remarks' => $validated['remarks'],
             ]);
+
+            foreach ($request->file('documents') as $document) {
+                $file = $document;
+                $originalName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+                $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+                $path = $file->storeAs('documents', $uniqueName, 'public');
+
+                Document::create([
+                    'document_detail_id' => $documentDetail->id,
+                    'name' => $file->getClientOriginalName(),
+                    'path' => $path,
+                ]);
+            }
+            DB::commit();
         } catch (Exception $e) {
             dd($e);
         }

@@ -17,4 +17,9 @@ class DocumentDetail extends Model
         'person_indicated',
         'remarks'
     ];
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

@@ -18,7 +18,7 @@ const logout = () => {
     <Toast />
     <ConfirmDialog></ConfirmDialog>
     <div
-        class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden"
+        class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden bg-[#0058A5]"
     >
         <div
             class="hidden border-r bg-muted/40 md:block overflow-hidden bg-[#0058A5]"
