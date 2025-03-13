@@ -216,9 +216,17 @@ class DocumentController extends Controller
 
     public function show($id)
     {
-        $document = Document::withTrashed()->findOrFail($id);
+        $documentDetail = DocumentDetail::with('documents')->findOrFail($id);
+
+        $documents = $documentDetail->documents->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'path' => $item->path,
+            ];
+        });
         return Inertia::render('Document/Show', [
-            'document' => $document
+            'document' => $documentDetail,
+            'documents' => $documents
         ]);
     }
 }
