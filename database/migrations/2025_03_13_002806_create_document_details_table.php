@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('person_indicated')->nullable();
             $table->text('description')->nullable();
             $table->text('remarks')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

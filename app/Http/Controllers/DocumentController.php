@@ -71,7 +71,7 @@ class DocumentController extends Controller
             'special_number' => ['nullable'],
             'person_indicated' => ['required'],
             'documents' => ['required', 'array'],
-            'documents.*' => ['sometimes', 'mimes:pdf', 'max:10000']
+            'documents.*' => ['sometimes', 'max:10000']
         ]);
 
 
@@ -141,7 +141,7 @@ class DocumentController extends Controller
     public function destroy($id)
     {
         DB::beginTransaction();
-        $document = Document::findOrFail($id);
+        $document = DocumentDetail::findOrFail($id);
         $document->delete();
         DB::commit();
 
@@ -159,10 +159,13 @@ class DocumentController extends Controller
 
     public function forceDelete($id)
     {
-        $document = Document::withTrashed()->findOrFail($id);
-        if (Storage::disk('public')->exists($document->path))
-            Storage::disk('public')->delete($document->path);
-        $document->forceDelete();
+        $documentDetail = DocumentDetail::withTrashed()->with('documents')->findOrFail($id);
+        foreach ($documentDetail->documents as $document) {
+            if (Storage::disk('public')->exists($document->path))
+                Storage::disk('public')->delete($document->path);
+        }
+        $documentDetail->forceDelete();
+
         return back();
     }
 
@@ -216,7 +219,7 @@ class DocumentController extends Controller
 
     public function show($id)
     {
-        $documentDetail = DocumentDetail::with('documents')->findOrFail($id);
+        $documentDetail = DocumentDetail::withTrashed()->with('documents')->findOrFail($id);
 
         $documents = $documentDetail->documents->map(function ($item) {
             return [
