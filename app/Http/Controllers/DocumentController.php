@@ -159,12 +159,15 @@ class DocumentController extends Controller
 
     public function forceDelete($id)
     {
+        DB::beginTransaction();
         $documentDetail = DocumentDetail::withTrashed()->with('documents')->findOrFail($id);
         foreach ($documentDetail->documents as $document) {
             if (Storage::disk('public')->exists($document->path))
                 Storage::disk('public')->delete($document->path);
+            $document->forceDelete();
         }
         $documentDetail->forceDelete();
+        DB::commit();
 
         return back();
     }
