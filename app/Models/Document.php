@@ -12,14 +12,10 @@ class Document extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'document_detail_id',
         'owner_id',
-        'office_number',
-        'special_number',
         'name',
         'path',
-        'description',
-        'person_indicated',
-        'remarks'
     ];
 
     protected $appends = [

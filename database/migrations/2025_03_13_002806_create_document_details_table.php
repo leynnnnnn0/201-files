@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('document_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('document_detail_id')->nullable()->constrained('documents')->nullOnDelete();
-            $table->foreignId('owner_id')->nullable()->constrained('employees')->nullOnDelete();
-            $table->string('name');
-            $table->string('path');
-            $table->softDeletes();
+            $table->string('office_number')->nullable();
+            $table->string('special_number')->nullable();
+            $table->string('person_indicated')->nullable();
+            $table->text('description')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('document_details');
     }
 };
