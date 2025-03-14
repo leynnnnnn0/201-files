@@ -97,11 +97,9 @@ const onAdvancedUpload = (event) => {
                         <TD>{{ employee.email }}</TD>
                         <TD>{{ employee.phone_number ?? "N/a" }}</TD>
                         <TD class="flex flex-center gap-3">
-                            <Button
-                                variant="link"
-                                class="p-0 text-xs m-0 text-green-500"
+                            <UploadButton
                                 @click="openUploadDocumentModal(employee.id)"
-                                >Upload Document</Button
+                                >Upload Document</UploadButton
                             >
                             <ShowButton
                                 :isLink="true"

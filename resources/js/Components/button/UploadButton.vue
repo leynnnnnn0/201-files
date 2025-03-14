@@ -1,11 +1,5 @@
 <script setup>
-const props = defineProps({
-    isLink: {
-        type: Boolean,
-        default: false,
-    },
-});
-
+import { Upload } from "lucide-vue-next";
 import {
     Tooltip,
     TooltipContent,
@@ -14,20 +8,19 @@ import {
 } from "@/components/ui/tooltip";
 </script>
 <template>
-    <Component
-        :is="isLink ? 'Link' : 'Button'"
-        class="cursor-pointer text-blue-500 p-0 sm:mr-3 size-5"
+    <button
+        class="cursor-pointer text-green-500 sm:mr-3 size-5 hover:underline"
         variant="link"
     >
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger as-child>
-                    <Pencil />
+                    <Upload />
                 </TooltipTrigger>
                 <TooltipContent>
-                    <p>Edit Details</p>
+                    <p>Upload Documents</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
-    </Component>
+    </button>
 </template>

@@ -5,6 +5,13 @@ const props = defineProps({
         default: false,
     },
 });
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 </script>
 <template>
     <Component
@@ -12,6 +19,15 @@ const props = defineProps({
         class="cursor-pointer p-0 size-5 sm:mr-3"
         variant="link"
     >
-        <Eye />
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger as-child>
+                    <Eye />
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Show Details</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     </Component>
 </template>

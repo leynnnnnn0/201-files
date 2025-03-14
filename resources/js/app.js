@@ -55,6 +55,7 @@ import FormFooter from "./Components/form/FormFooter.vue";
 import InfoList from "./Components/InfoList.vue";
 import RestoreButton from "./Components/button/RestoreButton.vue";
 import ForceDeleteButton from "./Components/button/ForceDeleteButton.vue";
+import UploadButton from "./Components/button/UploadButton.vue";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
@@ -104,6 +105,7 @@ createInertiaApp({
             .component("InfoList", InfoList)
             .component("RestoreButton", RestoreButton)
             .component("ForceDeleteButton", ForceDeleteButton)
+            .component("UploadButton", UploadButton)
             .use(ToastService)
             .use(ConfirmationService)
             .use(PrimeVue, {

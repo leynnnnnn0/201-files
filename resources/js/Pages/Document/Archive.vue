@@ -42,7 +42,7 @@ const getFileUrl = (path) => {
                         <TD>{{ document.special_number ?? "None" }}</TD>
                         <TD>{{ document.person_indicated }}</TD>
                         <TD>{{ document.description ?? "None" }}</TD>
-                        <TD class="flex flex-center gap-3">
+                        <TD class="flex items-center flex-center gap-3">
                             <ShowButton
                                 :isLink="true"
                                 :href="route('documents.show', document.id)"

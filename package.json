@@ -28,6 +28,7 @@
         "primeicons": "^7.0.0",
         "primevue": "^4.2.5",
         "radix-vue": "^1.9.12",
+        "reka-ui": "^2.0.2",
         "tailwind-merge": "^2.6.0",
         "tailwindcss-animate": "^1.0.7"
     }
