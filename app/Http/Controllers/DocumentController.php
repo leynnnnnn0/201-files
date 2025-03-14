@@ -220,9 +220,9 @@ class DocumentController extends Controller
 
     public function restore($id)
     {
-        $documents = Document::onlyTrashed()->findOrFail($id);
+        $documents = DocumentDetail::onlyTrashed()->findOrFail($id);
         $documents->restore();
-        return to_route('archives.documents');
+        return back();
     }
 
     public function show($id)

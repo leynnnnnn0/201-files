@@ -129,6 +129,7 @@ const removeDocument = (id) => {
                                     >
                                         <Eye />
                                     </a>
+                                
                                     <DeleteButton
                                         @click="removeDocument(document.id)"
                                     />

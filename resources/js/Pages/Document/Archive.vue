@@ -47,9 +47,15 @@ const getFileUrl = (path) => {
                                 :isLink="true"
                                 :href="route('documents.show', document.id)"
                             />
-                            <EditButton
-                                :isLink="true"
-                                :href="route('documents.edit', document.id)"
+                            <RestoreButton
+                                @click="
+                                    restoreModel(
+                                        route(
+                                            'archives.documents-restore',
+                                            document.id
+                                        )
+                                    )
+                                "
                             />
                             <ForceDeleteButton
                                 @click="
