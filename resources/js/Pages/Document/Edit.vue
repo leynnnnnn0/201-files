@@ -2,21 +2,28 @@
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
 import { watch } from "vue";
+import { ref } from "vue";
+import useAlert from "@/Composables/useAlert.js";
+const { confirm, toast } = useAlert();
 
-const { document } = defineProps({
+const { document, documents } = defineProps({
     document: {
         type: Object,
         required: true,
     },
+    documents: {
+        type: Object,
+        required: true,
+    },
 });
+
 const form = useForm({
     office_number: document.office_number,
     special_number: document.special_number,
     person_indicated: document.person_indicated,
-    file: null,
     description: document.description,
-    name: document.name,
     remarks: document.remarks,
+    removed_documents: [],
 });
 
 const { update } = useUpdate(
@@ -28,6 +35,35 @@ const { update } = useUpdate(
 const getFileUrl = (path) => {
     return `/storage/${path}`;
 };
+const visibleDocuments = ref([...documents]);
+const removeDocument = (id) => {
+    confirm.require({
+        message: `Are you sure you want to remove this document?`,
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        rejectProps: {
+            label: "Cancel",
+            severity: "secondary",
+            outlined: true,
+        },
+        acceptProps: {
+            label: "Confirm",
+            severity: "danger",
+        },
+        accept: () => {
+            visibleDocuments.value = visibleDocuments.value.filter(
+                (doc) => doc.id != id
+            );
+            form.removed_documents.push(id);
+            toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: `Document Removed Successfully.`,
+                life: 5000,
+            });
+        },
+    });
+};
 </script>
 
 <template>
@@ -35,35 +71,6 @@ const getFileUrl = (path) => {
         <Heading>Edit Document</Heading>
 
         <FormContainer>
-            <FormInput
-                :isRequired="false"
-                label="Current File"
-                v-if="document.path"
-                class="col-span-2"
-            >
-                <p class="text-sm text-gray-600">
-                    Current file:
-                    <a
-                        :href="getFileUrl(document.path)"
-                        target="_blank"
-                        class="text-blue-500 hover:underline"
-                    >
-                        {{ document.name }}
-                    </a>
-                </p>
-            </FormInput>
-<!-- 
-            <FormInput
-                :isRequired="false"
-                label="File"
-                :errorMessage="form.errors.file"
-            >
-                <Input
-                    type="file"
-                    @input="form.file = $event.target.files[0]"
-                />
-            </FormInput> -->
-
             <FormInput
                 label="Office Number"
                 :errorMessage="form.errors.office_number"
@@ -87,10 +94,6 @@ const getFileUrl = (path) => {
                 <Input v-model="form.person_indicated" />
             </FormInput>
 
-            <FormInput label="Name" :errorMessage="form.errors.name">
-                <Input v-model="form.name" />
-            </FormInput>
-
             <FormInput
                 label="Description"
                 :errorMessage="form.errors.description"
@@ -106,6 +109,35 @@ const getFileUrl = (path) => {
             >
                 <Textarea v-model="form.remarks" />
             </FormInput>
+
+            <TableContainer class="col-span-2">
+                <Table>
+                    <TableHead>
+                        <TH>ID</TH>
+                        <TH>Document Name</TH>
+                        <TH>Actions</TH>
+                    </TableHead>
+                    <TableBody>
+                        <tr v-for="document in visibleDocuments">
+                            <TD>{{ document.id }}</TD>
+                            <TD>{{ document.name }}</TD>
+                            <TD>
+                                <DivFlexCenter class="gap-2">
+                                    <a
+                                        target="_blank"
+                                        :href="getFileUrl(document.path)"
+                                    >
+                                        <Eye />
+                                    </a>
+                                    <DeleteButton
+                                        @click="removeDocument(document.id)"
+                                    />
+                                </DivFlexCenter>
+                            </TD>
+                        </tr>
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
             <FormFooter>
                 <Button class="text-white" @click="update">Update</Button>

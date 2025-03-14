@@ -150,10 +150,18 @@ class DocumentController extends Controller
 
     public function edit($id)
     {
-        $document = Document::findOrFail($id);
+        $document = DocumentDetail::with('documents')->findOrFail($id);
+        $documents = $document->documents->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'path' => $item->path,
+            ];
+        });
 
         return Inertia::render('Document/Edit', [
-            'document' => $document
+            'document' => $document,
+            'documents' => $documents
         ]);
     }
 
@@ -174,41 +182,38 @@ class DocumentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $document = Document::findOrFail($id);
+        $document = DocumentDetail::findOrFail($id);
 
         $validated = $request->validate([
             // 'file' => ['required', 'file'],
-            'name' => ['required'],
             'description' => ['nullable'],
             'remarks' => ['nullable'],
             'office_number' => ['nullable'],
             'special_number' => ['nullable'],
-            'person_indicated' => ['required']
+            'person_indicated' => ['required'],
+            'removed_documents' => ['nullable'],
         ]);
 
         $path = null;
 
-        // if ($validated['file']) {
-        //     if (Storage::disk('public')->exists($document->path))
-        //         Storage::disk('public')->delete($document->path);
-
-        //     $file = $request->file('file');
-        //     $originalName = $file->getClientOriginalName();
-        //     $extension = $file->getClientOriginalExtension();
-        //     $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
-        //     $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
-        //     $path = $file->storeAs('documents', $uniqueName, 'public');
-        // }
-
+        DB::beginTransaction();
         $document->update([
             'office_number' => $validated['office_number'],
             'special_number' => $validated['special_number'],
             'person_indicated' => $validated['person_indicated'],
-            'name' => $validated['name'],
             'path' => $path ?? $document->path,
             'description' => $validated['description'],
             'remarks' => $validated['remarks'],
         ]);
+
+        if (isset($validated['removed_documents']))
+            foreach ($validated['removed_documents'] as $document) {
+                $document = Document::findOrFail($document);
+                $document->delete();
+                if (Storage::disk('public')->exists($document->path))
+                    Storage::disk('public')->delete($document->path);
+            }
+        DB::commit();
 
         return redirect()->route('documents.index');
     }
