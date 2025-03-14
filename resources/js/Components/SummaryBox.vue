@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-    <Card class="bg-[#006BC3] text-white">
+    <Card>
         <CardHeader
             class="flex flex-row items-center justify-between space-y-0 pb-2"
         >
