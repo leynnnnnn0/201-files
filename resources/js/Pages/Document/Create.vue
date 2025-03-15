@@ -70,7 +70,7 @@ const onSelect = (event) => {
             </FormInput>
 
             <FormInput
-                label="Documents (Accepted Type: PDF)"
+                label="Documents"
                 :errorMessage="form.errors.documents"
                 class="col-span-2"
             >
