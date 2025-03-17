@@ -3,6 +3,7 @@ import { router } from "@inertiajs/vue3";
 export default function useRestore(model) {
     const { confirm, toast } = useAlert();
     const restoreModel = (route) => {
+        console.log('restore');
         confirm.require({
             message: `Are you sure you want to restore this ${model.toLowerCase()}?`,
             header: "Confirmation",

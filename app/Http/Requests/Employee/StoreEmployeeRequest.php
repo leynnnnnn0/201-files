@@ -32,9 +32,9 @@ class StoreEmployeeRequest extends FormRequest
             'employment_classification' => ['required'],
             'designation' => ['required'],
             'status' => ['required'],
-            'sex' => ['required'],
+            'sex' => ['required'],  
             'documents' => ['sometimes', 'array'],
-            'documents.*' => ['sometimes', 'mimes:pdf', 'max:10000']
+            'documents.*' => ['sometimes', 'max:10000']
         ];
     }
 }
