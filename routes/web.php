@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('documents', DocumentController::class);
 
     Route::post('/documents/store-documents', [DocumentController::class, 'storeDocuments'])->name('documents.store-documents');
+
+    Route::post('/documents/upload-documents', [DocumentController::class, 'uploadDocument'])->name('documents.upload-documents');
 });
 
 Route::middleware('auth')->group(function () {

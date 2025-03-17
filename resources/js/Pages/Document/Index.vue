@@ -2,7 +2,7 @@
 import useDelete from "@/Composables/useDelete.js";
 import { useSearch } from "@/Composables/useSearch";
 import { useForm } from "@inertiajs/vue3";
-import { ref  } from "vue";
+import { ref } from "vue";
 import FileUpload from "primevue/fileupload";
 import Dialog from "primevue/dialog";
 defineProps({
@@ -25,18 +25,18 @@ const toast = useToast();
 
 const form = useForm({
     documents: [],
-    employee_id: null,
+    document_detail_id: null,
 });
 const isUploadDocumentModalVisible = ref(false);
 const openUploadDocumentModal = (id) => {
-    form.employee_id = id;
+    form.document_detail_id = id;
     isUploadDocumentModalVisible.value = true;
 };
 
 const onAdvancedUpload = (event) => {
     isLoading.value = true;
     form.documents = event.files;
-    form.post(route("documents.store-documents"), {
+    form.post(route("documents.upload-documents"), {
         onSuccess: () => {
             toast.add({
                 severity: "info",

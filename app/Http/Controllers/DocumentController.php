@@ -58,6 +58,34 @@ class DocumentController extends Controller
         return Inertia::render('Document/Create');
     }
 
+    public function uploadDocument(Request $request)
+    {
+        $validated = $request->validate([
+            'document_detail_id' => ['required'],
+            'documents' => ['required', 'array'],
+            'documents.*' => ['required', 'max:10000']
+        ]);
+
+        DB::beginTransaction();
+        foreach ($request->file('documents') as $document) {
+            $file = $document;
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+            $uniqueName = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $path = $file->storeAs('documents', $uniqueName, 'public');
+
+
+            $document = Document::create([
+                'document_detail_id' => $validated['document_detail_id'],
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+            ]);
+        }
+        DB::commit();
+        to_route('documents.index');
+    }
+
     public function store(Request $request)
     {
         ini_set('upload_max_filesize', '10M');
