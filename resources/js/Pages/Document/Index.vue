@@ -12,7 +12,7 @@ defineProps({
     },
 });
 
-const { deleteModel } = useDelete("Document");
+const { deleteModel } = useDelete("Document", "archive");
 const { search } = useSearch("documents.index");
 const getFileUrl = (path) => {
     return `/storage/${path}`;

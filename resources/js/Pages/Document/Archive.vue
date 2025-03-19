@@ -8,7 +8,7 @@ const { documents } = defineProps({
         required: true,
     },
 });
-const { deleteModel } = useDelete("Document");
+const { deleteModel } = useDelete("Document", "delete");
 const { search } = useSearch("documents.index");
 const { restoreModel } = useRestore("Documents");
 const getFileUrl = (path) => {

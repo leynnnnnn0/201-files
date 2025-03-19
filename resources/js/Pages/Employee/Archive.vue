@@ -10,7 +10,7 @@ const { employees } = defineProps({
 
 const { search } = useSearch("employees.index");
 
-const { restoreModel } = useRestore("Employees");
+const { restoreModel } = useRestore("Employees", "delete");
 </script>
 <template>
     <MainLayout>
@@ -58,7 +58,6 @@ const { restoreModel } = useRestore("Employees");
                                     )
                                 "
                             />
-                         
                         </TD>
                     </tr>
                 </TableBody>

@@ -1,10 +1,11 @@
 import useAlert from "@/Composables/useAlert.js";
 import { router } from "@inertiajs/vue3";
-export default function useDelete(model) {
+export default function useDelete(model, action) {
     const { confirm, toast } = useAlert();
     const deleteModel = (route) => {
+        const todoAction = action == "delete" ? "Deleted" : "Archived";
         confirm.require({
-            message: `Are you sure you want to archive this ${model.toLowerCase()}?`,
+            message: `Are you sure you want to ${action} this ${model.toLowerCase()}?`,
             header: "Confirmation",
             icon: "pi pi-exclamation-triangle",
             rejectProps: {
@@ -22,7 +23,7 @@ export default function useDelete(model) {
                         toast.add({
                             severity: "success",
                             summary: "Success",
-                            detail: `${model} Archived Successfully.`,
+                            detail: `${model} ${todoAction} Successfully.`,
                             life: 5000,
                         });
                     },
@@ -30,7 +31,7 @@ export default function useDelete(model) {
                         toast.add({
                             severity: "error",
                             summary: "Error",
-                            detail: `An error occured while trying to delete this ${model.toLowerCase()}.`,
+                            detail: `An error occured while trying to ${action} this ${model.toLowerCase()}.`,
                             life: 5000,
                         });
                     },

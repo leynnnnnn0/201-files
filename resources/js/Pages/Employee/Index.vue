@@ -24,7 +24,7 @@ const openUploadDocumentModal = (id) => {
     form.employee_id = id;
     isUploadDocumentModalVisible.value = true;
 };
-const { deleteModel } = useDelete("employee");
+const { deleteModel } = useDelete("employee", "archive");
 
 import { useToast } from "primevue/usetoast";
 import Loading from "@/Components/Loading.vue";
