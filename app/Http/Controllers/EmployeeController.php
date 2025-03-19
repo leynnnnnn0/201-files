@@ -183,11 +183,13 @@ class EmployeeController extends Controller
         return to_route('employees.index');
     }
 
-  
+
 
     public function show($id)
     {
         $employee = Employee::with('documents')->withTrashed()->findOrFail($id);
+
+
 
         $documents = $employee->documents->map(function ($item) {
             return [
@@ -205,11 +207,18 @@ class EmployeeController extends Controller
             'employment_classification' => $employee->employment_classification,
             'status' => $employee->status,
             'sex' => $employee->sex,
-            'designation' => $employee->designation,
+            'office_colleges' => $employee->office_colleges,
             'position' => $employee->position,
             'documents' => $documents,
+            'address' => $employee->address,
+            'philhealth_id' => $employee->philhealth_id,
+            'pag_ibig_id' => $employee->pag_ibig_id,
+            'tin_id' => $employee->tin_id,
+            'gsis_id' => $employee->gsis_id,
             'image' => Storage::url($employee->image)
         ];
+
+
         return Inertia::render('Employee/Show', [
             'employee' => $employee
         ]);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('position');
-            $table->string('designation');
+            $table->string('office_colleges');
             $table->string('employment_classification');
             $table->string('status');
             $table->string('sex');
@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('address');
+            $table->string('philhealth_id')->nullable();
+            $table->string('pag_ibig_id')->nullable();
+            $table->string('tin_id')->nullable();
+            $table->string('gsis_id')->nullable();
             $table->string('phone_number');
             $table->softDeletes();
             $table->timestamps();

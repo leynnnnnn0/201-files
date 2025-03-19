@@ -13,7 +13,7 @@ class Employee extends Model
 
     protected $fillable = [
         'position',
-        'designation',
+        'office_colleges',
         'employment_classification',
         'status',
         'sex',
@@ -23,6 +23,11 @@ class Employee extends Model
         'last_name',
         'email',
         'phone_number',
+        'address',
+        'philhealth_id',
+        'pag_ibig_id',
+        'tin_id',
+        'gsis_id',
         'password',
     ];
 

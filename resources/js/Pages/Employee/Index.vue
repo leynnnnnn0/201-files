@@ -82,7 +82,7 @@ const onAdvancedUpload = (event) => {
                 <TableHead>
                     <TH>Id</TH>
                     <TH>Full Name</TH>
-                    <TH>Designation</TH>
+                    <TH>Office/Colleges</TH>
                     <TH>Position</TH>
                     <TH>Email</TH>
                     <TH>Phone Number</TH>
@@ -92,7 +92,7 @@ const onAdvancedUpload = (event) => {
                     <tr v-for="employee in employees.data">
                         <TD>{{ employee.id }}</TD>
                         <TD>{{ employee.full_name }}</TD>
-                        <TD>{{ employee.designation }}</TD>
+                        <TD>{{ employee.office_colleges }}</TD>
                         <TD>{{ employee.position }}</TD>
                         <TD>{{ employee.email }}</TD>
                         <TD>{{ employee.phone_number ?? "N/a" }}</TD>

@@ -9,7 +9,7 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    designations: {
+    office_collegess: {
         type: Object,
         required: true,
     },
@@ -30,7 +30,7 @@ const props = defineProps({
 const form = useForm({
     image: null,
     position: null,
-    designation: null,
+    office_colleges: null,
     employment_classification: null,
     status: null,
     sex: null,
@@ -39,6 +39,11 @@ const form = useForm({
     last_name: null,
     email: null,
     phone_number: null,
+    philhealth_id: null,
+    pag_ibig_id: null,
+    tin_id: null,
+    gsis_id: null,
+    address: null,
     documents: [],
 });
 
@@ -132,10 +137,10 @@ function onFileSelect(event) {
                 </FormSelect>
             </FormInput>
             <FormInput
-                label="Designation"
-                :errorMessage="form.errors.designation"
+                label="Office/Colleges"
+                :errorMessage="form.errors.office_colleges"
             >
-                <Input v-model="form.designation" />
+                <Input v-model="form.office_colleges" />
             </FormInput>
             <FormInput
                 label="Employment Classification"
@@ -166,6 +171,42 @@ function onFileSelect(event) {
                         >{{ label }}</SelectItem
                     >
                 </FormSelect>
+            </FormInput>
+
+            <FormInput
+                label="Phil Health ID"
+                :isRequired="false"
+                :errorMessage="form.errors.philhealth_id"
+            >
+                <Input v-model="form.philhealth_id" />
+            </FormInput>
+
+            <FormInput
+                label="Pag-ibig ID"
+                :isRequired="false"
+                :errorMessage="form.errors.pag_ibig_id"
+            >
+                <Input v-model="form.pag_ibig_id" />
+            </FormInput>
+
+            <FormInput
+                label="TIN ID"
+                :isRequired="false"
+                :errorMessage="form.errors.tin_id"
+            >
+                <Input v-model="form.tin_id" />
+            </FormInput>
+
+            <FormInput
+                label="GSIS ID"
+                :isRequired="false"
+                :errorMessage="form.errors.gsis_id"
+            >
+                <Input v-model="form.gsis_id" />
+            </FormInput>
+
+            <FormInput label="Address" :errorMessage="form.errors.address">
+                <Textarea v-model="form.address" />
             </FormInput>
 
             <FormInput

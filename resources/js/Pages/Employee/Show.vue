@@ -29,14 +29,30 @@ const getFileUrl = (path) => {
             <InfoList label="Sex" :value="employee.sex" />
             <InfoList label="Phone Number" :value="employee.phone_number" />
             <InfoList label="Email" :value="employee.email" />
+            <InfoList label="Address" :value="employee.address" />
             <InfoList label="Position" :value="employee.position" />
-            <InfoList label="Designation" :value="employee.designation" />
+            <InfoList
+                label="Office/Colleges"
+                :value="employee.office_colleges"
+            />
             <InfoList
                 label="Employment Classification"
                 :value="employee.employment_classification"
             />
             <InfoList label="Status" :value="employee.status" />
+
+            <InfoList
+                label="PhilHealth ID"
+                :value="employee.philhealth_id ?? 'N/a'"
+            />
+            <InfoList
+                label="Pag-ibig ID"
+                :value="employee.pag_ibig_id ?? 'N/a'"
+            />
+            <InfoList label="TIN ID" :value="employee.tin_id ?? 'N/a'" />
+            <InfoList label="GSIS ID" :value="employee.gsis_id ?? 'N/a'" />
         </FormContainer>
+
         <FormContainer>
             <Label class="col-span-2">Documents</Label>
             <Label class="col-span-2" v-for="document in employee.documents">

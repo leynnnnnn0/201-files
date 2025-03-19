@@ -30,9 +30,14 @@ class StoreEmployeeRequest extends FormRequest
             'phone_number' => ['required'],
             'position' => ['required'],
             'employment_classification' => ['required'],
-            'designation' => ['required'],
+            'office_colleges' => ['required'],
+            'philhealth_id' => ['nullable'],
+            'pag_ibig_id' => ['nullable'],
+            'tin_id' => ['nullable'],
+            'gsis_id' => ['nullable'],
+            'address' => ['required'],
             'status' => ['required'],
-            'sex' => ['required'],  
+            'sex' => ['required'],
             'documents' => ['sometimes', 'array'],
             'documents.*' => ['sometimes', 'max:10000']
         ];

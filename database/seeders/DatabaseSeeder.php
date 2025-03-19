@@ -34,14 +34,15 @@ class DatabaseSeeder extends Seeder
 
         Employee::factory()->create([
             'position' => 'test',
-            'designation' => 'test',
+            'office_colleges' => 'test',
             'employment_classification' => 'teaching',
             'status' => 'casual',
             'sex' => 'male',
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test@example.com',
-            'phone_number' => '0926688728'
+            'phone_number' => '0926688728',
+            'address' => 'here'
         ]);
     }
 }

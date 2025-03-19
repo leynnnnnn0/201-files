@@ -12,7 +12,7 @@ const { employee, documents } = defineProps({
         type: Object,
         required: true,
     },
-    designations: {
+    office_collegess: {
         type: Object,
         required: true,
     },
@@ -42,7 +42,7 @@ const { employee, documents } = defineProps({
 const form = useForm({
     image: null,
     position: employee.position,
-    designation: employee.designation,
+    office_colleges: employee.office_colleges,
     employment_classification: employee.employment_classification,
     status: employee.status,
     sex: employee.sex,
@@ -51,6 +51,11 @@ const form = useForm({
     last_name: employee.last_name,
     email: employee.email,
     phone_number: employee.phone_number,
+    philhealth_id: employee.philhealth_id,
+    pag_ibig_id: employee.pag_ibig_id,
+    tin_id: employee.tin_id,
+    gsis_id: employee.gsis_id,
+    address: employee.address,
     removed_documents: [],
 });
 
@@ -194,10 +199,10 @@ function onFileSelect(event) {
                 </FormSelect>
             </FormInput>
             <FormInput
-                label="Designation"
-                :errorMessage="form.errors.designation"
+                label="Office/Colleges"
+                :errorMessage="form.errors.office_colleges"
             >
-                <Input v-model="form.designation" />
+                <Input v-model="form.office_colleges" />
             </FormInput>
             <FormInput
                 label="Employment Classification"
@@ -228,6 +233,49 @@ function onFileSelect(event) {
                         >{{ label }}</SelectItem
                     >
                 </FormSelect>
+            </FormInput>
+
+            <FormInput
+                label="Office/Colleges"
+                :errorMessage="form.errors.office_colleges"
+            >
+                <Input v-model="form.office_colleges" />
+            </FormInput>
+
+            <FormInput
+                label="Phil Health ID"
+                :isRequired="false"
+                :errorMessage="form.errors.philhealth_id"
+            >
+                <Input v-model="form.philhealth_id" />
+            </FormInput>
+
+            <FormInput
+                label="Pag-ibig ID"
+                :isRequired="false"
+                :errorMessage="form.errors.pag_ibig_id"
+            >
+                <Input v-model="form.pag_ibig_id" />
+            </FormInput>
+
+            <FormInput
+                label="TIN ID"
+                :isRequired="false"
+                :errorMessage="form.errors.tin_id"
+            >
+                <Input v-model="form.tin_id" />
+            </FormInput>
+
+            <FormInput
+                label="GSIS ID"
+                :isRequired="false"
+                :errorMessage="form.errors.gsis_id"
+            >
+                <Input v-model="form.gsis_id" />
+            </FormInput>
+
+            <FormInput label="Address" :errorMessage="form.errors.address">
+                <Textarea v-model="form.address" />
             </FormInput>
 
             <TableContainer class="col-span-2">
