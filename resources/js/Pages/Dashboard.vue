@@ -170,7 +170,7 @@ const setChartOptionsClassifications = () => {
 <template>
     <MainLayout>
         <DivHeading title="Dashboard"> </DivHeading>
-        <section class="grid grid-cols-2 gap-10">
+        <section class="grid grid-cols-1 gap-10">
             <SummaryBox
                 heading="Total Employees"
                 :value="counts['employees']"
@@ -181,11 +181,6 @@ const setChartOptionsClassifications = () => {
                 :value="counts['users']"
                 subheading="Total number of users"
             /> -->
-            <SummaryBox
-                heading="Total Documents"
-                :value="counts['documents']"
-                subheading="Total number of documents"
-            />
         </section>
 
         <section class="grid grid-cols-3 gap-5">
