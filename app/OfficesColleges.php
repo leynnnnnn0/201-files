@@ -2,8 +2,11 @@
 
 namespace App;
 
+use App\Traits\HasEnumOptions;
+
 enum OfficesColleges: string
 {
+    use HasEnumOptions;
     case ATBI = 'ATBI';
     case BAKERY = 'BAKERY';
     case CA = 'CA';
@@ -52,7 +55,7 @@ enum OfficesColleges: string
     case OES = 'OES';
     case OP = 'OP';
     case ORS = 'ORS';
-    case OSS = 'OSS';
+    case OSS = 'OSSw';
     case OU = 'OU';
     case OUR = 'OUR';
     case OVPAA = 'OVPAA';

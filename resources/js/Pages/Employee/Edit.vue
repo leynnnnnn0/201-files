@@ -7,12 +7,8 @@ import FileUpload from "primevue/fileupload";
 import useAlert from "@/Composables/useAlert.js";
 const { confirm, toast } = useAlert();
 
-const { employee, documents } = defineProps({
+const { employee, documents, officesColleges } = defineProps({
     positions: {
-        type: Object,
-        required: true,
-    },
-    office_collegess: {
         type: Object,
         required: true,
     },
@@ -37,7 +33,12 @@ const { employee, documents } = defineProps({
         required: true,
     },
     image: String,
+    officesColleges: {
+        type: Object,
+        required: true,
+    },
 });
+console.log(officesColleges);
 
 const form = useForm({
     image: null,
@@ -58,6 +59,8 @@ const form = useForm({
     address: employee.address,
     removed_documents: [],
 });
+
+console.log(form.office_colleges);
 
 const update = () => {
     confirm.require({
@@ -239,7 +242,13 @@ function onFileSelect(event) {
                 label="Office/Colleges"
                 :errorMessage="form.errors.office_colleges"
             >
-                <Input v-model="form.office_colleges" />
+                <FormSelect v-model="form.office_colleges">
+                    <SelectItem
+                        v-for="(label, value) in officesColleges"
+                        :value="value"
+                        >{{ label }}</SelectItem
+                    >
+                </FormSelect>
             </FormInput>
 
             <FormInput label="Address" :errorMessage="form.errors.address">

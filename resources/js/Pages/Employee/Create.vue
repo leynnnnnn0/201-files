@@ -9,10 +9,6 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    office_collegess: {
-        type: Object,
-        required: true,
-    },
     sexes: {
         type: Object,
         required: true,
@@ -22,6 +18,10 @@ const props = defineProps({
         required: true,
     },
     employmentClassifications: {
+        type: Object,
+        required: true,
+    },
+    officesColleges: {
         type: Object,
         required: true,
     },
@@ -140,7 +140,13 @@ function onFileSelect(event) {
                 label="Office/Colleges"
                 :errorMessage="form.errors.office_colleges"
             >
-                <Input v-model="form.office_colleges" />
+                <FormSelect v-model="form.office_colleges">
+                    <SelectItem
+                        v-for="(label, value) in officesColleges"
+                        :value="value"
+                        >{{ label }}</SelectItem
+                    >
+                </FormSelect>
             </FormInput>
             <FormInput
                 label="Employment Classification"

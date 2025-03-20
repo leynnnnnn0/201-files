@@ -67,11 +67,12 @@ class EmployeeController extends Controller
     {
         $positions = PositionEnum::options();
         $designations = Designation::getOptions();
-        $officesColleges = array_column(OfficesColleges::cases(), 'value');
-        $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
+        $officesColleges = OfficesColleges::options();
+
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
         $sexes = Sex::options();
+
         return Inertia::render('Employee/Create', [
             'positions' => $positions,
             'designations' => $designations,
@@ -127,7 +128,7 @@ class EmployeeController extends Controller
         $positions = PositionEnum::options();
         $designations = Designation::getOptions();
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
-        $officesColleges = array_column(OfficesColleges::cases(), 'value');
+        $officesColleges = OfficesColleges::options();
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
         $sexes = Sex::options();
