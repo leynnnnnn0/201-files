@@ -11,6 +11,7 @@ use App\Models\Designation;
 use App\Models\Document;
 use App\Models\Employee;
 use App\Models\Position;
+use App\OfficesColleges;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -66,6 +67,7 @@ class EmployeeController extends Controller
     {
         $positions = PositionEnum::options();
         $designations = Designation::getOptions();
+        $officesColleges = array_column(OfficesColleges::cases(), 'value');
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
@@ -76,6 +78,7 @@ class EmployeeController extends Controller
             'employmentClassifications' => $employmentClassifications,
             'statuses' => $statuses,
             'sexes' => $sexes,
+            'officesColleges' => $officesColleges
         ]);
     }
 
@@ -124,6 +127,7 @@ class EmployeeController extends Controller
         $positions = PositionEnum::options();
         $designations = Designation::getOptions();
         $employmentClassifications = array_column(EmploymentClassification::cases(), 'value');
+        $officesColleges = array_column(OfficesColleges::cases(), 'value');
         $employmentClassifications = EmploymentClassification::options();
         $statuses = Status::options();
         $sexes = Sex::options();
@@ -144,6 +148,7 @@ class EmployeeController extends Controller
             'sexes' => $sexes,
             'employee' => $employee,
             'documents' => $documents,
+            'officesColleges' => $officesColleges,
             'image' => Storage::url($employee->image)
         ]);
     }
