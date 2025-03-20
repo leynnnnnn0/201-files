@@ -173,41 +173,43 @@ function onFileSelect(event) {
                 </FormSelect>
             </FormInput>
 
-            <FormInput
-                label="Phil Health ID"
-                :isRequired="false"
-                :errorMessage="form.errors.philhealth_id"
-            >
-                <Input v-model="form.philhealth_id" />
-            </FormInput>
-
-            <FormInput
-                label="Pag-ibig ID"
-                :isRequired="false"
-                :errorMessage="form.errors.pag_ibig_id"
-            >
-                <Input v-model="form.pag_ibig_id" />
-            </FormInput>
-
-            <FormInput
-                label="TIN ID"
-                :isRequired="false"
-                :errorMessage="form.errors.tin_id"
-            >
-                <Input v-model="form.tin_id" />
-            </FormInput>
-
-            <FormInput
-                label="GSIS ID"
-                :isRequired="false"
-                :errorMessage="form.errors.gsis_id"
-            >
-                <Input v-model="form.gsis_id" />
-            </FormInput>
-
             <FormInput label="Address" :errorMessage="form.errors.address">
                 <Textarea v-model="form.address" />
             </FormInput>
+
+            <FormContainer class="col-span-2">
+                <FormInput
+                    label="Phil Health ID"
+                    :isRequired="false"
+                    :errorMessage="form.errors.philhealth_id"
+                >
+                    <Input v-model="form.philhealth_id" />
+                </FormInput>
+
+                <FormInput
+                    label="Pag-ibig ID"
+                    :isRequired="false"
+                    :errorMessage="form.errors.pag_ibig_id"
+                >
+                    <Input v-model="form.pag_ibig_id" />
+                </FormInput>
+
+                <FormInput
+                    label="TIN ID"
+                    :isRequired="false"
+                    :errorMessage="form.errors.tin_id"
+                >
+                    <Input v-model="form.tin_id" />
+                </FormInput>
+
+                <FormInput
+                    label="GSIS ID"
+                    :isRequired="false"
+                    :errorMessage="form.errors.gsis_id"
+                >
+                    <Input v-model="form.gsis_id" />
+                </FormInput>
+            </FormContainer>
 
             <FormInput
                 label="Documents"

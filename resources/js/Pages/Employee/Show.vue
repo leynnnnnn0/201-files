@@ -40,7 +40,9 @@ const getFileUrl = (path) => {
                 :value="employee.employment_classification"
             />
             <InfoList label="Status" :value="employee.status" />
+        </FormContainer>
 
+        <FormContainer>
             <InfoList
                 label="PhilHealth ID"
                 :value="employee.philhealth_id ?? 'N/a'"
