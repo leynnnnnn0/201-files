@@ -75,6 +75,8 @@ const submit = () => {
                         />
                     </div>
 
+                    <InputError :message="form.errors.email" />
+
                     <div class="flex items-center justify-between mt-3">
                         <div class="block">
                             <label class="flex items-center">
