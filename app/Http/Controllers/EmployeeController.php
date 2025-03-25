@@ -29,7 +29,7 @@ class EmployeeController extends Controller
         $query = Employee::query()->onlyTrashed()->with('documents');
 
         if ($search)
-            $query->whereAny(['first_name', 'last_name', 'id', 'designation', 'position'], 'like', "%$search%");
+            $query->whereAny(['first_name', 'last_name', 'id', 'office_colleges', 'position'], 'like', "%$search%");
 
         $employees = $query->latest()->paginate(10)->withQueryString();
 

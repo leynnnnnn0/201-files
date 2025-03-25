@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-[p-badge]{
-  display: none;
+[data-pc-name="pcfilebadge"] {
+  display: none !important;
 }
 
 @layer base {
