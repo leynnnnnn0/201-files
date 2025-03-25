@@ -31,13 +31,6 @@ const submit = () => {
     <div
         class="bg-gradient-to-r from-pink-300 via-purple-400 to-blue-500 flex gap-12 justify-center min-h-screen max-h-screen items-center sm:p-20 p-5 grid-cols-1"
     >
-        <section>
-            <h1 class="text-[180px] text-white">
-                201 <br />
-                FILES
-            </h1>
-        </section>
-
         <div class="flex flex-col items-center justify-center">
             <section
                 class="bg-white/60 h-fit w-96 rounded-2xl relative p-10 shadow-xl"
