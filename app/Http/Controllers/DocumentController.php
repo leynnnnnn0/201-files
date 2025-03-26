@@ -25,7 +25,7 @@ class DocumentController extends Controller
                 "%$search%"
             );
 
-        $documents = $query->latest()->paginate(10);
+        $documents = $query->paginate(10);
 
         return Inertia::render('Document/Archive', [
             'documents' => $documents,
@@ -45,7 +45,7 @@ class DocumentController extends Controller
                 "%$search%"
             );
 
-        $documents = $query->latest()->paginate(10);
+        $documents = $query->paginate(10);
 
         return Inertia::render('Document/Index', [
             'documents' => $documents,

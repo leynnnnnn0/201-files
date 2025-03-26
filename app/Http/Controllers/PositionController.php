@@ -17,7 +17,7 @@ class PositionController extends Controller
         if ($search)
             $query->where('name', 'like', "%$search%");
 
-        $data = $query->latest()->paginate(10)->withQueryString();
+        $data = $query->paginate(10)->withQueryString();
         return Inertia::render('Position/Index', [
             'data' => $data,
             'filters' => request()->only(['search'])

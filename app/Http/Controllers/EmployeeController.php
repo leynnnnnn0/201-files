@@ -31,7 +31,7 @@ class EmployeeController extends Controller
         if ($search)
             $query->whereAny(['first_name', 'last_name', 'id', 'office_colleges', 'position'], 'like', "%$search%");
 
-        $employees = $query->latest()->paginate(10)->withQueryString();
+        $employees = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Employee/Archive', [
             'employees' => $employees,
@@ -55,7 +55,7 @@ class EmployeeController extends Controller
         if ($search)
             $query->whereAny(['first_name', 'last_name', 'id', 'position', 'office_colleges'], 'like', "%$search%");
 
-        $employees = $query->latest()->paginate(10)->withQueryString();
+        $employees = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Employee/Index', [
             'employees' => $employees,

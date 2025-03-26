@@ -23,7 +23,7 @@ class UserController extends Controller
 
         if ($search)
             $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
-        $users = $query->latest()->paginate(10)->withQueryString();
+        $users = $query->paginate(10)->withQueryString();
 
         return Inertia::render('User/Archive', [
             'users' => $users,
@@ -45,7 +45,7 @@ class UserController extends Controller
 
         if ($search)
             $query->whereAny(['first_name', 'last_name'], 'like', "%$search%");
-        $users = $query->latest()->paginate(10)->withQueryString();
+        $users = $query->paginate(10)->withQueryString();
 
         return Inertia::render('User/Index', [
             'users' => $users,
