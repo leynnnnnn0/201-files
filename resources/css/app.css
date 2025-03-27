@@ -6,6 +6,11 @@
   display: none !important;
 }
 
+[data-pc-section="filethumbnail"] {
+  display: none !important;
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
