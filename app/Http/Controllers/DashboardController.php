@@ -15,27 +15,47 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $totalEmployees = Employee::count();
+
         $sexCounts = Employee::select('sex', DB::raw('count(*) as count'))
             ->groupBy('sex')
-            ->pluck('count', 'sex');
+            ->get()
+            ->mapWithKeys(function ($item) use ($totalEmployees) {
+                $percentage = ($item->count / $totalEmployees) * 100;
+                return [$item->sex => [
+                    'count' => $item->count,
+                    'percentage' => round($percentage, 2)
+                ]];
+            });
+
 
         $statuses = Employee::select('status', DB::raw('count(*) as count'))
             ->groupBy('status')
             ->get()
-            ->mapWithKeys(function ($item) {
+            ->mapWithKeys(function ($item) use ($totalEmployees) {
+                $percentage = ($item->count / $totalEmployees) * 100;
                 $camelStatus = Str::camel($item->status);
-                return [$camelStatus => $item->count];
+                return [$camelStatus => [
+                    'count' => $item->count,
+                    'percentage' => round($percentage, 2)
+                ]];
             });
 
         $classifications = Employee::select('employment_classification', DB::raw('count(*) as count'))
             ->groupBy('employment_classification')
             ->get()
-            ->pluck('count', 'employment_classification');
+            ->mapWithKeys(function ($item) use ($totalEmployees) {
+                $percentage = ($item->count / $totalEmployees) * 100;
+                return [$item->employment_classification => [
+                    'count' => $item->count,
+                    'percentage' => round($percentage, 2)
+                ]];
+            });
+
 
         $documentsCount = ModelsDocument::count();
-        $employeesCount = Employee::count();
+        $employeesCount = $totalEmployees;
         $usersCount = User::count();
-
 
         return Inertia::render('Dashboard', [
             'sexCounts' => $sexCounts,
@@ -46,7 +66,6 @@ class DashboardController extends Controller
                 'employees' => $employeesCount,
                 'users' => $usersCount,
             ]
-
         ]);
     }
 }

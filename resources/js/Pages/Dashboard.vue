@@ -43,7 +43,10 @@ const setChartData = () => {
         labels: ["Male", "Female"],
         datasets: [
             {
-                data: [sexCounts["male"], sexCounts["female"]],
+                data: [
+                    sexCounts["male"] ? sexCounts["male"]["percentage"] : 0,
+                    sexCounts["female"] ? sexCounts["female"]["percentage"] : 0,
+                ],
                 backgroundColor: [
                     documentStyle.getPropertyValue("--p-cyan-500"),
                     documentStyle.getPropertyValue("--p-orange-500"),
@@ -81,16 +84,22 @@ const setChartDataStatus = () => {
 
     return {
         labels: [
-            "Permanent",
             "Casual",
+            "Permanent",
             "Contract of service / Job order personnel",
         ],
         datasets: [
             {
                 data: [
-                    statuses["casual"],
-                    statuses["permanent"],
-                    statuses["contractOfService/JobOrderPersonnel"],
+                    statuses["casual"] ? statuses["casual"]["percentage"] : 0,
+                    statuses["permanent"]
+                        ? statuses["permanent"]["percentage"]
+                        : 0,
+                    statuses["contractOfService/JobOrderPersonnel"]
+                        ? statuses["contractOfService/JobOrderPersonnel"][
+                              "percentage"
+                          ]
+                        : 0,
                 ],
                 backgroundColor: [
                     documentStyle.getPropertyValue("--p-cyan-500"),
@@ -125,7 +134,6 @@ const setChartOptionsStatus = () => {
 
 const chartDataClassifications = ref();
 const chartOptionsClassifications = ref();
-
 const setChartDataClassifications = () => {
     const documentStyle = getComputedStyle(document.body);
 
@@ -134,8 +142,12 @@ const setChartDataClassifications = () => {
         datasets: [
             {
                 data: [
-                    classifications["teaching"],
-                    classifications["non teaching"],
+                    classifications["teaching"] 
+                        ? classifications["teaching"]["percentage"]
+                        : 0,
+                    classifications["non teaching"] 
+                        ? classifications["non teaching"]["percentage"]
+                        : 0,
                 ],
                 backgroundColor: [
                     documentStyle.getPropertyValue("--p-cyan-500"),
