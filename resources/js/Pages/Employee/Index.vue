@@ -60,6 +60,19 @@ const onAdvancedUpload = (event) => {
         },
     });
 };
+
+const statusColor = (status) => {
+    switch (status) {
+        case "permanent":
+            return "text-green-500 text-white";
+        case "casual":
+            return "text-blue-500 text-white";
+        case "contract of service / job order personnel":
+            return "text-yellow-500 text-white";
+        default:
+            return "";
+    }
+};
 </script>
 <template>
     <MainLayout>
@@ -84,8 +97,7 @@ const onAdvancedUpload = (event) => {
                     <TH>Full Name</TH>
                     <TH>Office/Colleges</TH>
                     <TH>Position</TH>
-                    <TH>Email</TH>
-                    <TH>Phone Number</TH>
+                    <TH>Status</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
@@ -93,9 +105,14 @@ const onAdvancedUpload = (event) => {
                         <TD>{{ employee.id }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
-                        <TD>{{ employee.position }}</TD>
-                        <TD>{{ employee.email }}</TD>
-                        <TD>{{ employee.phone_number ?? "N/a" }}</TD>
+                        <TD> {{ employee.position }}</TD>
+                        <TD>
+                            <span
+                                class="text-white px-3 py-1 font-bold text-xs rounded-lg"
+                            >
+                                {{ employee.status.toUpperCase() }}
+                            </span>
+                        </TD>
                         <TD class="flex flex-center gap-3">
                             <UploadButton
                                 @click="openUploadDocumentModal(employee.id)"
