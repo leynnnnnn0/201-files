@@ -62,15 +62,16 @@ const onAdvancedUpload = (event) => {
 };
 
 const statusColor = (status) => {
-    switch (status) {
+    const statusLower = status.toLowerCase();
+    switch (statusLower) {
         case "permanent":
-            return "text-green-500 text-white";
+            return "bg-green-500 text-white";
         case "casual":
-            return "text-blue-500 text-white";
+            return "bg-blue-500 text-white";
         case "contract of service / job order personnel":
-            return "text-yellow-500 text-white";
+            return "bg-yellow-500 text-white";
         default:
-            return "";
+            return "bg-gray-500 text-white";
     }
 };
 </script>
@@ -108,7 +109,8 @@ const statusColor = (status) => {
                         <TD> {{ employee.position }}</TD>
                         <TD>
                             <span
-                                class="text-white px-3 py-1 font-bold text-xs rounded-lg"
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="statusColor(employee.status)"
                             >
                                 {{ employee.status.toUpperCase() }}
                             </span>
