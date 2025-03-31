@@ -55,7 +55,7 @@ class EmployeeController extends Controller
         if ($search)
             $query->whereAny(['first_name', 'last_name', 'id', 'position', 'office_colleges'], 'like', "%$search%");
 
-        $employees = $query->paginate(10)->withQueryString();
+        $employees = $query->orderBy('last_name', 'asc')->paginate(10)->withQueryString();
 
         return Inertia::render('Employee/Index', [
             'employees' => $employees,

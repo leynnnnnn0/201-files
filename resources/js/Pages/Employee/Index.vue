@@ -99,6 +99,8 @@ const statusColor = (status) => {
                     <TH>Office/Colleges</TH>
                     <TH>Position</TH>
                     <TH>Status</TH>
+                    <TH>Employment Classfication</TH>
+                    <TH>Sex</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
@@ -115,6 +117,9 @@ const statusColor = (status) => {
                                 {{ employee.status.toUpperCase() }}
                             </span>
                         </TD>
+                        <TD>{{ employee.employment_classification }}</TD>
+                        <TD>{{ employee.sex }}</TD>
+
                         <TD class="flex flex-center gap-3">
                             <UploadButton
                                 @click="openUploadDocumentModal(employee.id)"
