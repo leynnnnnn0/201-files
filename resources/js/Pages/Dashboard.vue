@@ -72,6 +72,13 @@ const setChartOptions = () => {
                     color: textColor,
                 },
             },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.label + ": " + context.raw + "%";
+                    },
+                },
+            },
         },
     };
 };
@@ -128,6 +135,13 @@ const setChartOptionsStatus = () => {
                     color: textColor,
                 },
             },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.label + ": " + context.raw + "%";
+                    },
+                },
+            },
         },
     };
 };
@@ -142,10 +156,10 @@ const setChartDataClassifications = () => {
         datasets: [
             {
                 data: [
-                    classifications["teaching"] 
+                    classifications["teaching"]
                         ? classifications["teaching"]["percentage"]
                         : 0,
-                    classifications["non teaching"] 
+                    classifications["non teaching"]
                         ? classifications["non teaching"]["percentage"]
                         : 0,
                 ],
@@ -172,6 +186,13 @@ const setChartOptionsClassifications = () => {
                 labels: {
                     usePointStyle: true,
                     color: textColor,
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.label + ": " + context.raw + "%";
+                    },
                 },
             },
         },
