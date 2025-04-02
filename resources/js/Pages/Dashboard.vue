@@ -1,7 +1,15 @@
+// First install these packages: // npm install @fullcalendar/vue3
+@fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid
+@fullcalendar/interaction
+
 <script setup>
 import SummaryBox from "@/Components/SummaryBox.vue";
 import Chart from "primevue/chart";
 import { ref, onMounted } from "vue";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 const { sexCounts, statuses, classifications } = defineProps({
     sexCounts: {
@@ -20,6 +28,31 @@ const { sexCounts, statuses, classifications } = defineProps({
         type: Object,
         required: true,
     },
+});
+
+// Calendar configuration
+const calendarOptions = ref({
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    initialView: "dayGridMonth",
+    headerToolbar: {
+        left: "prev,next today",
+        center: "title",
+        right: "dayGridMonth,timeGridWeek,timeGridDay",
+    },
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+    weekends: true,
+    height: "auto", // Makes it responsive
+    // Sample events - replace with your own
+    // events: [
+    //     {
+    //         title: "Meeting",
+    //         start: new Date().toISOString().split("T")[0], // Today's date
+    //         backgroundColor: "#4338ca", // Custom color
+    //     },
+    // ],
 });
 
 onMounted(() => {
@@ -198,6 +231,32 @@ const setChartOptionsClassifications = () => {
         },
     };
 };
+
+// Calendar event handling
+const handleDateSelect = (selectInfo) => {
+    const title = prompt("Please enter a new title for your event");
+    const calendarApi = selectInfo.view.calendar;
+
+    if (title) {
+        calendarApi.addEvent({
+            title,
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
+            allDay: selectInfo.allDay,
+        });
+    }
+    calendarApi.unselect();
+};
+
+const handleEventClick = (clickInfo) => {
+    if (
+        confirm(
+            `Are you sure you want to delete the event '${clickInfo.event.title}'`
+        )
+    ) {
+        clickInfo.event.remove();
+    }
+};
 </script>
 
 <template>
@@ -216,7 +275,7 @@ const setChartOptionsClassifications = () => {
             /> -->
         </section>
 
-        <section class="grid grid-cols-3 gap-5">
+        <section class="grid grid-cols-3 gap-5 mb-8">
             <Chart
                 type="doughnut"
                 :data="chartData"
@@ -236,5 +295,50 @@ const setChartOptionsClassifications = () => {
                 class="w-full"
             />
         </section>
+
+        <!-- Calendar Section with full width -->
+        <section class="w-full">
+            <div class="p-4 bg-white rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">Calendar</h2>
+                <div class="calendar-container">
+                    <FullCalendar
+                        :options="calendarOptions"
+                        @dateSelect="handleDateSelect"
+                        @eventClick="handleEventClick"
+                    />
+                </div>
+            </div>
+        </section>
     </MainLayout>
 </template>
+
+<style>
+/* Ensure the calendar container allows full width */
+.calendar-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Customize FullCalendar styles if needed */
+.fc {
+    width: 100%;
+    font-family: inherit;
+}
+
+.fc .fc-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Make responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .fc .fc-toolbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.2em;
+    }
+}
+</style>
