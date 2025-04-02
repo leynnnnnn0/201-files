@@ -8,6 +8,27 @@ import { CircleUser, AlignJustify } from "lucide-vue-next";
 import Logo from "../../images/logo201.jpg";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+
+const isSidebarOpen = ref(true);
+const isMobile = ref(false);
+
+const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const checkIfMobile = () => {
+    isMobile.value = window.innerWidth < 768;
+};
+
+onMounted(() => {
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener("resize", checkIfMobile);
+});
 
 const logout = () => {
     router.post("/logout");
@@ -18,11 +39,17 @@ const logout = () => {
     <Toast />
     <ConfirmDialog></ConfirmDialog>
     <div
-        class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"
+        class="grid min-h-screen w-full"
+        :class="
+            isSidebarOpen
+                ? 'md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'
+                : 'md:grid-cols-[80px_1fr] lg:grid-cols-[80px_1fr]'
+        "
     >
         <!-- Sidebar - Fixed height with internal scrolling -->
         <div
-            class="hidden md:block border-r bg-muted/40 h-screen overflow-hidden"
+            class="border-r bg-muted/40 h-screen overflow-hidden transition-all duration-300"
+            :class="{ hidden: !isSidebarOpen && isMobile }"
         >
             <div class="flex flex-col h-full bg-[#555555] text-white">
                 <!-- Fixed header -->
@@ -32,8 +59,17 @@ const logout = () => {
                     <div
                         class="flex items-center justify-between flex-1 h-full"
                     >
-                        <AlignJustify />
-                        <DivFlexCol class="items-center">
+                        <!-- Burger button to toggle sidebar -->
+                        <button
+                            @click="toggleSidebar"
+                            class="focus:outline-none"
+                        >
+                            <AlignJustify />
+                        </button>
+                        <DivFlexCol
+                            class="items-center"
+                            :class="{ hidden: !isSidebarOpen && !isMobile }"
+                        >
                             <img
                                 :src="Logo"
                                 alt="logo"
@@ -43,7 +79,10 @@ const logout = () => {
                                 <span class="font-bold">201 Files</span>
                             </a>
                         </DivFlexCol>
-                        <Link :href="route('profiles.index')">
+                        <Link
+                            :href="route('profiles.index')"
+                            :class="{ hidden: !isSidebarOpen }"
+                        >
                             <CircleUser />
                         </Link>
                     </div>
@@ -51,24 +90,62 @@ const logout = () => {
                 <!-- Scrollable sidebar content -->
                 <div class="flex-1 overflow-y-auto">
                     <DivFlexCol class="h-full py-2">
-                        <section class="flex-1">
-                            <Sidebar />
+                        <section
+                            class="flex-1"
+                            :class="{ 'px-0': !isSidebarOpen && !isMobile }"
+                        >
+                            <Sidebar
+                                :collapsed="!isSidebarOpen && !isMobile"
+                                :isSidebarOpen="isSidebarOpen"
+                            />
                         </section>
                         <button
                             @click="logout"
                             class="flex items-center gap-2 px-3 py-2 mt-auto text-white font-bold transition-all hover:text-primary"
+                            :class="{
+                                'justify-center': !isSidebarOpen && !isMobile,
+                            }"
                         >
                             <LogOut class="size-5" />
-                            Logout
+                            <span
+                                :class="{ hidden: !isSidebarOpen && !isMobile }"
+                                >Logout</span
+                            >
                         </button>
                     </DivFlexCol>
                 </div>
             </div>
         </div>
 
+        <!-- Mobile sidebar toggle button - visible only on mobile -->
+        <div
+            class="md:hidden fixed bottom-4 right-4 z-50"
+            v-if="!isSidebarOpen && isMobile"
+        >
+            <button
+                @click="toggleSidebar"
+                class="bg-[#555555] text-white p-3 rounded-full shadow-lg"
+            >
+                <AlignJustify />
+            </button>
+        </div>
+
         <!-- Main Content - Fixed height with internal scrolling -->
         <div class="h-screen overflow-hidden">
             <div class="h-full overflow-y-auto">
+                <!-- Mobile header visible when sidebar is collapsed -->
+                <div
+                    class="md:hidden flex items-center justify-between p-4 bg-[#555555] text-white"
+                >
+                    <button @click="toggleSidebar" class="focus:outline-none">
+                        <AlignJustify />
+                    </button>
+                    <img :src="Logo" alt="logo" class="size-8 rounded-full" />
+                    <Link :href="route('profiles.index')">
+                        <CircleUser />
+                    </Link>
+                </div>
+
                 <DivFlexCol class="p-10 gap-5">
                     <slot></slot>
                 </DivFlexCol>

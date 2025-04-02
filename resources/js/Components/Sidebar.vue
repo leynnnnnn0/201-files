@@ -9,10 +9,14 @@ import {
     BriefcaseBusiness,
     LampDesk,
 } from "lucide-vue-next";
+
+defineProps({
+    isSidebarOpen: true,
+});
 </script>
 
 <template>
-    <nav class="grid items-start pl-4 text-sm font-medium">
+    <nav class="grid items-start pl-4 text-sm font-medium" v-if="isSidebarOpen">
         <NavLink href="/dashboard" :icon="Home"> Dashboard </NavLink>
         <!-- <NavLink href="/users" :icon="UsersRound"> Users </NavLink> -->
         <NavLink href="/employees" :icon="SquareUserRound"> Employees </NavLink>
