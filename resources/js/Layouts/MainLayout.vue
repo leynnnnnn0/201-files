@@ -4,7 +4,7 @@ import NavLink from "@/Components/NavLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import { LogOut } from "lucide-vue-next";
 import { router } from "@inertiajs/vue3";
-import { CircleUser } from "lucide-vue-next";
+import { CircleUser, AlignJustify } from "lucide-vue-next";
 
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
@@ -27,12 +27,22 @@ const logout = () => {
             <div class="flex flex-col h-full bg-[#555555] text-white">
                 <!-- Fixed header -->
                 <div
-                    class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6 flex-shrink-0"
+                    class="flex h-14 items-center border-b px-4 lg:h-24 lg:px-6 flex-shrink-0"
                 >
-                    <div class="flex items-center justify-between flex-1">
-                        <a href="/" class="flex items-center font-semibold">
-                            <span class="font-bold">201 Files</span>
-                        </a>
+                    <div
+                        class="flex items-center justify-between flex-1 h-full"
+                    >
+                        <AlignJustify />
+                        <DivFlexCol class="items-center">
+                            <div
+                                class="bg-white text-black p-2 rounded-full text-xs"
+                            >
+                                <p>201</p>
+                            </div>
+                            <a href="/" class="flex items-center font-semibold">
+                                <span class="font-bold">201 Files</span>
+                            </a>
+                        </DivFlexCol>
                         <Link :href="route('profiles.index')">
                             <CircleUser />
                         </Link>
