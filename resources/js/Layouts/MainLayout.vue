@@ -46,7 +46,7 @@ const logout = () => {
                         </section>
                         <button
                             @click="logout"
-                            class="flex items-center gap-2 px-3 py-2 mt-auto text-muted-foreground transition-all hover:text-primary"
+                            class="flex items-center gap-2 px-3 py-2 mt-auto text-white font-bold transition-all hover:text-primary"
                         >
                             <LogOut class="size-5" />
                             Logout
