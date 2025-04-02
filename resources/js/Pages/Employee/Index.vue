@@ -74,6 +74,28 @@ const statusColor = (status) => {
             return "bg-gray-500 text-white";
     }
 };
+
+const sexColor = (sex) => {
+    const sexLower = sex.toLowerCase();
+
+    switch (sexLower) {
+        case "male":
+            return "bg-blue-500 text-white";
+        default:
+            return "bg-pink-500 text-white";
+    }
+};
+
+const teachingColor = (teaching) => {
+    const teachingLower = teaching.toLowerCase();
+
+    switch (teachingLower) {
+        case "teaching":
+            return "bg-green-500 text-white";
+        default:
+            return "bg-gray-500 text-white";
+    }
+};
 </script>
 <template>
     <MainLayout>
@@ -117,8 +139,28 @@ const statusColor = (status) => {
                                 {{ employee.status.toUpperCase() }}
                             </span>
                         </TD>
-                        <TD>{{ employee.employment_classification }}</TD>
-                        <TD>{{ employee.sex }}</TD>
+                        <TD>
+                            <span
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="
+                                    teachingColor(
+                                        employee.employment_classification
+                                    )
+                                "
+                            >
+                                {{
+                                    employee.employment_classification.toUpperCase()
+                                }}
+                            </span></TD
+                        >
+                        <TD>
+                            <span
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="sexColor(employee.sex)"
+                            >
+                                {{ employee.sex.toUpperCase() }}
+                            </span></TD
+                        >
 
                         <TD class="flex flex-center gap-3">
                             <UploadButton
