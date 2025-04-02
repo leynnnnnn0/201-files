@@ -5,7 +5,7 @@ import Sidebar from "@/Components/Sidebar.vue";
 import { LogOut } from "lucide-vue-next";
 import { router } from "@inertiajs/vue3";
 import { CircleUser, AlignJustify } from "lucide-vue-next";
-
+import Logo from "../../images/logo201.jpg";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 
@@ -34,11 +34,11 @@ const logout = () => {
                     >
                         <AlignJustify />
                         <DivFlexCol class="items-center">
-                            <div
-                                class="bg-white text-black p-2 rounded-full text-xs"
-                            >
-                                <p>201</p>
-                            </div>
+                            <img
+                                :src="Logo"
+                                alt="logo"
+                                class="size-10 rounded-full"
+                            />
                             <a href="/" class="flex items-center font-semibold">
                                 <span class="font-bold">201 Files</span>
                             </a>

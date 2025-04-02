@@ -1,7 +1,3 @@
-// First install these packages: // npm install @fullcalendar/vue3
-@fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid
-@fullcalendar/interaction
-
 <script setup>
 import SummaryBox from "@/Components/SummaryBox.vue";
 import Chart from "primevue/chart";
@@ -10,6 +6,7 @@ import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+
 
 const { sexCounts, statuses, classifications } = defineProps({
     sexCounts: {
@@ -296,7 +293,6 @@ const handleEventClick = (clickInfo) => {
             />
         </section>
 
-        <!-- Calendar Section with full width -->
         <section class="w-full">
             <div class="p-4 bg-white rounded-lg shadow">
                 <h2 class="text-xl font-semibold mb-4">Calendar</h2>
@@ -313,13 +309,11 @@ const handleEventClick = (clickInfo) => {
 </template>
 
 <style>
-/* Ensure the calendar container allows full width */
 .calendar-container {
     width: 100%;
     overflow: hidden;
 }
 
-/* Customize FullCalendar styles if needed */
 .fc {
     width: 100%;
     font-family: inherit;
@@ -330,7 +324,6 @@ const handleEventClick = (clickInfo) => {
     gap: 8px;
 }
 
-/* Make responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .fc .fc-toolbar {
         flex-direction: column;
