@@ -162,28 +162,35 @@ const teachingColor = (teaching) => {
                             </span></TD
                         >
 
-                        <TD
-                            class="flex items-center justify-items-center gap-3 h-full"
-                        >
-                            <UploadButton
-                                @click="openUploadDocumentModal(employee.id)"
-                                >Upload Document</UploadButton
+                        <TD>
+                            <div
+                                class="flex items-center justify-items-center gap-3"
                             >
-                            <ShowButton
-                                :isLink="true"
-                                :href="route('employees.show', employee.id)"
-                            />
-                            <EditButton
-                                :isLink="true"
-                                :href="route('employees.edit', employee.id)"
-                            />
-                            <DeleteButton
-                                @click="
-                                    deleteModel(
-                                        route('employees.destroy', employee.id)
-                                    )
-                                "
-                            />
+                                <UploadButton
+                                    @click="
+                                        openUploadDocumentModal(employee.id)
+                                    "
+                                    >Upload Document</UploadButton
+                                >
+                                <ShowButton
+                                    :isLink="true"
+                                    :href="route('employees.show', employee.id)"
+                                />
+                                <EditButton
+                                    :isLink="true"
+                                    :href="route('employees.edit', employee.id)"
+                                />
+                                <DeleteButton
+                                    @click="
+                                        deleteModel(
+                                            route(
+                                                'employees.destroy',
+                                                employee.id
+                                            )
+                                        )
+                                    "
+                                />
+                            </div>
                         </TD>
                     </tr>
                 </TableBody>
