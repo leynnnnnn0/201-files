@@ -9,5 +9,5 @@ enum Status: string
     use HasEnumOptions;
     case PERMANENT = 'permanent';
     case CASUAL = 'casual';
-    case COS_JOP = 'contract of service / job order personnel';
+    case COS_JOP = 'cos/jop';
 }

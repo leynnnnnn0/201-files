@@ -19,7 +19,7 @@ const statusColor = (status) => {
             return "bg-green-500 text-white";
         case "casual":
             return "bg-blue-500 text-white";
-        case "contract of service / job order personnel":
+        case "cos/jop":
             return "bg-yellow-500 text-white";
         default:
             return "bg-gray-500 text-white";

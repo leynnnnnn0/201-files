@@ -140,7 +140,7 @@ const setChartDataStatus = () => {
         labels: [
             "Casual",
             "Permanent",
-            "Contract of service / Job order personnel",
+            "cos/jop",
         ],
         datasets: [
             {
@@ -149,8 +149,8 @@ const setChartDataStatus = () => {
                     statuses["permanent"]
                         ? statuses["permanent"]["percentage"]
                         : 0,
-                    statuses["contractOfService/JobOrderPersonnel"]
-                        ? statuses["contractOfService/JobOrderPersonnel"][
+                    statuses["cos/jop"]
+                        ? statuses["cos/jop"][
                               "percentage"
                           ]
                         : 0,
