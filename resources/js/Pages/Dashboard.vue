@@ -6,7 +6,11 @@ import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Chart as ChartJS } from "chart.js";
 
+// Register the DataLabels plugin
+ChartJS.register(ChartDataLabels);
 
 const { sexCounts, statuses, classifications } = defineProps({
     sexCounts: {
@@ -109,6 +113,19 @@ const setChartOptions = () => {
                     },
                 },
             },
+            datalabels: {
+                display: true,
+                color: "#ffffff",
+                font: {
+                    weight: "bold",
+                    size: 14,
+                },
+                formatter: (value) => {
+                    console.log(value);
+                    if (value == 0) return "";
+                    return value + "%";
+                },
+            },
         },
     };
 };
@@ -172,6 +189,19 @@ const setChartOptionsStatus = () => {
                     },
                 },
             },
+            datalabels: {
+                display: true,
+                color: "#ffffff",
+                font: {
+                    weight: "bold",
+                    size: 14,
+                },
+                formatter: (value) => {
+                    console.log(value);
+                    if (value == 0) return "";
+                    return value + "%";
+                },
+            },
         },
     };
 };
@@ -223,6 +253,19 @@ const setChartOptionsClassifications = () => {
                     label: function (context) {
                         return context.label + ": " + context.raw + "%";
                     },
+                },
+            },
+            datalabels: {
+                display: true,
+                color: "#ffffff",
+                font: {
+                    weight: "bold",
+                    size: 14,
+                },
+                formatter: (value) => {
+                    console.log(value);
+                    if (value == 0) return "";
+                    return value + "%";
                 },
             },
         },
