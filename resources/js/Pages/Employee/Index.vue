@@ -162,7 +162,9 @@ const teachingColor = (teaching) => {
                             </span></TD
                         >
 
-                        <TD class="flex flex-center gap-3">
+                        <TD
+                            class="flex items-center justify-items-center gap-3 h-full"
+                        >
                             <UploadButton
                                 @click="openUploadDocumentModal(employee.id)"
                                 >Upload Document</UploadButton
