@@ -11,6 +11,42 @@ const { employees } = defineProps({
 const { search } = useSearch("employees.index");
 
 const { restoreModel } = useRestore("Employees", "delete");
+
+const statusColor = (status) => {
+    const statusLower = status.toLowerCase();
+    switch (statusLower) {
+        case "permanent":
+            return "bg-green-500 text-white";
+        case "casual":
+            return "bg-blue-500 text-white";
+        case "contract of service / job order personnel":
+            return "bg-yellow-500 text-white";
+        default:
+            return "bg-gray-500 text-white";
+    }
+};
+
+const sexColor = (sex) => {
+    const sexLower = sex.toLowerCase();
+
+    switch (sexLower) {
+        case "male":
+            return "bg-blue-500 text-white";
+        default:
+            return "bg-pink-500 text-white";
+    }
+};
+
+const teachingColor = (teaching) => {
+    const teachingLower = teaching.toLowerCase();
+
+    switch (teachingLower) {
+        case "teaching":
+            return "bg-green-500 text-white";
+        default:
+            return "bg-gray-500 text-white";
+    }
+};
 </script>
 <template>
     <MainLayout>
@@ -31,8 +67,9 @@ const { restoreModel } = useRestore("Employees", "delete");
                     <TH>Full Name</TH>
                     <TH>Office/Colleges</TH>
                     <TH>Position</TH>
-                    <TH>Email</TH>
-                    <TH>Phone Number</TH>
+                    <TH>Status</TH>
+                    <TH>Employment Classfication</TH>
+                    <TH>Sex</TH>
                     <TH>Actions</TH>
                 </TableHead>
                 <TableBody>
@@ -40,9 +77,37 @@ const { restoreModel } = useRestore("Employees", "delete");
                         <TD>{{ employee.id }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
-                        <TD>{{ employee.position }}</TD>
-                        <TD>{{ employee.email }}</TD>
-                        <TD>{{ employee.phone_number ?? "N/a" }}</TD>
+                        <TD> {{ employee.position }}</TD>
+                        <TD>
+                            <span
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="statusColor(employee.status)"
+                            >
+                                {{ employee.status.toUpperCase() }}
+                            </span>
+                        </TD>
+                        <TD>
+                            <span
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="
+                                    teachingColor(
+                                        employee.employment_classification
+                                    )
+                                "
+                            >
+                                {{
+                                    employee.employment_classification.toUpperCase()
+                                }}
+                            </span></TD
+                        >
+                        <TD>
+                            <span
+                                class="px-3 py-1 font-bold text-xs rounded-lg"
+                                :class="sexColor(employee.sex)"
+                            >
+                                {{ employee.sex.toUpperCase() }}
+                            </span></TD
+                        >
                         <TD class="flex flex-center gap-3">
                             <ShowButton
                                 :isLink="true"
