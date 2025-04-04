@@ -29,10 +29,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener("resize", checkIfMobile);
 });
-
-const logout = () => {
-    router.post("/logout");
-};
 </script>
 
 <template>
@@ -60,12 +56,7 @@ const logout = () => {
                         class="flex items-center justify-between flex-1 h-full"
                     >
                         <!-- Burger button to toggle sidebar -->
-                        <button
-                            @click="toggleSidebar"
-                            class="focus:outline-none"
-                        >
-                            <AlignJustify />
-                        </button>
+                        <span></span>
                         <DivFlexCol
                             class="items-center"
                             :class="{ hidden: !isSidebarOpen && !isMobile }"
@@ -79,12 +70,12 @@ const logout = () => {
                                 <span class="font-bold">201 Files</span>
                             </a>
                         </DivFlexCol>
-                        <Link
-                            :href="route('profiles.index')"
-                            :class="{ hidden: !isSidebarOpen }"
+                        <button
+                            @click="toggleSidebar"
+                            class="focus:outline-none"
                         >
-                            <CircleUser />
-                        </Link>
+                            <AlignJustify />
+                        </button>
                     </div>
                 </div>
                 <!-- Scrollable sidebar content -->
@@ -99,19 +90,6 @@ const logout = () => {
                                 :isSidebarOpen="isSidebarOpen"
                             />
                         </section>
-                        <button
-                            @click="logout"
-                            class="flex items-center gap-2 px-3 py-2 mt-auto text-white font-bold transition-all hover:text-primary"
-                            :class="{
-                                'justify-center': !isSidebarOpen && !isMobile,
-                            }"
-                        >
-                            <LogOut class="size-5" />
-                            <span
-                                :class="{ hidden: !isSidebarOpen && !isMobile }"
-                                >Logout</span
-                            >
-                        </button>
                     </DivFlexCol>
                 </div>
             </div>

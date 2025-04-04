@@ -8,11 +8,17 @@ import {
     SquareUserRound,
     BriefcaseBusiness,
     LampDesk,
+    LogOut,
+    CircleUser,
 } from "lucide-vue-next";
-
+import { router } from "@inertiajs/vue3";
 defineProps({
     isSidebarOpen: true,
 });
+
+const logout = () => {
+    router.post("/logout");
+};
 </script>
 
 <template>
@@ -21,13 +27,21 @@ defineProps({
         <!-- <NavLink href="/users" :icon="UsersRound"> Users </NavLink> -->
         <NavLink href="/employees" :icon="SquareUserRound"> Employees </NavLink>
         <NavLink href="/documents" :icon="FileText"> Documents </NavLink>
-        <Label class="mt-5 ml-3 text-white/80">Archives</Label>
+
         <!-- <NavLink href="/archives/users" :icon="FileText"> Users</NavLink> -->
         <NavLink href="/archives/employees" :icon="SquareUserRound">
-            Employees
+            Archived Employees
         </NavLink>
         <NavLink href="/archives/documents" :icon="FileText">
-            Documents
+            Archived Documents
         </NavLink>
+        <NavLink href="/profiles" :icon="CircleUser"> Profile </NavLink>
+        <button
+        @click="logout"
+            class="text-white flex items-center gap-3 rounded-l-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+        >
+            <LogOut class="size-4" />
+            Logout
+        </button>
     </nav>
 </template>
