@@ -140,7 +140,7 @@ const setChartDataStatus = () => {
         labels: [
             "Casual",
             "Permanent",
-            "cos/jop",
+            "Contract of Service/Job Order Personnel",
         ],
         datasets: [
             {
