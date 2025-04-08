@@ -51,8 +51,6 @@ const teachingColor = (teaching) => {
 };
 
 const { deleteModel } = useDelete("Employee  ", "delete");
-
-
 </script>
 <template>
     <MainLayout>
@@ -80,7 +78,7 @@ const { deleteModel } = useDelete("Employee  ", "delete");
                 </TableHead>
                 <TableBody>
                     <tr v-for="employee in employees.data">
-                        <TD>{{ employees.data.indexOf(employee) + 1 }}</TD>
+                        <TD>{{ employee.id }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
                         <TD> {{ employee.position }}</TD>
