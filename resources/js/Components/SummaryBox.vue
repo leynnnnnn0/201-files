@@ -13,15 +13,22 @@ defineProps({
 </script>
 
 <template>
-    <Card>
+    <Card class="bg-blue-400">
         <CardHeader
             class="flex flex-row items-center justify-between space-y-0 pb-2"
         >
-            <CardTitle class="text-sm font-medium"> {{ heading }} </CardTitle>
-            <component :is="icon" class="h-4 w-4 text-muted-foreground" />
+            <CardTitle
+                class="flex items-center gap-2 text-sm font-medium text-white"
+            >
+                <component
+                    :is="icon"
+                    class="size-5 text-muted-foreground text-white"
+                />
+                {{ heading }}
+            </CardTitle>
         </CardHeader>
         <CardContent>
-            <div class="text-2xl font-bold">{{ value }}</div>
+            <div class="text-2xl font-bold text-white">{{ value }}</div>
             <p class="text-xs text-white/80">{{ subheading }}</p>
         </CardContent>
     </Card>

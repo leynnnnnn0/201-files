@@ -8,6 +8,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS } from "chart.js";
+import { CircleUser, UserCircle } from "lucide-vue-next";
 
 // Register the DataLabels plugin
 ChartJS.register(ChartDataLabels);
@@ -149,11 +150,7 @@ const setChartDataStatus = () => {
                     statuses["permanent"]
                         ? statuses["permanent"]["percentage"]
                         : 0,
-                    statuses["cos/jop"]
-                        ? statuses["cos/jop"][
-                              "percentage"
-                          ]
-                        : 0,
+                    statuses["cos/jop"] ? statuses["cos/jop"]["percentage"] : 0,
                 ],
                 backgroundColor: [
                     documentStyle.getPropertyValue("--p-cyan-500"),
@@ -307,6 +304,7 @@ const handleEventClick = (clickInfo) => {
                 heading="Total Employees"
                 :value="counts['employees']"
                 subheading="Total number of employees"
+                :icon="UserCircle"
             />
             <!-- <SummaryBox
                 heading="Total Users"
