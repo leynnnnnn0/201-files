@@ -24,6 +24,7 @@ const getFileUrl = (path) => {
 
             <section class="col-span-6 space-y-5">
                 <FormContainer>
+                    <InfoList label="ID" :value="employee.id" />
                     <InfoList label="First Name" :value="employee.first_name" />
                     <InfoList
                         label="Middle Name"

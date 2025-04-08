@@ -205,6 +205,7 @@ class EmployeeController extends Controller
         });
 
         $employee = [
+            'id' => $employee->id,
             'first_name' => $employee->first_name,
             'middle_name' => $employee->middle_name,
             'last_name' => $employee->last_name,

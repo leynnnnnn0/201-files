@@ -47,6 +47,7 @@ const teachingColor = (teaching) => {
             return "bg-gray-500 text-white";
     }
 };
+
 </script>
 <template>
     <MainLayout>
