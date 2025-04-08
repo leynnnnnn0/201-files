@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
         Route::controller(EmployeeController::class)->group(function () {
             Route::get('/employees', 'archive')->name('employees');
             Route::post('/employees/restore/{employee}', 'restore')->name('employees-restore');
+
+            Route::delete('/employees/force-delete/{id}', 'forceDelete')->name('employees-delete');
         });
 
         Route::controller(DocumentController::class)->group(function () {

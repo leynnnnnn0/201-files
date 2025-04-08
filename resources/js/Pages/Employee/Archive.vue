@@ -1,6 +1,7 @@
 <script setup>
 import useRestore from "@/Composables/useRestore.js";
 import { useSearch } from "@/Composables/useSearch";
+import useDelete from "@/Composables/useDelete.js";
 const { employees } = defineProps({
     employees: {
         type: Object,
@@ -48,6 +49,9 @@ const teachingColor = (teaching) => {
     }
 };
 
+const { deleteModel } = useDelete("Employee  ", "delete");
+
+const employeesCount = ref(0);
 </script>
 <template>
     <MainLayout>
@@ -75,7 +79,7 @@ const teachingColor = (teaching) => {
                 </TableHead>
                 <TableBody>
                     <tr v-for="employee in employees.data">
-                        <TD>{{ employee.id }}</TD>
+                        <TD>{{ employeesCount++ }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
                         <TD> {{ employee.position }}</TD>
@@ -119,6 +123,16 @@ const teachingColor = (teaching) => {
                                     restoreModel(
                                         route(
                                             'archives.employees-restore',
+                                            employee.id
+                                        )
+                                    )
+                                "
+                            />
+                            <ForceDeleteButton
+                                @click="
+                                    deleteModel(
+                                        route(
+                                            'archives.employees-delete',
                                             employee.id
                                         )
                                     )

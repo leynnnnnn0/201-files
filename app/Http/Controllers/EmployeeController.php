@@ -238,4 +238,12 @@ class EmployeeController extends Controller
 
         return back();
     }
+
+    public function forceDelete($id)
+    {
+        $employee = Employee::withTrashed()->findOrFail($id);
+        $employee->forceDelete();
+
+        return back();
+    }
 }
