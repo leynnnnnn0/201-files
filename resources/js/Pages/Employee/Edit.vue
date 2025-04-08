@@ -303,13 +303,11 @@ function onFileSelect(event) {
                 <TableContainer class="col-span-2">
                     <Table>
                         <TableHead>
-                            <TH>ID</TH>
                             <TH>Document Name</TH>
                             <TH>Actions</TH>
                         </TableHead>
                         <TableBody>
                             <tr v-for="document in visibleDocuments">
-                                <TD>{{ document.id }}</TD>
                                 <TD>{{ document.name }}</TD>
                                 <TD>
                                     <DivFlexCenter class="gap-2">
@@ -319,9 +317,6 @@ function onFileSelect(event) {
                                         >
                                             <Eye />
                                         </a>
-                                        <DeleteButton
-                                            @click="removeDocument(document.id)"
-                                        />
                                     </DivFlexCenter>
                                 </TD>
                             </tr>
