@@ -2,6 +2,7 @@
 import useRestore from "@/Composables/useRestore.js";
 import { useSearch } from "@/Composables/useSearch";
 import useDelete from "@/Composables/useDelete.js";
+import { ref } from "vue";
 const { employees } = defineProps({
     employees: {
         type: Object,
@@ -51,7 +52,7 @@ const teachingColor = (teaching) => {
 
 const { deleteModel } = useDelete("Employee  ", "delete");
 
-const employeesCount = ref(0);
+
 </script>
 <template>
     <MainLayout>
@@ -79,7 +80,7 @@ const employeesCount = ref(0);
                 </TableHead>
                 <TableBody>
                     <tr v-for="employee in employees.data">
-                        <TD>{{ employeesCount++ }}</TD>
+                        <TD>{{ employees.data.indexOf(employee) + 1 }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
                         <TD> {{ employee.position }}</TD>
