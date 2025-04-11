@@ -39,14 +39,20 @@ const sexColor = (sex) => {
     }
 };
 
-const teachingColor = (teaching) => {
+const teachingColor = (teaching, status) => {
     const teachingLower = teaching.toLowerCase();
-
-    switch (teachingLower) {
-        case "teaching":
-            return "bg-green-500 text-white";
-        default:
-            return "bg-gray-500 text-white";
+    const statusLower = status.toLowerCase();
+    console.log(teachingLower);
+    if (statusLower == "permanent" && teachingLower == "teaching") {
+        return "bg-yelow-500 text-white";
+    } else if (statusLower == "permanent" && teachingLower == "non teaching") {
+        return "bg-brown-500 text-white";
+    } else if (statusLower == "cos/jop" && teachingLower == "teaching") {
+        return "bg-green-300 text-white";
+    } else if (statusLower == "cos/jop" && teachingLower == "non teaching") {
+        return "bg-green-700 text-white";
+    } else {
+        return "bg-gray-500 text-white";
     }
 };
 
@@ -95,7 +101,8 @@ const { deleteModel } = useDelete("Employee  ", "delete");
                                 class="px-3 py-1 font-bold text-xs rounded-lg"
                                 :class="
                                     teachingColor(
-                                        employee.employment_classification
+                                        employee.employment_classification,
+                                        employee.status
                                     )
                                 "
                             >

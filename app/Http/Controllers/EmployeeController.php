@@ -141,6 +141,7 @@ class EmployeeController extends Controller
                 'path' => $item->path,
             ];
         });
+
         return Inertia::render('Employee/Edit', [
             'positions' => $positions,
             'designations' => $designations,
@@ -204,7 +205,9 @@ class EmployeeController extends Controller
             ];
         });
 
+
         $employee = [
+            'id_number' => $employee->id_number,
             'id' => $employee->id,
             'first_name' => $employee->first_name,
             'middle_name' => $employee->middle_name,

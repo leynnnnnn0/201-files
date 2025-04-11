@@ -22,6 +22,7 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id_number' => ['required', 'unique:employees,id_number,' . $this->employee->id],
             'first_name' => ['required'],
             'middle_name' => ['nullable'],
             'last_name' => ['required'],

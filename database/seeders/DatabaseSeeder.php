@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Employee::factory()->create([
+            'id_number' => '1234',
             'position' => 'test',
             'office_colleges' => 'test',
             'employment_classification' => 'teaching',

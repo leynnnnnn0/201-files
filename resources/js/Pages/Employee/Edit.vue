@@ -41,6 +41,7 @@ const { employee, documents, officesColleges } = defineProps({
 console.log(officesColleges);
 
 const form = useForm({
+    id_number: employee.id_number,
     image: null,
     position: employee.position,
     office_colleges: employee.office_colleges,
@@ -172,6 +173,12 @@ function onFileSelect(event) {
             </FormInput>
 
             <section class="grid grid-cols-2 col-span-6 gap-5">
+                <FormInput
+                    label="ID Number"
+                    :errorMessage="form.errors.id_number"
+                >
+                    <Input v-model="form.id_number" />
+                </FormInput>
                 <FormInput
                     label="First Name"
                     :errorMessage="form.errors.first_name"
