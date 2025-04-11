@@ -89,11 +89,11 @@ const sexColor = (sex) => {
 const teachingColor = (teaching, status) => {
     const teachingLower = teaching.toLowerCase();
     const statusLower = status.toLowerCase();
-    console.log(teachingLower);
+    console.log(statusLower == "permanent" && teachingLower == "non teaching");
     if (statusLower == "permanent" && teachingLower == "teaching") {
         return "bg-yelow-500 text-white";
     } else if (statusLower == "permanent" && teachingLower == "non teaching") {
-        return "bg-brown-500 text-white";
+        return "bg-amber-900 text-white";
     } else if (statusLower == "cos/jop" && teachingLower == "teaching") {
         return "bg-green-300 text-white";
     } else if (statusLower == "cos/jop" && teachingLower == "non teaching") {
