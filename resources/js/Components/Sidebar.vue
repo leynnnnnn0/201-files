@@ -22,26 +22,54 @@ const logout = () => {
 </script>
 
 <template>
-    <nav class="grid items-start pl-4 text-sm font-medium" v-if="isSidebarOpen">
-        <NavLink href="/dashboard" :icon="Home"> Dashboard </NavLink>
+    <nav class="grid items-start pl-4 text-sm font-medium">
+        <NavLink href="/dashboard" :icon="Home" :isSidebarOpen="isSidebarOpen">
+            Dashboard
+        </NavLink>
         <!-- <NavLink href="/users" :icon="UsersRound"> Users </NavLink> -->
-        <NavLink href="/employees" :icon="SquareUserRound"> Employees </NavLink>
-        <NavLink href="/documents" :icon="FileText"> Documents </NavLink>
+        <NavLink
+            href="/employees"
+            :icon="SquareUserRound"
+            :isSidebarOpen="isSidebarOpen"
+        >
+            Employees
+        </NavLink>
+        <NavLink
+            href="/documents"
+            :icon="FileText"
+            :isSidebarOpen="isSidebarOpen"
+        >
+            Documents
+        </NavLink>
 
         <!-- <NavLink href="/archives/users" :icon="FileText"> Users</NavLink> -->
-        <NavLink href="/archives/employees" :icon="SquareUserRound">
+        <NavLink
+            href="/archives/employees"
+            :icon="SquareUserRound"
+            :isSidebarOpen="isSidebarOpen"
+        >
             Archived Employees
         </NavLink>
-        <NavLink href="/archives/documents" :icon="FileText">
+        <NavLink
+            href="/archives/documents"
+            :icon="FileText"
+            :isSidebarOpen="isSidebarOpen"
+        >
             Archived Documents
         </NavLink>
-        <NavLink href="/profiles" :icon="CircleUser"> Profile </NavLink>
+        <NavLink
+            href="/profiles"
+            :icon="CircleUser"
+            :isSidebarOpen="isSidebarOpen"
+        >
+            Profile
+        </NavLink>
         <button
-        @click="logout"
+            @click="logout"
             class="text-white flex items-center gap-3 rounded-l-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
         >
             <LogOut class="size-4" />
-            Logout
+            <span v-if="isSidebarOpen"> Logout </span>
         </button>
     </nav>
 </template>

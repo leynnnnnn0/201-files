@@ -14,6 +14,10 @@ defineProps({
     icon: {
         required: true,
     },
+    isSidebarOpen: {
+        type: Boolean,
+        default: true,
+    },
 });
 </script>
 
@@ -24,6 +28,8 @@ defineProps({
         :class="{ 'text-black bg-blue-600': isActive(href) }"
     >
         <component :is="icon" class="h-4 w-4" />
-        <slot></slot>
+        <span v-if="isSidebarOpen">
+            <slot></slot>
+        </span>
     </Link>
 </template>
