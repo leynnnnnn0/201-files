@@ -123,6 +123,7 @@ const teachingColor = (teaching, status) => {
             <Table>
                 <TableHead>
                     <TH>#</TH>
+                    <TH>ID Number</TH>
                     <TH>Full Name</TH>
                     <TH>Office/Colleges</TH>
                     <TH>Position</TH>
@@ -134,6 +135,7 @@ const teachingColor = (teaching, status) => {
                 <TableBody>
                     <tr v-for="employee in employees.data">
                         <TD>{{ employees.data.indexOf(employee) + 1 }}</TD>
+                        <TD>{{ employee.id_number }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
                         <TD> {{ employee.position }}</TD>
