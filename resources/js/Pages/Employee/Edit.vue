@@ -2,12 +2,12 @@
 import { useForm } from "@inertiajs/vue3";
 import useUpdate from "@/Composables/useUpdate";
 import { ref } from "vue";
-
 import FileUpload from "primevue/fileupload";
+import Select from "primevue/select";
 import useAlert from "@/Composables/useAlert.js";
 const { confirm, toast } = useAlert();
 
-const { employee, documents, officesColleges } = defineProps({
+const props = defineProps({
     positions: {
         type: Object,
         required: true,
@@ -38,28 +38,59 @@ const { employee, documents, officesColleges } = defineProps({
         required: true,
     },
 });
-console.log(officesColleges);
+
+console.log(props.officesColleges);
 
 const form = useForm({
-    id_number: employee.id_number,
+    id_number: props.employee.id_number,
     image: null,
-    position: employee.position,
-    office_colleges: employee.office_colleges,
-    employment_classification: employee.employment_classification,
-    status: employee.status,
-    sex: employee.sex,
-    first_name: employee.first_name,
-    middle_name: employee.middle_name,
-    last_name: employee.last_name,
-    email: employee.email,
-    phone_number: employee.phone_number,
-    philhealth_id: employee.philhealth_id,
-    pag_ibig_id: employee.pag_ibig_id,
-    tin_id: employee.tin_id,
-    gsis_id: employee.gsis_id,
-    address: employee.address,
+    position: props.employee.position,
+    office_colleges: props.employee.office_colleges,
+    employment_classification: props.employee.employment_classification,
+    status: props.employee.status,
+    sex: props.employee.sex,
+    first_name: props.employee.first_name,
+    middle_name: props.employee.middle_name,
+    last_name: props.employee.last_name,
+    email: props.employee.email,
+    phone_number: props.employee.phone_number,
+    philhealth_id: props.employee.philhealth_id,
+    pag_ibig_id: props.employee.pag_ibig_id,
+    tin_id: props.employee.tin_id,
+    gsis_id: props.employee.gsis_id,
+    address: props.employee.address,
     removed_documents: [],
 });
+
+// Convert objects to arrays for PrimeVue Select
+const positionsOptions = ref(
+    Object.entries(props.positions).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+
+const officesCollegesOptions = ref(
+    Object.entries(props.officesColleges).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+
+const employmentClassificationsOptions = ref(
+    Object.entries(props.employmentClassifications).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+
+const statusesOptions = ref(
+    Object.entries(props.statuses).map(([value, label]) => ({ label, value }))
+);
+
+const sexesOptions = ref(
+    Object.entries(props.sexes).map(([value, label]) => ({ label, value }))
+);
 
 const update = () => {
     confirm.require({
@@ -76,7 +107,7 @@ const update = () => {
             severity: "success",
         },
         accept: () => {
-            form.post(route("update", employee.id), {
+            form.post(route("update", props.employee.id), {
                 preserveScroll: true,
                 onSuccess: () => {
                     toast.add({
@@ -90,7 +121,7 @@ const update = () => {
                     toast.add({
                         severity: "error",
                         summary: "Error",
-                        detail: `An error occured while trying to update the employee  details.`,
+                        detail: `An error occured while trying to update the employee details.`,
                         life: 5000,
                     });
                     console.log(e);
@@ -103,7 +134,9 @@ const update = () => {
 const getFileUrl = (path) => {
     return `/storage/${path}`;
 };
-const visibleDocuments = ref([...documents]);
+
+const visibleDocuments = ref([...props.documents]);
+
 const removeDocument = (id) => {
     confirm.require({
         message: `Are you sure you want to remove this document?`,
@@ -211,62 +244,65 @@ function onFileSelect(event) {
                     label="Position"
                     :errorMessage="form.errors.position"
                 >
-                    <FormSelect v-model="form.position">
-                        <SelectItem
-                            v-for="(label, value) in positions"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.position"
+                        :options="positionsOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select a Position"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput
                     label="Office/Colleges"
                     :errorMessage="form.errors.office_colleges"
                 >
-                    <Input v-model="form.office_colleges" />
+                    <Select
+                        v-model="form.office_colleges"
+                        :options="officesCollegesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Office/College"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput
                     label="Employment Classification"
                     :errorMessage="form.errors.employment_classification"
                 >
-                    <FormSelect v-model="form.employment_classification">
-                        <SelectItem
-                            v-for="(label, value) in employmentClassifications"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.employment_classification"
+                        :options="employmentClassificationsOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Classification"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput label="Status" :errorMessage="form.errors.status">
-                    <FormSelect v-model="form.status">
-                        <SelectItem
-                            v-for="(label, value) in statuses"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.status"
+                        :options="statusesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Status"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput label="Sex" :errorMessage="form.errors.sex">
-                    <FormSelect v-model="form.sex">
-                        <SelectItem
-                            v-for="(label, value) in sexes"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
-                </FormInput>
-
-                <FormInput
-                    label="Office/Colleges"
-                    :errorMessage="form.errors.office_colleges"
-                >
-                    <FormSelect v-model="form.office_colleges">
-                        <SelectItem
-                            v-for="(label, value) in officesColleges"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.sex"
+                        :options="sexesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Sex"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
 
                 <FormInput label="Address" :errorMessage="form.errors.address">
