@@ -67,7 +67,7 @@ const { deleteModel } = useDelete("Employee  ", "delete");
             </TableHeader>
             <Table>
                 <TableHead>
-                    <TH>Id</TH>
+                    <TH>#</TH>
                     <TH>Full Name</TH>
                     <TH>Office/Colleges</TH>
                     <TH>Position</TH>
@@ -78,7 +78,7 @@ const { deleteModel } = useDelete("Employee  ", "delete");
                 </TableHead>
                 <TableBody>
                     <tr v-for="employee in employees.data">
-                        <TD>{{ employee.id }}</TD>
+                        <TD>{{ employees.data.indexOf(employee) + 1 }}</TD>
                         <TD>{{ employee.full_name }}</TD>
                         <TD>{{ employee.office_colleges }}</TD>
                         <TD> {{ employee.position }}</TD>
