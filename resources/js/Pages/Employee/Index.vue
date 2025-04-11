@@ -91,7 +91,7 @@ const teachingColor = (teaching, status) => {
     const statusLower = status.toLowerCase();
     console.log(statusLower == "permanent" && teachingLower == "non teaching");
     if (statusLower == "permanent" && teachingLower == "teaching") {
-        return "bg-yelow-500 text-white";
+        return "bg-yellow-500 text-white";
     } else if (statusLower == "permanent" && teachingLower == "non teaching") {
         return "bg-amber-900 text-white";
     } else if (statusLower == "cos/jop" && teachingLower == "teaching") {

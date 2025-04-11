@@ -4,6 +4,7 @@ import useStore from "@/Composables/useStore";
 import { watch, ref } from "vue";
 import FileUpload from "primevue/fileupload";
 import DefaultImage from "../../../images/defaultImage.jpg";
+import Select from "primevue/select";
 
 const props = defineProps({
     positions: {
@@ -56,6 +57,34 @@ watch(
     (value) => {
         console.log(value);
     }
+);
+
+console.log(props.positions);
+
+const positionsOptions = ref(
+    Object.entries(props.positions).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+
+const officesCollegesOptions = ref(
+    Object.entries(props.officesColleges).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+const employmentClassificationsOptions = ref(
+    Object.entries(props.employmentClassifications).map(([value, label]) => ({
+        label,
+        value,
+    }))
+);
+const statusesOptions = ref(
+    Object.entries(props.statuses).map(([value, label]) => ({ label, value }))
+);
+const sexesOptions = ref(
+    Object.entries(props.sexes).map(([value, label]) => ({ label, value }))
 );
 
 const onSelect = (event) => {
@@ -140,55 +169,65 @@ function onFileSelect(event) {
                     label="Position"
                     :errorMessage="form.errors.position"
                 >
-                    <FormSelect v-model="form.position">
-                        <SelectItem
-                            v-for="(label, value) in positions"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.position"
+                        :options="positionsOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Office/College"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput
                     label="Office/Colleges"
                     :errorMessage="form.errors.office_colleges"
                 >
-                    <FormSelect v-model="form.office_colleges">
-                        <SelectItem
-                            v-for="(label, value) in officesColleges"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.office_colleges"
+                        :options="officesCollegesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Office/College"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput
                     label="Employment Classification"
                     :errorMessage="form.errors.employment_classification"
                 >
-                    <FormSelect v-model="form.employment_classification">
-                        <SelectItem
-                            v-for="(label, value) in employmentClassifications"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.employment_classification"
+                        :options="employmentClassificationsOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Classification"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput label="Status" :errorMessage="form.errors.status">
-                    <FormSelect v-model="form.status">
-                        <SelectItem
-                            v-for="(label, value) in statuses"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.status"
+                        :options="statusesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Status"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
                 <FormInput label="Sex" :errorMessage="form.errors.sex">
-                    <FormSelect v-model="form.sex">
-                        <SelectItem
-                            v-for="(label, value) in sexes"
-                            :value="value"
-                            >{{ label }}</SelectItem
-                        >
-                    </FormSelect>
+                    <Select
+                        v-model="form.sex"
+                        :options="sexesOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Sex"
+                        class="w-full"
+                        filter
+                    />
                 </FormInput>
 
                 <FormInput label="Address" :errorMessage="form.errors.address">
