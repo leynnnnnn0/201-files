@@ -17,6 +17,7 @@ const getFileUrl = (path) => {
 
 <template>
     <MainLayout>
+        <BackButton />
         <Heading>Document Details</Heading>
         <FormContainer>
             <InfoList
@@ -52,7 +53,5 @@ const getFileUrl = (path) => {
             </Label>
             <Label v-if="documents.length < 1">Nothing to show</Label>
         </FormContainer>
-
-        <BackButton />
     </MainLayout>
 </template>

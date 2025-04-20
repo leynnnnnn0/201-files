@@ -184,6 +184,7 @@ function onFileSelect(event) {
 
 <template>
     <MainLayout>
+        <BackButton />
         <Heading>Edit Employee Details</Heading>
 
         <section class="grid grid-cols-7 gap-5 border-2 p-5 rounded-lg">
@@ -368,7 +369,6 @@ function onFileSelect(event) {
                 </TableContainer>
 
                 <DivFlexCenter class="justify-end gap-2 col-span-2">
-                    <BackButton />
                     <Button class="text-white w-fit" @click="update"
                         >Update</Button
                     >

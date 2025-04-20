@@ -23,6 +23,7 @@ const onSelect = (event) => {
 
 <template>
     <MainLayout>
+        <BackButton />
         <Heading>Upload New Document</Heading>
 
         <FormContainer>

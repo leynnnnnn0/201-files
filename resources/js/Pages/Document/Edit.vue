@@ -68,6 +68,7 @@ const removeDocument = (id) => {
 
 <template>
     <MainLayout>
+        <BackButton />
         <Heading>Edit Document</Heading>
 
         <FormContainer>
@@ -129,7 +130,7 @@ const removeDocument = (id) => {
                                     >
                                         <Eye />
                                     </a>
-                                
+
                                     <DeleteButton
                                         @click="removeDocument(document.id)"
                                     />

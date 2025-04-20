@@ -13,6 +13,7 @@ const getFileUrl = (path) => {
 
 <template>
     <MainLayout>
+        <BackButton />
         <Heading>Employee Details</Heading>
 
         <section class="grid grid-cols-7 gap-5 border-2 p-5 rounded-lg">
@@ -89,7 +90,5 @@ const getFileUrl = (path) => {
                 </FormContainer>
             </section>
         </section>
-
-        <BackButton />
     </MainLayout>
 </template>
