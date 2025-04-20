@@ -96,7 +96,7 @@ const submit = () => {
 
             <button
                 @click="submit"
-                class="text-white bg-white/60 shadow-xl font-bold px-32 rounded-lg py-2"
+                class="text-white bg-white/60 shadow-xl font-bold px-32 rounded-lg py-2 hover:bg-pink-300"
             >
                 LOGIN
             </button>
