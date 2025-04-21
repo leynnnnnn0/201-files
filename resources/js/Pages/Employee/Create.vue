@@ -175,7 +175,7 @@ function onFileSelect(event) {
                         :options="positionsOptions"
                         optionLabel="label"
                         optionValue="value"
-                        placeholder="Select Office/College"
+                        placeholder="Select a Position"
                         class="w-full"
                         filter
                     />

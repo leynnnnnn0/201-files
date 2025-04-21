@@ -6,7 +6,6 @@ use App\Traits\HasEnumOptions;
 
 enum Position: string
 {
-    use HasEnumOptions;
     case ACCOUNTANT_I = 'Accountant I';
     case ACCOUNTANT_II = 'Accountant II';
     case ACCOUNTANT_III = 'Accountant III';
@@ -149,4 +148,10 @@ enum Position: string
     case WATCHMAN_I = 'Watchman I';
     case WATCHMAN_II = 'Watchman II';
     case YOUTH_DEVELOPMENT_ASSISTANT_II = 'Youth Development Assistant II';
+
+    public static function options()
+    {
+        $data = array_column(self::cases(), 'value');
+        return array_combine($data, $data);
+    }
 }

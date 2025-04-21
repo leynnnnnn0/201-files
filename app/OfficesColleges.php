@@ -6,7 +6,6 @@ use App\Traits\HasEnumOptions;
 
 enum OfficesColleges: string
 {
-    use HasEnumOptions;
     case ATBI = 'ATBI';
     case BAKERY = 'BAKERY';
     case CA = 'CA';
@@ -59,4 +58,10 @@ enum OfficesColleges: string
     case OU = 'OU';
     case OUR = 'OUR';
     case OVPAA = 'OVPAA';
+
+    public static function options()
+    {
+        $data = array_column(self::cases(), 'value');
+        return array_combine($data, $data);
+    }
 }
